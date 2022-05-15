@@ -61,7 +61,7 @@ namespace CommunityLibrary
 				if (choice.Equals("1")) /* todo */;
 				else if (choice.Equals("2")) /* todo */;
 				else if (choice.Equals("3")) RegisterMember();
-				else if (choice.Equals("4")) /* todo */;
+				else if (choice.Equals("4")) DeregisterMember();
 				else if (choice.Equals("5")) /* todo */;
 				else if (choice.Equals("6")) /* todo */;
 				else if (choice.Equals("0")) return; // return to end of DISPLAYSTAFFLOGIN which then returns to MAINMENU
@@ -74,7 +74,7 @@ namespace CommunityLibrary
 			}
 		}
 
-		// OPTION 3
+		// OPTION 3 USER INPUT/LOOP
 		private static void RegisterMember()
         {
 			while (true)
@@ -101,19 +101,47 @@ namespace CommunityLibrary
 					pin = Console.ReadLine();
 				}
 
-				Console.WriteLine($"\nNew user: {first} {last}, {phone}, {pin}");
-				Console.Write("Enter any key to register this user, 0 to cancel: ");
+				Console.WriteLine($"\nNew member: {first} {last}, {phone}, {pin}");
+				Console.Write("Enter any key to register this member, 0 to cancel: ");
 
 				if (Console.ReadLine().Equals("0")) return;
 				else
 				{
 					IMember m = new Member(first, last, phone, pin);
 					IMovieCollection borrowing = new MovieCollection();
-					Records.reg.Add(m, borrowing);
+					StaffFunctions.RegisterMember(m, borrowing);
 					break;
 				}
 			}
 		}
+
+		// OPTION 4 USER INPUT/LOOP
+		private static void DeregisterMember()
+		{
+			while (true)
+			{
+				Header();
+
+				// full names are unique, therefore do not worry about confirming phone
+				Console.Write("First name: ");
+				string first = Console.ReadLine();
+				Console.Write("Last name: ");
+				string last = Console.ReadLine();
+
+				Console.WriteLine($"\nQueried member: {first} {last}");
+				Console.Write("Enter any key to deregister this member, 0 to cancel: ");
+
+				if (Console.ReadLine().Equals("0")) return;
+				else
+				{
+					IMember m = new Member(first, last);
+					StaffFunctions.DeregisterMember(m);
+					break;
+				}
+			}
+		}
+
+		
 	}
 }
 
