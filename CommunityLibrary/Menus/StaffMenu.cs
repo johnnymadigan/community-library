@@ -32,7 +32,7 @@ namespace CommunityLibrary
 			while (true)
 			{
 				Header();
-				Console.WriteLine("Please login with a staff account");
+				Console.WriteLine("Please login with a staff account...");
 
 				Console.Write("\nUsername: ");
 				string username = Console.ReadLine();
@@ -80,6 +80,7 @@ namespace CommunityLibrary
 			while (true)
             {
 				Header();
+				Console.WriteLine("Please enter new member information...");
 
 				Console.Write("First name: ");
 				string first = Console.ReadLine();
@@ -121,6 +122,7 @@ namespace CommunityLibrary
 			while (true)
 			{
 				Header();
+				Console.WriteLine("Please enter member to delete information...");
 
 				// full names are unique, therefore do not worry about confirming phone
 				Console.Write("First name: ");

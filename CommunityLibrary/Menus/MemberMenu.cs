@@ -4,6 +4,9 @@ namespace CommunityLibrary
 {
 	public class MemberMenu
 	{
+		// LOGGED IN MEMBER FOR SESSION ONLY
+		public static IMember loggedInMember;
+		
 		private static void Header()
         {
 			Console.Clear();
@@ -32,7 +35,7 @@ namespace CommunityLibrary
 			while (true)
 			{
 				Header();
-				Console.WriteLine("Please login with a registered member account");
+				Console.WriteLine("Please login with a registered member account...");
 
 				Console.Write("\nUsername (first last): ");
 				string username = Console.ReadLine();
@@ -45,6 +48,7 @@ namespace CommunityLibrary
 				{
 					if ($"{k.FirstName} {k.LastName}" == username && k.Pin == password)
 					{
+						loggedInMember = k;
 						authenticated = true;
 						break;
 					}
@@ -72,7 +76,11 @@ namespace CommunityLibrary
 				else if (choice.Equals("4")) /* todo */;
 				else if (choice.Equals("5")) /* todo */;
 				else if (choice.Equals("6")) /* todo */;
-				else if (choice.Equals("0")) return; // return to end of DISPLAYMEMBERLOGIN which then returns to MAINMENU
+				else if (choice.Equals("0"))
+				{
+					loggedInMember = null;
+					return; // return to end of DISPLAYMEMBERLOGIN which then returns to MAINMENU
+				}
 
 				Header();
 				Options();
