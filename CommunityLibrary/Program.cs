@@ -6,7 +6,10 @@ namespace CommunityLibrary
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Login.DisplayLogin();
+
+            Console.Clear();
+            Console.WriteLine("Exiting program...");
         }
     }
 }
