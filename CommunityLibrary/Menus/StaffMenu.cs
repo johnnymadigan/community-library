@@ -78,41 +78,32 @@ namespace CommunityLibrary
 		private static void RegisterMember()
         {
 			while (true)
-            {
+			{
 				Header();
 				Console.WriteLine("Please enter new member information...");
 
+				// it is assumed full names are unique
+				// todo might check if name is not taken tho
 				Console.Write("First name: ");
 				string first = Console.ReadLine();
 				Console.Write("Last name: ");
 				string last = Console.ReadLine();
-
 				Console.Write("Phone number: ");
 				string phone = Console.ReadLine();
-				while (!IMember.IsValidContactNumber(phone))
-                {
-					Console.Write("Invalid phone, please try again: ");
-					phone = Console.ReadLine();
-				}
 				Console.Write("Pin: ");
 				string pin = Console.ReadLine();
-				while (!IMember.IsValidPin(pin))
-				{
-					Console.Write("Invalid pin, please try again: ");
-					pin = Console.ReadLine();
-				}
 
 				Console.WriteLine($"\nNew member: {first} {last}, {phone}, {pin}");
 				Console.Write("Enter any key to register this member, 0 to cancel: ");
 
 				if (Console.ReadLine().Equals("0")) return;
-				else
-				{
-					IMember m = new Member(first, last, phone, pin);
-					IMovieCollection borrowing = new MovieCollection();
-					StaffFunctions.RegisterMember(m, borrowing);
-					break;
-				}
+
+				IMember m = new Member(first, last, phone, pin);
+				IMovieCollection borrowing = new MovieCollection();
+				if (StaffFunctions.RegisterMember(m, borrowing)) break;
+				else Console.Write("\nInvalid phone or pin...\nEnter any key to try again, 0 to cancel: ");
+
+				if (Console.ReadLine().Equals("0")) return;
 			}
 		}
 

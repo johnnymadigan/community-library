@@ -6,8 +6,13 @@ namespace CommunityLibrary
 		// OPTION 3 FUNCTIONALITY (seperate + public for testing)
 		public static bool RegisterMember(IMember m, IMovieCollection borrowing)
 		{
-			Records.reg.Add(m, borrowing);
-			return true;
+			if (!IMember.IsValidContactNumber(m.ContactNumber)) return false;
+			else if (!IMember.IsValidPin(m.Pin)) return false;
+			else
+			{
+				Records.reg.Add(m, borrowing);
+				return true;
+			}
 		}
 
 		// OPTION 4 FUNCTIONALITY (seperate + public for testing)
