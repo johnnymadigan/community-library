@@ -29,28 +29,20 @@ namespace CommunityLibrary
 
 		public static void DisplayStaffLogin()
 		{
-			Header();
-			Console.WriteLine("Please login with a staff account");
-
-			bool auth = false;
-			string username;
-			string password;
-
-			while (!auth)
+			while (true)
 			{
+				Header();
+				Console.WriteLine("Please login with a staff account");
+
 				Console.Write("\nUsername: ");
-				username = Console.ReadLine();
+				string username = Console.ReadLine();
 				Console.Write("Password: ");
-				password = Console.ReadLine();
+				string password = Console.ReadLine();
 
-				if (username.Equals("staff") && password.Equals("today123")) auth = true;
-				else
-				{
-					Console.WriteLine("\nInvalid credentials...\n" +
-					"Enter any key to try again, enter 0 to return to main menu\n");
-
-					if (Console.ReadLine().Equals("0")) return; // return to MAINMENU
-				}
+				// if authenticated, break from loop to go to sub-menu, otherwise try again/exit
+				if (username.Equals(Records.staffUsername) && password.Equals(Records.staffPassword)) break;
+				Console.Write("\nInvalid credentials...\nEnter any key to try again, enter 0 to return to main menu: ");
+				if (Console.ReadLine().Equals("0")) return; // return to MAINMENU
 			}
 
 			DisplayStaffMenu();
@@ -61,13 +53,10 @@ namespace CommunityLibrary
 			Header();
 			Options();
 
-			string choice = "";
-
 			// loop so the user can select options...
-            // if user selects to exit, break out of loop and return to end of DISPLAYSTAFFLOGIN which then returns to MAINMENU
-			while (!choice.Equals("0"))
+			while (true)
 			{
-				choice = Console.ReadLine();
+				string choice = Console.ReadLine();
 
 				if (choice.Equals("1")) /* todo */;
 				else if (choice.Equals("2")) /* todo */;
@@ -75,38 +64,54 @@ namespace CommunityLibrary
 				else if (choice.Equals("4")) /* todo */;
 				else if (choice.Equals("5")) /* todo */;
 				else if (choice.Equals("6")) /* todo */;
+				else if (choice.Equals("0")) return; // return to end of DISPLAYSTAFFLOGIN which then returns to MAINMENU
 
-				// when user completes action, display options again
 				Header();
 				Options();
 
-				// additional line if user input was invalid
 				if (!choice.Equals("1") && !choice.Equals("2") && !choice.Equals("3") && !choice.Equals("4") &&
-				!choice.Equals("5") && !choice.Equals("6") && !choice.Equals("0")) Console.Write("Invalid choice, please try again: ");
+					!choice.Equals("5") && !choice.Equals("6")) Console.Write("Invalid choice, please try again: ");
 			}
 		}
 
 		// OPTION 3
 		private static void RegisterMember()
         {
-			Header();
+			while (true)
+            {
+				Header();
 
-			Console.Write("First name: ");
-			string first = Console.ReadLine();
-			Console.Write("Last name: ");
-			string last = Console.ReadLine();
-			Console.Write("Phone number: ");
-			string phone = Console.ReadLine();
-			Console.Write("Pin: ");
-			string pin = Console.ReadLine();
+				Console.Write("First name: ");
+				string first = Console.ReadLine();
+				Console.Write("Last name: ");
+				string last = Console.ReadLine();
 
-			Console.Write("Enter any key to register user, 0 to cancel: ");
+				Console.Write("Phone number: ");
+				string phone = Console.ReadLine();
+				while (!IMember.IsValidContactNumber(phone))
+                {
+					Console.Write("Invalid phone, please try again: ");
+					phone = Console.ReadLine();
+				}
+				Console.Write("Pin: ");
+				string pin = Console.ReadLine();
+				while (!IMember.IsValidPin(pin))
+				{
+					Console.Write("Invalid pin, please try again: ");
+					pin = Console.ReadLine();
+				}
 
-			if (!Console.ReadLine().Equals("0"))
-			{
-				IMember m = new Member(first, last, phone, pin);
-				IMovieCollection borrowing = new MovieCollection();
-				Records.reg.Add(m, borrowing);
+				Console.WriteLine($"\nNew user: {first} {last}, {phone}, {pin}");
+				Console.Write("Enter any key to register this user, 0 to cancel: ");
+
+				if (Console.ReadLine().Equals("0")) return;
+				else
+				{
+					IMember m = new Member(first, last, phone, pin);
+					IMovieCollection borrowing = new MovieCollection();
+					Records.reg.Add(m, borrowing);
+					break;
+				}
 			}
 		}
 	}
