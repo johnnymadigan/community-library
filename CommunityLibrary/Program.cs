@@ -6,7 +6,7 @@ namespace CommunityLibrary
     {
         static void Main(string[] args)
         {
-            Records r = new Records();
+            Records r = new Records("staff", "today123");
             MainMenu.DisplayMainMenu();
         }
     }
