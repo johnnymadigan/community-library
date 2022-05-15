@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace CommunityLibrary
 {
 	public class MemberMenu
@@ -10,7 +11,8 @@ namespace CommunityLibrary
 				"Johnny n Jamie's\n" +
 				"█▀▀ █▀█ █▀▄▀█ █▀▄▀█ █░█ █▄░█ █ ▀█▀ █▄█	█░░ █ █▄▄ █▀█ ▄▀█ █▀█ █▄█\n" +
 				"█▄▄ █▄█ █░▀░█ █░▀░█ █▄█ █░▀█ █ ░█░ ░█░	█▄▄ █ █▄█ █▀▄ █▀█ █▀▄ ░█░\n" +
-				"\n=============================Member Menu===========================\n\n");
+				"\n=============================Member Menu===========================\n" +
+				"Please login with a registered member account\n");
 
 			bool auth = false;
 			string username;
@@ -37,7 +39,7 @@ namespace CommunityLibrary
 			DisplayMemberMenu();
 		}
 
-		public static void DisplayMemberMenu()
+		private static void DisplayMemberMenu()
         {
 			Console.Clear();
 			Console.Write("===================================================================\n" +
