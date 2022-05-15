@@ -28,21 +28,20 @@ namespace CommunityLibrary
 			Header();
 			Options();
 
-			string choice = "";
-
-			while (!choice.Equals("0"))
+			// loop so the user can select options...
+			// if user selects to exit, break out of loop and return to PROGRAM
+			while (true)
 			{
-				choice = Console.ReadLine();
+				string choice = Console.ReadLine();
 
 				if (choice.Equals("1")) StaffMenu.DisplayStaffLogin();
 				else if (choice.Equals("2")) MemberMenu.DisplayMemberLogin();
+				else if (choice.Equals("0")) return;
 
-				// when user completes action, display options again
 				Header();
 				Options();
 
-				// additional line if user input was invalid
-				if (!choice.Equals("1") && !choice.Equals("2") && !choice.Equals("0")) Console.Write("Invalid choice, please try again: ");
+				if (!choice.Equals("1") && !choice.Equals("2") && !choice.Equals("3")) Console.Write("Invalid choice, please try again: ");
 			}
 		}
 	}
