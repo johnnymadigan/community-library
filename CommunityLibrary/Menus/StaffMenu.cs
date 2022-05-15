@@ -100,10 +100,18 @@ namespace CommunityLibrary
 
 				IMember m = new Member(first, last, phone, pin);
 				IMovieCollection borrowing = new MovieCollection();
-				if (StaffFunctions.RegisterMember(m, borrowing)) break;
-				else Console.Write("\nInvalid phone or pin...\nEnter any key to try again, 0 to cancel: ");
 
-				if (Console.ReadLine().Equals("0")) return;
+				if (StaffFunctions.RegisterMember(m, borrowing))
+				{
+					Console.Write("\nMember added...\nEnter any key to continue: ");
+					Console.ReadLine();
+					return;
+				}
+				else
+				{
+					Console.Write("\nInvalid phone or pin...\nEnter any key to try again, 0 to cancel: ");
+					if (Console.ReadLine().Equals("0")) return;
+				}
 			}
 		}
 
@@ -121,15 +129,18 @@ namespace CommunityLibrary
 				Console.Write("Last name: ");
 				string last = Console.ReadLine();
 
-				Console.WriteLine($"\nQueried member: {first} {last}");
-				Console.Write("Enter any key to deregister this member, 0 to cancel: ");
+				IMember m = new Member(first, last);
 
-				if (Console.ReadLine().Equals("0")) return;
+				if (StaffFunctions.DeregisterMember(m))
+				{
+					Console.Write($"\nMember {first} {last} removed...\nEnter any key to continue: ");
+					Console.ReadLine();
+					return;
+				}
 				else
 				{
-					IMember m = new Member(first, last);
-					StaffFunctions.DeregisterMember(m);
-					break;
+					Console.Write($"\nMember {first} {last} does not exist...\nEnter any key to try again, 0 to cancel: ");
+					if (Console.ReadLine().Equals("0")) return;
 				}
 			}
 		}
