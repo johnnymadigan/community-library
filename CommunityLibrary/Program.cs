@@ -8,7 +8,6 @@ namespace CommunityLibrary
         {
             Records r = new Records("staff", "today123");
             MainMenu.DisplayMainMenu();
-
         }
     }
 }
