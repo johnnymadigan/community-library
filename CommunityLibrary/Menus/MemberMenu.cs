@@ -44,11 +44,11 @@ namespace CommunityLibrary
 
 				// if authenticated, break from loop to go to sub-menu, otherwise try again/exit
 				bool authenticated = false;
-				foreach (IMember k in Records.reg.Keys)
+				foreach (IMember member in Records.reg)
 				{
-					if ($"{k.FirstName} {k.LastName}" == username && k.Pin == password)
+					if ($"{member.FirstName} {member.LastName}" == username && member.Pin == password)
 					{
-						loggedInMember = k;
+						loggedInMember = member;
 						authenticated = true;
 						break;
 					}
@@ -72,7 +72,7 @@ namespace CommunityLibrary
 
 				if (choice.Equals("1")) /* todo */;
 				else if (choice.Equals("2")) /* todo */;
-				else if (choice.Equals("3")) /* todo */;
+				else if (choice.Equals("3")) BorrowDVD();
 				else if (choice.Equals("4")) /* todo */;
 				else if (choice.Equals("5")) /* todo */;
 				else if (choice.Equals("6")) /* todo */;
@@ -88,6 +88,38 @@ namespace CommunityLibrary
 				if (!choice.Equals("1") && !choice.Equals("2") && !choice.Equals("3") && !choice.Equals("4") &&
 					!choice.Equals("5") && !choice.Equals("6")) Console.Write("Invalid choice, please try again: ");
 
+			}
+		}
+
+		// OPTION 3 USER INPUT/LOOP
+		private static void BorrowDVD()
+		{
+			while (true)
+			{
+				Header();
+				Console.WriteLine("Please enter info for movie to borrow...");
+
+				Console.Write("Movie title: ");
+				string t = Console.ReadLine();
+
+				// confirm action
+				Console.WriteLine($"\nMovie: {t}");
+				Console.Write("Enter any key to borrow this movie, 0 to cancel: ");
+				if (Console.ReadLine().Equals("0")) return;
+
+				IMovie m = new Movie(t);
+
+				if (MemberFunctions.BorrowDVD(m, loggedInMember))
+				{
+					Console.Write($"\nBorrowed {t}...\nEnter any key to continue: ");
+					Console.ReadLine();
+					return;
+				}
+				else
+				{
+					Console.Write($"\nFailed to borrow {t}, already borrowing, no available copies, at max borrowers, or movie not found...\nEnter any key to try again, 0 to cancel: ");
+					if (Console.ReadLine().Equals("0")) return;
+				}
 			}
 		}
 	}
