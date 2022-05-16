@@ -237,7 +237,7 @@ namespace CommunityLibrary
 				}
 				else
 				{
-					Console.Write($"\Member {first} {last} is a duplicate or invalid phone/pin...\nEnter any key to try again, 0 to cancel: ");
+					Console.Write($"\nMember {first} {last} is a duplicate or invalid phone/pin...\nEnter any key to try again, 0 to cancel: ");
 					if (Console.ReadLine().Equals("0")) return;
 				}
 			}
