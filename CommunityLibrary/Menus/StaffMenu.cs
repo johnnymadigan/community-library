@@ -163,7 +163,7 @@ namespace CommunityLibrary
 
 				if (Console.ReadLine().Equals("0")) return;
 
-				if (StaffFunctions.AddDVD(t, (MovieGenre)g, (MovieClassification)c, d, n))
+				if (StaffFunctions.AddDVD(new Movie(t, (MovieGenre)g, (MovieClassification)c, d, n)))
 				{
 					Console.Write($"Movie {t} added...\nEnter any key to continue: ");
 					Console.ReadLine();
@@ -191,7 +191,7 @@ namespace CommunityLibrary
 				Console.Write("Movie title: ");
 				string t = Console.ReadLine();
 
-				if (StaffFunctions.RemoveDVD(t))
+				if (StaffFunctions.RemoveDVD(new Movie(t)))
 				{
 					Console.Write($"\nMovie {t} removed...\nEnter any key to continue: ");
 					Console.ReadLine();
@@ -229,7 +229,7 @@ namespace CommunityLibrary
 
 				if (Console.ReadLine().Equals("0")) return;
 
-				if (StaffFunctions.RegisterMember(first, last, phone, pin))
+				if (StaffFunctions.RegisterMember(new Member(first, last, phone, pin)))
 				{
 					Console.Write($"\nMember {first} {last} added...\nEnter any key to continue: ");
 					Console.ReadLine();
@@ -237,7 +237,7 @@ namespace CommunityLibrary
 				}
 				else
 				{
-					Console.Write("\nInvalid phone/pin...\nEnter any key to try again, 0 to cancel: ");
+					Console.Write($"\Member {first} {last} is a duplicate or invalid phone/pin...\nEnter any key to try again, 0 to cancel: ");
 					if (Console.ReadLine().Equals("0")) return;
 				}
 			}
@@ -260,7 +260,7 @@ namespace CommunityLibrary
 				Console.Write("Last name: ");
 				string last = Console.ReadLine();
 
-				if (StaffFunctions.DeregisterMember(first, last))
+				if (StaffFunctions.DeregisterMember(new Member(first, last)))
 				{
 					Console.Write($"\nMember {first} {last} removed...\nEnter any key to continue: ");
 					Console.ReadLine();
