@@ -260,7 +260,7 @@ namespace CommunityLibrary
 				Console.WriteLine("Please enter info for member to delete...");
 
 				// full names are unique, therefore do not worry about confirming phone
-				Console.Write("First name: ");
+				Console.Write("\nFirst name: ");
 				string first = Console.ReadLine();
 				Console.Write("Last name: ");
 				string last = Console.ReadLine();

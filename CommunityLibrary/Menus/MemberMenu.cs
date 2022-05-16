@@ -37,8 +37,10 @@ namespace CommunityLibrary
 				Header();
 				Console.WriteLine("Please login with a registered member account...");
 
-				Console.Write("\nUsername (first last): ");
-				string username = Console.ReadLine();
+				Console.Write("\nFirst name: ");
+				string first = Console.ReadLine();
+				Console.Write("Last name: ");
+				string last = Console.ReadLine();
 				Console.Write("Password (pin): ");
 				string password = Console.ReadLine();
 
@@ -46,7 +48,7 @@ namespace CommunityLibrary
 				bool authenticated = false;
 				foreach (IMember member in Records.reg)
 				{
-					if ($"{member.FirstName} {member.LastName}" == username && member.Pin == password)
+					if (member.FirstName == first && member.LastName == last && member.Pin == password)
 					{
 						loggedInMember = member;
 						authenticated = true;
