@@ -83,7 +83,7 @@ namespace CommunityLibrary
 			while (true)
 			{
 				Header();
-				Console.WriteLine("Please enter info for movie to add...");
+				Console.WriteLine("Please enter info for new movie to add...");
 
 				// it is assumed full names are unique
 				// todo might check if name is not taken tho
@@ -158,9 +158,9 @@ namespace CommunityLibrary
 					}
 				}
 
+				// confirm action
 				Console.WriteLine($"\nNew movie: {t}");
 				Console.Write("Enter any key to add this movie, 0 to cancel: ");
-
 				if (Console.ReadLine().Equals("0")) return;
 
 				if (StaffFunctions.AddDVD(new Movie(t, (MovieGenre)g, (MovieClassification)c, d, n)))
@@ -191,6 +191,11 @@ namespace CommunityLibrary
 				Console.Write("Movie title: ");
 				string t = Console.ReadLine();
 
+				// confirm action
+				Console.WriteLine($"\nMovie: {t}");
+				Console.Write("Enter any key to remove this movie, 0 to cancel: ");
+				if (Console.ReadLine().Equals("0")) return;
+
 				if (StaffFunctions.RemoveDVD(new Movie(t)))
 				{
 					Console.Write($"\nMovie {t} removed...\nEnter any key to continue: ");
@@ -211,7 +216,7 @@ namespace CommunityLibrary
 			while (true)
 			{
 				Header();
-				Console.WriteLine("Please enter info for new member...");
+				Console.WriteLine("Please enter info for new member to add...");
 
 				// it is assumed full names are unique
 				// todo might check if name is not taken tho
@@ -224,9 +229,9 @@ namespace CommunityLibrary
 				Console.Write("Pin: ");
 				string pin = Console.ReadLine();
 
+				// confirm action
 				Console.WriteLine($"\nNew member: {first} {last}, {phone}, {pin}");
 				Console.Write("Enter any key to register this member, 0 to cancel: ");
-
 				if (Console.ReadLine().Equals("0")) return;
 
 				if (StaffFunctions.RegisterMember(new Member(first, last, phone, pin)))
@@ -259,6 +264,11 @@ namespace CommunityLibrary
 				string first = Console.ReadLine();
 				Console.Write("Last name: ");
 				string last = Console.ReadLine();
+
+				// confirm action
+				Console.WriteLine($"\nMember: {first} {last}");
+				Console.Write("Enter any key to remove this member, 0 to cancel: ");
+				if (Console.ReadLine().Equals("0")) return;
 
 				if (StaffFunctions.DeregisterMember(new Member(first, last)))
 				{

@@ -76,10 +76,10 @@ class MemberCollection : IMemberCollection
             }
             members[pos + 1] = (Member)member;
             count++;
-            Console.WriteLine($"✓ ({member.FirstName} {member.LastName}) ADDED");
+            // Console.WriteLine($"({member.FirstName} {member.LastName}) ADDED");
         }
-        else if (IsFull()) Console.WriteLine($"✘ ({member.FirstName} {member.LastName}) NOT ADDED, COLLECTION FULL");
-        else Console.WriteLine($"✘ ({member.FirstName} {member.LastName}) NOT ADDED, DUPLICATE");
+        // else if (IsFull()) Console.WriteLine($"({member.FirstName} {member.LastName}) NOT ADDED, COLLECTION FULL");
+        // else Console.WriteLine($"({member.FirstName} {member.LastName}) NOT ADDED, DUPLICATE");
     }
 
     // Remove a given member out of this member collection
@@ -105,14 +105,14 @@ class MemberCollection : IMemberCollection
                     for (int i = mid; i < count - 1; i++) members[i] = members[i + 1]; // BASIC OP (most impactful in worst-case)
                     members[count - 1] = null; // Set the dangling member obj to null
                     count--;
-                    Console.WriteLine($"✓ ({member.FirstName} {member.LastName}) DELETED");
+                    // Console.WriteLine($"({member.FirstName} {member.LastName}) DELETED");
                     return;
                 }
                 else if (member.CompareTo(members[mid]) == -1) max = mid - 1;
                 else min = mid + 1;
             }                                                                   
         }
-        Console.WriteLine($"✘ ({member.FirstName} {member.LastName}) ALREADY DELETED, DOES NOT EXIST");
+        // Console.WriteLine($"({member.FirstName} {member.LastName}) ALREADY DELETED, DOES NOT EXIST");
     }
 
     // Search a given member in this member collection 

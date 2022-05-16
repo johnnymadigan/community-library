@@ -19,12 +19,12 @@ namespace CommunityLibrary
 		// OPTION 3 FUNCTIONALITY (seperate + public for testing)
 		public static bool RegisterMember(IMember m)
 		{
-			foreach (IMember k in Records.reg.Keys) if (k.CompareTo(m) == 0) return false; // return false if dupe
+			foreach (IMember member in Records.reg) if (member.CompareTo(m) == 0) return false; // return false if dupe
 
 			if (!IMember.IsValidContactNumber(m.ContactNumber) || !IMember.IsValidPin(m.Pin)) return false; // false if contact/pin invalid
 			else
 			{
-				Records.reg.Add(m, new MovieCollection());
+				Records.reg.Add(m);
 				return true;
 			}
 		}
@@ -32,11 +32,11 @@ namespace CommunityLibrary
 		// OPTION 4 FUNCTIONALITY (seperate + public for testing)
 		public static bool DeregisterMember(IMember m)
 		{
-			foreach (IMember k in Records.reg.Keys)
+			foreach (IMember member in Records.reg)
 			{
-				if (k.CompareTo(m) == 0)
+				if (member.CompareTo(m) == 0)
 				{
-					Records.reg.Remove(k);
+					Records.reg.Remove(member);
 					return true;
 				}
 			}
