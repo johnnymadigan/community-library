@@ -83,16 +83,27 @@ namespace CommunityLibrary
 			while (true)
 			{
 				Header();
-				Console.WriteLine("Please enter info for new movie to add...");
+				Console.WriteLine("Please enter info for new DVD to add...");
 
-				// it is assumed full names are unique
-				// todo might check if name is not taken tho
 				Console.Write("Movie title: ");
 				string t = Console.ReadLine();
 
+				// SCENARIO 1: movie already exists, update the total copies and return to menu
+				if (Records.lib.Search(new Movie(t)))
+                {
+					// Boilerplate to confirm action
+					Console.Write($"\nMovie {t} already exists, enter any key to add a copy, 0 to cancel: ");
+					if (Console.ReadLine().Equals("0")) return;
+
+					Console.Write($"\nTotal copies of {t} now {StaffFunctions.AddDVD(t)}...\nEnter any key to continue: ");
+					Console.ReadLine();
+					return;
+				}
+
+				// SCENARIO 2: movie is new, grab all info from user and add movie to library
 				string genreInput;
 				MovieGenre? g = null;
-				        
+				
 				while (g == null)
 				{
 					Console.Write("\n1. Action\n2. Comedy\n3. Drama\n4. History\n5. Western\nSelect genre ==> (1/2/3/4/5): ");
@@ -105,7 +116,7 @@ namespace CommunityLibrary
 					else if (genreInput.Equals("5")) g = MovieGenre.Western;
 					else
 					{
-						Console.Write("\nInvalid genre...\nEnter any key to try again, 0 to cancel: ");
+						Console.Write("\nInvalid genre, enter any key to try again, 0 to cancel: ");
 						if (Console.ReadLine().Equals("0")) return;
 					}
 				}
@@ -123,7 +134,7 @@ namespace CommunityLibrary
 					else if (classInput.Equals("4")) c = MovieClassification.M15Plus;
 					else
 					{
-						Console.Write("\nInvalid classification...\nEnter any key to try again, 0 to cancel: ");
+						Console.Write("\nInvalid classification, enter any key to try again, 0 to cancel: ");
 						if (Console.ReadLine().Equals("0")) return;
 					}
 				}
@@ -132,13 +143,13 @@ namespace CommunityLibrary
 				int d;
 				while (true)
                 {
-					Console.Write("Duration: ");
+					Console.Write("\nDuration: ");
 					dInput = Console.ReadLine();
 
 					if (int.TryParse(dInput, out d)) break;
 					else
 					{
-						Console.Write("\nDuration must be a number...\nEnter any key to try again, 0 to cancel: ");
+						Console.Write("\nDuration must be a number, enter any key to try again, 0 to cancel: ");
 						if (Console.ReadLine().Equals("0")) return;
 					}
 				}
@@ -147,31 +158,31 @@ namespace CommunityLibrary
 				int n;
 				while (true)
 				{
-					Console.Write("Total copies: ");
+					Console.Write("\nTotal copies: ");
 					nInput = Console.ReadLine();
 
 					if (int.TryParse(nInput, out n)) break;
 					else
 					{
-						Console.Write("\nTotal copies must be a number...\nEnter any key to try again, 0 to cancel: ");
+						Console.Write("\nTotal copies must be a number, enter any key to try again, 0 to cancel: ");
 						if (Console.ReadLine().Equals("0")) return;
 					}
 				}
 
-				// confirm action
-				Console.WriteLine($"\nNew movie: {t}");
-				Console.Write("Enter any key to add this movie, 0 to cancel: ");
+				// Boilerplate to confirm action
+				Console.Write($"\nEnter any key to add {n} copies of {t} to the library, 0 to cancel: ");
 				if (Console.ReadLine().Equals("0")) return;
 
+				// Call functions
 				if (StaffFunctions.AddDVD(new Movie(t, (MovieGenre)g, (MovieClassification)c, d, n)))
 				{
-					Console.Write($"Movie {t} added...\nEnter any key to continue: ");
+					Console.Write($"\n{t} added, enter any key to continue: ");
 					Console.ReadLine();
 					return;
 				}
 				else
 				{
-					Console.Write($"\nMovie {t} is a duplicate...\nEnter any key to try again, 0 to cancel: ");
+					Console.Write($"\n{t} already exists, enter any key to try again, 0 to cancel: ");
 					if (Console.ReadLine().Equals("0")) return;
 				}
 			}
@@ -186,25 +197,29 @@ namespace CommunityLibrary
 			while (true)
 			{
 				Header();
-				Console.WriteLine("Please enter info for movie to delete...");
+				Console.WriteLine("Please enter info for the DVD to delete...");
 
 				Console.Write("Movie title: ");
 				string t = Console.ReadLine();
 
-				// confirm action
-				Console.WriteLine($"\nMovie: {t}");
-				Console.Write("Enter any key to remove this movie, 0 to cancel: ");
+				// Boilerplate to confirm action
+				Console.Write($"\nEnter any key to remove a copy of {t} from the library, 0 to cancel: ");
 				if (Console.ReadLine().Equals("0")) return;
 
-				if (StaffFunctions.RemoveDVD(new Movie(t)))
+				// SCENARIO 1: movie already exists, update the total copies and return to menu
+				if (Records.lib.Search(new Movie(t)))
 				{
-					Console.Write($"\nMovie {t} removed...\nEnter any key to continue: ");
+					int total = StaffFunctions.RemoveDVD(t);
+
+					if (total < 1) Console.Write($"\nMovie {t} removed from library...\nEnter any key to continue: ");
+					else Console.Write($"\nTotal copies of {t} now {total}...\nEnter any key to continue: ");
 					Console.ReadLine();
 					return;
 				}
+				// SCENARIO 2: movie does not exist, try again
 				else
 				{
-					Console.Write($"\nMovie {t} does not exist...\nEnter any key to try again, 0 to cancel: ");
+					Console.Write($"\nMovie {t} does not exist in library......\nEnter any key to try again, 0 to cancel: ");
 					if (Console.ReadLine().Equals("0")) return;
 				}
 			}
@@ -230,19 +245,18 @@ namespace CommunityLibrary
 				string pin = Console.ReadLine();
 
 				// confirm action
-				Console.WriteLine($"\nNew member: {first} {last}, {phone}, {pin}");
-				Console.Write("Enter any key to register this member, 0 to cancel: ");
+				Console.Write($"\nEnter any key to register {first} {last}, 0 to cancel: ");
 				if (Console.ReadLine().Equals("0")) return;
 
 				if (StaffFunctions.RegisterMember(new Member(first, last, phone, pin)))
 				{
-					Console.Write($"\nMember {first} {last} added...\nEnter any key to continue: ");
+					Console.Write($"\nMember {first} {last} added, enter any key to continue: ");
 					Console.ReadLine();
 					return;
 				}
 				else
 				{
-					Console.Write($"\nMember {first} {last} is a duplicate or invalid phone/pin...\nEnter any key to try again, 0 to cancel: ");
+					Console.Write($"\n{first} {last} already registered or invalid phone/pin, enter any key to try again, 0 to cancel: ");
 					if (Console.ReadLine().Equals("0")) return;
 				}
 			}
@@ -266,8 +280,7 @@ namespace CommunityLibrary
 				string last = Console.ReadLine();
 
 				// confirm action
-				Console.WriteLine($"\nMember: {first} {last}");
-				Console.Write("Enter any key to remove this member, 0 to cancel: ");
+				Console.Write($"\nEnter any key to remove {first} {last}, 0 to cancel: ");
 				if (Console.ReadLine().Equals("0")) return;
 
 				if (StaffFunctions.DeregisterMember(new Member(first, last)))
