@@ -7,6 +7,7 @@ namespace CommunityLibrary
 {
 	public class StaffMenu
 	{
+		// HEADER
 		// Reproducable header (clears console)
 		private static void Header()
 		{
@@ -18,6 +19,7 @@ namespace CommunityLibrary
 				"\n=============================Staff Menu============================\n\n");
 		}
 
+		// OPTIONS
 		// Reproducable options
 		private static void Options()
 		{
@@ -224,7 +226,7 @@ namespace CommunityLibrary
 				// SCENARIO 2: movie does not exist, try again
 				else
 				{
-					Console.Write($"\nMovie {t} does not exist in library......\nEnter any key to try again, 0 to cancel: ");
+					Console.Write($"\nMovie {t} does not exist in library, enter any key to try again, 0 to cancel: ");
 					if (Console.ReadLine().Equals("0")) return;
 				}
 			}

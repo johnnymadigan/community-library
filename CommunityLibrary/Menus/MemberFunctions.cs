@@ -15,9 +15,9 @@ namespace CommunityLibrary
 		/* todo */
 
 		// OPTION 3 ===========================================================
-		// Borrow a movie DVD
-		// Pre-condition: The member registered
-		// Post-condition: Return true if member is added to the movie's borrowers collection
+		// Allow a registered member to borrow a DVD
+		// Pre-condition: Movie and member exist in records
+		// Post-condition: Return true if member was added to the movie's borrowing list, false otherwise
 		public static bool BorrowDVD(IMovie movie, IMember m)
 		{
 			// If member is not at borrowing limit (5 movies), and movie exists in library...
