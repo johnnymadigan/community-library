@@ -1,9 +1,13 @@
-﻿using System;
+﻿// STAFF SUB-MENU
+// All display/user-inputs for the sub-menu and each option
+// Options utilise corresponding functions (see StaffFunctions)
+using System;
 
 namespace CommunityLibrary
 {
 	public class StaffMenu
 	{
+		// Reproducable header (clears console)
 		private static void Header()
 		{
 			Console.Clear();
@@ -14,6 +18,7 @@ namespace CommunityLibrary
 				"\n=============================Staff Menu============================\n\n");
 		}
 
+		// Reproducable options
 		private static void Options()
 		{
 			Console.WriteLine("1. Add new DVDs of a new movie to the system");
@@ -27,6 +32,8 @@ namespace CommunityLibrary
 			Console.Write("\nEnter your choice ==> (1/2/3/4/5/6/0): ");
 		}
 
+		// LOGIN
+		// Display staff login page to get user input and verify credentials
 		public static void DisplayStaffLogin()
 		{
 			while (true)
@@ -42,12 +49,14 @@ namespace CommunityLibrary
 				// if authenticated, break from loop to go to sub-menu, otherwise try again/exit
 				if (username.Equals(Records.staffUsername) && password.Equals(Records.staffPassword)) break;
 				Console.Write("\nInvalid credentials...\nEnter any key to try again, enter 0 to return to main menu: ");
-				if (Console.ReadLine().Equals("0")) return; // return to MAINMENU
+				if (Console.ReadLine().Equals("0")) return; // return to MAIN MENU
 			}
 
 			DisplayStaffMenu();
 		}
 
+		// SUB-MENU
+		// Display staff sub-menu and await user's choice
 		private static void DisplayStaffMenu()
         {
 			Header();
@@ -64,7 +73,7 @@ namespace CommunityLibrary
 				else if (choice.Equals("4")) DeregisterMember();
 				else if (choice.Equals("5")) /* todo */;
 				else if (choice.Equals("6")) /* todo */;
-				else if (choice.Equals("0")) return; // return to end of DISPLAYSTAFFLOGIN which then returns to MAINMENU
+				else if (choice.Equals("0")) return; // return to end of DISPLAY STAFF LOGIN which then returns to MAIN MENU
 
 				Header();
 				Options();
@@ -74,10 +83,8 @@ namespace CommunityLibrary
 			}
 		}
 
-		// OPTION 1 USER INPUT/LOOP
-		// ??
-		// Pre-condition: nil
-		// Post-condition: nil
+		// OPTION 1
+		// Get user input to either add new DVD or update copies of an existing DVD
 		private static void AddDVD()
 		{
 			while (true)
@@ -188,10 +195,8 @@ namespace CommunityLibrary
 			}
 		}
 
-		// OPTION 2 USER INPUT/LOOP
-		// ??
-		// Pre-condition: nil
-		// Post-condition: nil
+		// OPTION 2
+        // Get user input to remove a DVD and remove the movie from the library if no more copies left
 		private static void RemoveDVD()
 		{
 			while (true)
@@ -225,7 +230,8 @@ namespace CommunityLibrary
 			}
 		}
 
-		// OPTION 3 USER INPUT/LOOP
+		// OPTION 3
+		// Get user input to register (add) a new member into the system
 		private static void RegisterMember()
         {
 			while (true)
@@ -244,7 +250,7 @@ namespace CommunityLibrary
 				Console.Write("Pin: ");
 				string pin = Console.ReadLine();
 
-				// confirm action
+				// Boilerplate to confirm action
 				Console.Write($"\nEnter any key to register {first} {last}, 0 to cancel: ");
 				if (Console.ReadLine().Equals("0")) return;
 
@@ -262,10 +268,8 @@ namespace CommunityLibrary
 			}
 		}
 
-		// OPTION 4 USER INPUT/LOOP
-		// ??
-		// Pre-condition: nil
-		// Post-condition: nil
+		// OPTION 4
+		// Get user input to remove a registered member from the system
 		private static void DeregisterMember()
 		{
 			while (true)
@@ -273,13 +277,13 @@ namespace CommunityLibrary
 				Header();
 				Console.WriteLine("Please enter info for member to delete...");
 
-				// full names are unique, therefore do not worry about confirming phone
+				// Only require full name to verify a match (full names are unique)
 				Console.Write("\nFirst name: ");
 				string first = Console.ReadLine();
 				Console.Write("Last name: ");
 				string last = Console.ReadLine();
 
-				// confirm action
+				// Boilerplate to confirm action
 				Console.Write($"\nEnter any key to remove {first} {last}, 0 to cancel: ");
 				if (Console.ReadLine().Equals("0")) return;
 
@@ -297,7 +301,11 @@ namespace CommunityLibrary
 			}
 		}
 
-		
+		// OPTION 5
+		// todo
+
+		// OPTION 6
+		// todo
 	}
 }
 

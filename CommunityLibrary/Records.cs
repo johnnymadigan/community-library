@@ -1,6 +1,6 @@
 ﻿// RECORDS
 // An accessible database comprising of registered members + movie library
-// Only Staff/Member function classes access these records
+// Only Staff/Member menu and function classes accesses these records
 using System;
 using System.Collections.Generic;
 

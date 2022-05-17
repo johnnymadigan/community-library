@@ -1,4 +1,9 @@
-﻿using System;
+﻿// Johnny n Jamie's
+// █▀▀ █▀█ █▀▄▀█ █▀▄▀█ █░█ █▄░█ █ ▀█▀ █▄█	█░░ █ █▄▄ █▀█ ▄▀█ █▀█ █▄█
+// █▄▄ █▄█ █░▀░█ █░▀░█ █▄█ █░▀█ █ ░█░ ░█░	█▄▄ █ █▄█ █▀▄ █▀█ █▀▄ ░█░
+// Initialises new global database with default staff credentials
+// Calls initial interface (main menu)
+using System;
 
 namespace CommunityLibrary
 {
@@ -6,7 +11,7 @@ namespace CommunityLibrary
     {
         static void Main(string[] args)
         {
-            Records r = new Records("staff", "today123");
+            new Records("staff", "today123");
             MainMenu.DisplayMainMenu();
         }
     }

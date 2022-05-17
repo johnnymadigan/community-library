@@ -1,12 +1,16 @@
-﻿using System;
+﻿// MEMBER SUB-MENU
+// All display/user-inputs for the sub-menu and each option
+// Options utilise corresponding functions (see MemberFunctions)
+using System;
 
 namespace CommunityLibrary
 {
 	public class MemberMenu
 	{
-		// LOGGED IN MEMBER FOR SESSION ONLY
+		// STORE LOGGED IN MEMBER FOR SESSION ONLY (set to null when exiting with "0" from menu)
 		public static IMember loggedInMember;
-		
+
+		// Reproducable header (clears console)
 		private static void Header()
         {
 			Console.Clear();
@@ -17,6 +21,7 @@ namespace CommunityLibrary
 				"\n=============================Member Menu===========================\n\n");
 		}
 
+		// Reproducable options
 		private static void Options()
         {
 			Console.WriteLine("1. Browse all the movies");
