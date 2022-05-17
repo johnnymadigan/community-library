@@ -74,16 +74,22 @@ namespace CommunityLibrary
 
 		// OPTION 4 ===========================================================
 		// Remove a registered member from the system
-		// Pre-condition: nil
-		// Post-condition: Return true if member is removed, false if not registered yet
+		// Pre-condition: Member is registered
+		// Post-condition: Return true if member is removed, false if not registered yet or currently borrowing a movie
 		public static bool DeregisterMember(IMember m)
 		{
 			foreach (IMember member in Records.reg)
 			{
 				if (member.CompareTo(m) == 0)
 				{
-					Records.reg.Remove(member);
-					return true;
+					// Seperate IF statement as once the unique registered member is found...
+					// return false immediately if they are borrowing 1+ DVDs
+					if (Records.GetMemberBorrowings(member).Count > 0) return false;
+					else
+					{
+						Records.reg.Remove(member);
+						return true;
+					}
 				}
 			}
 			return false;

@@ -291,13 +291,13 @@ namespace CommunityLibrary
 
 				if (StaffFunctions.DeregisterMember(new Member(first, last)))
 				{
-					Console.Write($"\nMember {first} {last} removed...\nEnter any key to continue: ");
+					Console.Write($"\n{first} {last} removed, enter any key to continue: ");
 					Console.ReadLine();
 					return;
 				}
 				else
 				{
-					Console.Write($"\nMember {first} {last} does not exist...\nEnter any key to try again, 0 to cancel: ");
+					Console.Write($"\n{first} {last} does not exist or currently borrowing DVDs, enter any key to try again, 0 to cancel: ");
 					if (Console.ReadLine().Equals("0")) return;
 				}
 			}
