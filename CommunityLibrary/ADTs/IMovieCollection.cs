@@ -15,12 +15,6 @@ public interface IMovieCollection
 		get;
 	}
 
-	// DEBUGGING ONLY, DELETE BEFORE SUBMITTING
-	string Root
-	{
-		get;
-	}
-
 	// Check if this movie collection is empty
 	// Pre-condition: nil
 	// Post-condition: return true if this movie collection is empty; otherwise, return false.

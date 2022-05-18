@@ -46,14 +46,21 @@ namespace CommunityLibrary
 
 			if (movie != null)
             {
-				movie.TotalCopies--;
-				movie.AvailableCopies--;
+				// Seperate since if movie is null, 2nd IF will throw errors as we are checking a property
+				// This condition ensures DVD copies won't decrement if they are being borrowed by a member
+				if (movie.AvailableCopies > 0)
+                {
+					movie.TotalCopies--;
+					movie.AvailableCopies--;
 
-				if (movie.TotalCopies == 0) Records.lib.Delete(movie); // delete from library if no more copies
+					if (movie.TotalCopies == 0) Records.lib.Delete(movie); // delete from library if no more copies
 
-				return movie.TotalCopies--;
+					return movie.TotalCopies--;
+				}
 			}
-			else return -1;
+
+			// Return -1 if movie is null or all available copies being borrowed
+			return -1;
 		}
 
 		// OPTION 3 ===========================================================

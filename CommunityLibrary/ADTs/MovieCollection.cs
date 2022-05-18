@@ -49,8 +49,6 @@ public class MovieCollection : IMovieCollection
 	// post-condition: return the number of movies in this movie collection and this movie collection remains unchanged
 	public int Number { get { return count; } }
 
-	public string Root { get { return root.Movie.Title; } } // DEBUGGING ONLY, DELETE BEFORE SUBMITTING
-
 	// constructor - create an object of MovieCollection object
 	public MovieCollection()
 	{

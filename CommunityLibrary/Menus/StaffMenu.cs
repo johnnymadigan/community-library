@@ -218,8 +218,10 @@ namespace CommunityLibrary
 				{
 					int total = StaffFunctions.RemoveDVD(t);
 
-					if (total < 1) Console.Write($"\nMovie {t} removed from library...\nEnter any key to continue: ");
-					else Console.Write($"\nTotal copies of {t} now {total}...\nEnter any key to continue: ");
+					// if there are 0 copies, the function shall remove the Movie info from the library
+					if (total == 0) Console.Write($"\nMovie {t} removed from library, enter any key to continue: ");
+					else if (total < 0) Console.Write($"\nMembers still borrowing {t}, please return first, enter any key to continue: ");
+					else Console.Write($"\nTotal copies of {t} now {total}, enter any key to continue: ");
 					Console.ReadLine();
 					return;
 				}
