@@ -56,6 +56,30 @@ class MemberCollection : IMemberCollection
         return count == 0;
     }
 
+    // Find a given member in this member collection 
+    // Pre-condition: nil
+    // Post-condition: return the reference of the member object in the member collection, if this member is in the member collection; return null otherwise; member collection remains unchanged
+    public IMember Find(IMember member)
+    {
+        if (!IsEmpty())
+        {
+            int min = 0;
+            int max = count - 1;
+
+            // Logarithmic time O(log N) for worst-case binary search
+            while (min <= max)
+            {
+                int mid = (max + min) / 2; // No "floor" needed as terms are ints (C# auto truncates)
+
+                // Found? return true, otherwise adjust search window (lower or greater half)
+                if (member.CompareTo(members[mid]) == 0) return members[mid];
+                else if (member.CompareTo(members[mid]) == -1) max = mid - 1;
+                else min = mid + 1;
+            }
+        }
+        return null;
+    }
+
     // Add a new member to this member collection
     // Pre-condition: this member collection is not full
     // Post-condition: a new member is added to the member collection and the members are sorted in ascending order by their full names;

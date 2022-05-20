@@ -30,6 +30,10 @@ public interface IMemberCollection // added "public" to temporarily resolve erro
     // Post-condition: return ture if this member collection is empty; otherwise return false.
     public bool IsEmpty();
 
+    // Find a given member in this member collection 
+    // Pre-condition: nil
+    // Post-condition: return the reference of the member object in the member collection, if this member is in the member collection; return null otherwise; member collection remains unchanged
+    public IMember Find(IMember member);
 
     // Add a new member to this member collection
     // Pre-condition: this member collection is not full
