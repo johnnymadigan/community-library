@@ -179,7 +179,7 @@ namespace CommunityLibrary
 			while (true)
 			{
 				Header();
-				Console.WriteLine("BORROWING MOVIE DVD...");
+				Console.WriteLine("BORROW A MOVIE DVD...");
 				Console.Write("Movie title: ");
 				IMovie movie = new Movie(Console.ReadLine()); // Get user input
 
@@ -212,7 +212,7 @@ namespace CommunityLibrary
 			while (true)
 			{
 				Header();
-				Console.WriteLine("RETURNING MOVIE DVD...");
+				Console.WriteLine("RETURN A MOVIE DVD...");
 				Console.Write("Movie title: ");
 				IMovie movie = new Movie(Console.ReadLine()); // Get user input
 
@@ -242,7 +242,16 @@ namespace CommunityLibrary
 		// Display all movies this logged in user is currently borrowing
 		private static void DisplayCurrentBorrowings()
 		{
-			/* todo */
+			while (true)
+			{
+				Header();
+				Console.WriteLine("DISPLAYING YOUR CURRENT BORROWINGS...");
+
+				Console.Write($"\n{MemberFunctions.DisplayCurrentBorrowings(loggedInMember)}");
+				Console.Write($"\nEnter any key to continue: ");
+				Console.ReadLine();
+				return;
+			}
 		}
 
 

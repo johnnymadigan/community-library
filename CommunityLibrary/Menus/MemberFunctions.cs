@@ -79,9 +79,22 @@ namespace CommunityLibrary
 
 
 		// OPTION 5 ===========================================================
-		public static void DisplayCurrentBorrowings()
+		// Get a list of all movies that a member is currently borrowing
+		// Pre-condition: Member is registered
+		// Post-condition: Return information on all movies a member is borrowing in string format
+		public static string DisplayCurrentBorrowings(IMember member)
         {
-			/* todo */
+			List<IMovie> borrowings = new List<IMovie>(); // Get member's borrowings
+
+			// For each movie in the BST, if the member is currently borrowing (full name matches), add that movie to the list
+			foreach (IMovie m in Records.lib.ToArray()) if (m.Borrowers.Search(member)) borrowings.Add(m);
+
+			string s = "";
+
+			// Each movie contains title, genre, classification, duration, and available copies
+			foreach (IMovie m in borrowings) s += $"({m.ToString()})\n";
+
+			return s; // string will be empty if there were no movies
 		}
 
 
