@@ -4,6 +4,7 @@
 // All methods are public for corresponding test plan (TestStaffFunctions)
 // All methods utilise ADT interfaces
 using System;
+using System.Collections.Generic;
 
 namespace CommunityLibrary
 {
@@ -83,11 +84,16 @@ namespace CommunityLibrary
 		// Remove a registered member from the system
 		// Pre-condition: Member is registered
 		// Post-condition: Remove (deregister) member, throw an exception if not found or still borrowing
-		public static void DeregisterMember(IMember m)
+		public static void DeregisterMember(IMember member)
         {
-			if (Records.reg.Find(m) == null) throw new CustomException($"({m.FirstName} {m.LastName}) does not exist");
-			else if (Records.GetMemberBorrowings(m).Count > 0) throw new CustomException($"({m.FirstName} {m.LastName}) still borrowing DVDs");
-			else Records.reg.Delete(m); // remove if registered			
+			List<IMovie> borrowings = new List<IMovie>(); // Get member's borrowings
+
+			// For each movie in the BST, if the member is currently borrowing (full name matches), add that movie to the list
+			foreach (IMovie m in Records.lib.ToArray()) if (m.Borrowers.Search(member)) borrowings.Add(m);
+
+			if (Records.reg.Find(member) == null) throw new CustomException($"({member.FirstName} {member.LastName}) does not exist");
+			else if (borrowings.Count > 0) throw new CustomException($"({member.FirstName} {member.LastName}) still borrowing DVDs");
+			else Records.reg.Delete(member); // remove if registered			
 		}
 
 

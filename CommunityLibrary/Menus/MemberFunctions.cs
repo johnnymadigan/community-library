@@ -4,6 +4,7 @@
 // All methods are public for corresponding test plan (TestMemberFunctions)
 // All methods utilise ADT interfaces
 using System;
+using System.Collections.Generic;
 
 namespace CommunityLibrary
 {
@@ -32,9 +33,13 @@ namespace CommunityLibrary
 		public static bool BorrowDVD(IMovie movie, IMember member)
 		{
 			IMovie movieRef = Records.lib.Search(movie.Title); // get reference to the movie obj from records
+			List<IMovie> borrowings = new List<IMovie>(); // Get member's borrowings
+
+			// For each movie in the BST, if the member is currently borrowing (full name matches), add that movie to the list
+			foreach (IMovie m in Records.lib.ToArray()) if (m.Borrowers.Search(member)) borrowings.Add(m);
 
 			// Use ADT methods to find specific reasons why function might fail, otherwise return TRUE if successful
-			if (Records.GetMemberBorrowings(member).Count >= 5) throw new CustomException("You are at the max borrowing limit (5)");
+			if (borrowings.Count >= 5) throw new CustomException("You are at the max borrowing limit (5)");
 			else if (movieRef == null) throw new CustomException("Movie does not exist in library");
 			else if (movieRef.Borrowers.Search(member)) throw new CustomException("You are already borrowing this movie");
 			else if (movieRef.AvailableCopies == 0) throw new CustomException($"No more available copies");

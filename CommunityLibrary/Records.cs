@@ -25,18 +25,6 @@ namespace CommunityLibrary
 			staffUsername = sUsername;
             staffPassword = sPassword;
 		}
-
-		// Creates a list of all movies that a registered member is currently borrowing
-		// Pre-condition: nil
-		// Post-condition: Return list of movies the queried member is currently borrowing
-		public static List<IMovie> GetMemberBorrowings(IMember m)
-        {
-			List<IMovie> borrowings = new List<IMovie>();
-
-			// For each movie in the BST, if the member is currently borrowing (full name matches), add that movie to the list
-			foreach (IMovie movie in lib.ToArray()) if (movie.Borrowers.Search(m)) borrowings.Add(movie);
-			return borrowings;
-        }
 	}
 }
 
