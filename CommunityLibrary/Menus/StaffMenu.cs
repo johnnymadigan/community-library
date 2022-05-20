@@ -174,7 +174,7 @@ namespace CommunityLibrary
 					Console.Write($"\nEnter any key to add {n} copies of ({t}) to the library, 0 to cancel: ");
 					if (Console.ReadLine().Equals("0")) return;
 
-					// ADD NEW MOVIE
+					// ADD NEW MOVIE (this overloaded version function does not throw any exceptions so no need to try/catch)
 					if (StaffFunctions.AddDVD(new Movie(t, (MovieGenre)g, (MovieClassification)c, d, n)))
 					{
 						Console.Write($"\n({t}) added, enter any key to continue: ");
@@ -199,31 +199,29 @@ namespace CommunityLibrary
 			while (true)
 			{
 				Header();
-				Console.WriteLine("Please enter info for the DVD to delete...");
+				Console.WriteLine("REMOVING MOVIE DVD...");
 
 				Console.Write("Movie title: ");
 				string t = Console.ReadLine();
 
 				// Boilerplate to confirm action
-				Console.Write($"\nEnter any key to remove a copy of {t} from the library, 0 to cancel: ");
+				Console.Write($"\nEnter any key to remove a copy of ({t}) from the library, 0 to cancel: ");
 				if (Console.ReadLine().Equals("0")) return;
 
-				// SCENARIO 1: movie already exists, update the total copies and return to menu
-				if (Records.lib.Search(new Movie(t)))
+
+				try // TRY TO REMOVE MOVIE DVD
 				{
 					int total = StaffFunctions.RemoveDVD(t);
 
-					// if there are 0 copies, the function shall remove the Movie info from the library
-					if (total == 0) Console.Write($"\nMovie {t} removed from library, enter any key to continue: ");
-					else if (total < 0) Console.Write($"\nMembers still borrowing {t}, please return first, enter any key to continue: ");
-					else Console.Write($"\nTotal copies of {t} now {total}, enter any key to continue: ");
+					if (total <= 0) Console.Write($"\nMovie ({t}) deleted as all copies removed, enter any key to continue: ");
+					else Console.Write($"\nTotal copies of ({t}) now {total}, enter any key to continue: ");
+
 					Console.ReadLine();
 					return;
 				}
-				// SCENARIO 2: movie does not exist, try again
-				else
+				catch (CustomException x)
 				{
-					Console.Write($"\nMovie {t} does not exist in library, enter any key to try again, 0 to cancel: ");
+					Console.Write($"\nFailed - {x.Message}, enter any key to try again, 0 to cancel: ");
 					if (Console.ReadLine().Equals("0")) return;
 				}
 			}

@@ -169,7 +169,7 @@ namespace CommunityLibrary
 				IMovie movie = new Movie(Console.ReadLine()); // Get user input
 
 				// Boilerplate to confirm action
-				Console.Write($"\nEnter any key to borrow ({movie.Title}), 0 to cancel: ");
+				Console.Write($"\nEnter any key to return ({movie.Title}), 0 to cancel: ");
 				if (Console.ReadLine().Equals("0")) return;
 
 				try // TRY TO RETURN MOVIE

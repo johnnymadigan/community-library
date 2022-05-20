@@ -24,14 +24,14 @@ namespace CommunityLibrary
 		// Post-condition: Increment total/available copies and return the new total copies of the movie
 		public static int AddDVD(string title)
 		{
-			IMovie movie = Records.lib.Search(title);
+			IMovie movieRef = Records.lib.Search(title); // get reference to the movie obj from records
 
-			if (movie == null) throw new CustomException("Movie does not exist in library");
+			if (movieRef == null) throw new CustomException("Movie does not exist in library");
 			else
 			{
-				movie.TotalCopies++;
-				movie.AvailableCopies++;
-				return movie.TotalCopies;
+				movieRef.TotalCopies++;
+				movieRef.AvailableCopies++;
+				return movieRef.TotalCopies;
 			}
 		}
 
@@ -40,28 +40,26 @@ namespace CommunityLibrary
 		// OPTION 2 ===========================================================
 		// Remove DVDs of a movie from the system
 		// Pre-condition: nil
-		// Post-condition: Decrement and return the total/available copies of the movie, otherwise -1 if movie does not exist
+		// Post-condition: Decrement total/available copies and return the new total or -1 if the movie has been deleted
 		public static int RemoveDVD(string title)
 		{
-			IMovie movie = Records.lib.Search(title); ;
+			IMovie movieRef = Records.lib.Search(title); // get reference to the movie obj from records
 
-			if (movie != null)
+			if (movieRef == null) throw new CustomException("Movie does not exist in library");
+			else if (movieRef.AvailableCopies <= 0) throw new CustomException("Members borrowing all remaining DVDs, please return first");
+			else
             {
-				// Seperate since if movie is null, 2nd IF will throw errors as we are checking a property
-				// This condition ensures DVD copies won't decrement if they are being borrowed by a member
-				if (movie.AvailableCopies > 0)
-                {
-					movie.TotalCopies--;
-					movie.AvailableCopies--;
+				movieRef.TotalCopies--;
+				movieRef.AvailableCopies--;
 
-					if (movie.TotalCopies == 0) Records.lib.Delete(movie); // delete from library if no more copies
-
-					return movie.TotalCopies--;
+				// delete from library if no more copies, otherwise return the new total
+				if (movieRef.TotalCopies <= 0)
+				{
+					Records.lib.Delete(movieRef); 
+					return -1;
 				}
+				else return movieRef.TotalCopies;
 			}
-
-			// Return -1 if movie is null or all available copies being borrowed
-			return -1;
 		}
 
 
