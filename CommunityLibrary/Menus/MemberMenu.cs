@@ -59,21 +59,23 @@ namespace CommunityLibrary
 				Console.Write("Password (pin): ");
 				string password = Console.ReadLine();
 
-				// if authenticated, break from loop to go to sub-menu, otherwise try again/exit
+				// if authenticated, break twice (from both loops) to go to sub-menu, otherwise try again/exit
 				bool authenticated = false;
-				foreach (IMember member in Records.reg)
-				{
-					if (member.FirstName == first && member.LastName == last && member.Pin == password)
-					{
-						loggedInMember = member;
-						authenticated = true;
-						break;
-					}
+
+				if (Records.reg.Search(new Member(first, last)))
+                {
+					loggedInMember = Records.reg.Find(new Member(first, last));
+					authenticated = true;
+					break; // first break from this loop
 				}
-				if (authenticated) break;
+				if (authenticated) break; // second break from bigger loop
+				
 				Console.Write("\nInvalid credentials, enter any key to try again, 0 to return to main menu: ");
 				if (Console.ReadLine().Equals("0")) return; // return to MAIN MENU
 			}
+
+			// must be called outside the above loop so when the user wants to navigates back to the MAIN MENU...
+			// this method will end and they will be returned to the MAIN MENU's method
 			DisplayMemberMenu();
 		}
 

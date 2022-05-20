@@ -70,7 +70,7 @@ namespace CommunityLibrary
 		// Post-condition: Add (register) member, throw an exception if dupe or contact/pin invalid
 		public static void RegisterMember(IMember m)
 		{
-			foreach (IMember member in Records.reg) if (member.CompareTo(m) == 0) throw new CustomException($"({m.FirstName} {m.LastName}) already registered");
+			if (Records.reg.Search(m)) throw new CustomException($"({m.FirstName} {m.LastName}) already registered");
 
 			if (!IMember.IsValidContactNumber(m.ContactNumber)) throw new CustomException("Invalid contact number");
 			else if (!IMember.IsValidPin(m.Pin)) throw new CustomException("Invalid PIN");
@@ -84,21 +84,10 @@ namespace CommunityLibrary
 		// Pre-condition: Member is registered
 		// Post-condition: Remove (deregister) member, throw an exception if not found or still borrowing
 		public static void DeregisterMember(IMember m)
-		{
-			foreach (IMember member in Records.reg)
-			{
-				if (member.CompareTo(m) == 0)
-				{
-					// Throw exception if member still borrowing at least 1 DVD
-					if (Records.GetMemberBorrowings(member).Count > 0) throw new CustomException($"({m.FirstName} {m.LastName}) still borrowing DVDs");
-					else
-					{
-						Records.reg.Remove(member); // remove if registered
-						return; // return immediately to stop loop
-					}
-				}
-			}
-			throw new CustomException($"({m.FirstName} {m.LastName}) does not exist");
+        {
+			if (Records.reg.Find(m) == null) throw new CustomException($"({m.FirstName} {m.LastName}) does not exist");
+			else if (Records.GetMemberBorrowings(m).Count > 0) throw new CustomException($"({m.FirstName} {m.LastName}) still borrowing DVDs");
+			else Records.reg.Delete(m); // remove if registered			
 		}
 
 

@@ -61,12 +61,12 @@ class Member : IMember
 
 
 
-    // Return a string containing the first name, last name and contact number of this memeber
+    // Return a string containing the first name and last name of this memeber
     // Pre-condition: nil
-    // Post-condition: a  string containing the first name, last name, and contact number of this member is returned
+    // Post-condition: a  string containing the first name and last name of this member is returned
     public string ToString()
     {
-        return lastName + ", " + firstName + ", " + contactNumber;
+        return lastName + ", " + firstName;
     }
 }
 

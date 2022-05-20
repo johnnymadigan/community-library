@@ -9,7 +9,7 @@ namespace CommunityLibrary
     {
         static void Main(string[] args)
         {
-            new Records("staff", "today123");
+            new Records("staff", "today123", 100);
 
 
 
