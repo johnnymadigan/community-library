@@ -176,7 +176,7 @@ class MemberCollection : IMemberCollection
     }
 
     // Return a string containing the information about all the members in this member collection.
-    // The information includes last name, first name and contact number in this order
+    // The information includes last name and first name in this order
     // Pre-condition: nil
     // Post-condition: a string containing the information about all the members in this member collection is returned
     public string ToString()

@@ -27,7 +27,7 @@ namespace CommunityLibrary
 		{
 			IMovie movieRef = Records.lib.Search(title); // get reference to the movie obj from records
 
-			if (movieRef == null) throw new CustomException("Movie does not exist in library");
+			if (movieRef == null) throw new CustomException($"({title}) does not exist in library");
 			else
 			{
 				movieRef.TotalCopies++;
@@ -46,8 +46,8 @@ namespace CommunityLibrary
 		{
 			IMovie movieRef = Records.lib.Search(title); // get reference to the movie obj from records
 
-			if (movieRef == null) throw new CustomException("Movie does not exist in library");
-			else if (movieRef.AvailableCopies <= 0) throw new CustomException("Members borrowing all remaining DVDs, please return first");
+			if (movieRef == null) throw new CustomException($"({title}) does not exist in library");
+			else if (movieRef.AvailableCopies <= 0) throw new CustomException($"Members borrowing all remaining DVDs of ({title}), please return first");
 			else
             {
 				movieRef.TotalCopies--;
@@ -69,13 +69,13 @@ namespace CommunityLibrary
 		// Register a new member with the system
 		// Pre-condition: nil
 		// Post-condition: Add (register) member, throw an exception if dupe or contact/pin invalid
-		public static void RegisterMember(IMember m)
+		public static void RegisterMember(IMember member)
 		{
-			if (Records.reg.Search(m)) throw new CustomException($"({m.FirstName} {m.LastName}) already registered");
+			if (Records.reg.Search(member)) throw new CustomException($"({member.FirstName} {member.LastName}) already registered");
 
-			if (!IMember.IsValidContactNumber(m.ContactNumber)) throw new CustomException("Invalid contact number");
-			else if (!IMember.IsValidPin(m.Pin)) throw new CustomException("Invalid PIN");
-			else Records.reg.Add(m);
+			if (!IMember.IsValidContactNumber(member.ContactNumber)) throw new CustomException($"({member.ContactNumber}) is an invalid contact #");
+			else if (!IMember.IsValidPin(member.Pin)) throw new CustomException($"({member.Pin}) is an invalid PIN");
+			else Records.reg.Add(member);
 		}
 
 
@@ -99,17 +99,26 @@ namespace CommunityLibrary
 
 
 		// OPTION 5 ===========================================================
-		public static void DisplayContactNumber()
+		// Get a registered member's contact number
+		// Pre-condition: Member is registered
+		// Post-condition: Return the regitered member's contact number
+		public static string DisplayContactNumber(IMember member)
         {
-			/* todo */
+			IMember memberRef = Records.reg.Find(member); // Get reference to the member object
+
+			if (memberRef == null) throw new CustomException($"({member.FirstName} {member.LastName}) does not exist");
+			else return memberRef.ContactNumber; // Return contact number in string format
 		}
 
 
 
 		// OPTION 6 ===========================================================
-		public static void DisplayMovieBorrowers()
+		public static string DisplayMovieBorrowers(string title)
 		{
-			/* todo */
+			IMovie movieRef = Records.lib.Search(title); // Get reference to the movie object
+
+			if (movieRef == null) throw new CustomException($"({title}) does not exist");
+			else return movieRef.Borrowers.ToString(); // Return movie's borrowers in string format
 		}
 	}
 }

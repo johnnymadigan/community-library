@@ -310,7 +310,35 @@ namespace CommunityLibrary
 		// Get user input to display a registered member's contact number
 		private static void DisplayContactNumber()
 		{
-			/* todo */
+			while (true)
+			{
+				Header();
+				Console.WriteLine("DISPLAYING A MEMBER'S CONTACT #...");
+
+				// Only require full name to verify a match
+				Console.Write("\nFirst name: ");
+				string first = Console.ReadLine();
+				Console.Write("Last name: ");
+				string last = Console.ReadLine();
+
+				// Boilerplate to confirm action
+				Console.Write($"\nEnter any key to display ({first} {last})'s contact #, 0 to cancel: ");
+				if (Console.ReadLine().Equals("0")) return;
+
+
+				try // TRY TO DISPLAY THE MEMBER'S CONTACT #
+				{
+					Console.Write($"\n({first} {last})'s contact # is ({StaffFunctions.DisplayContactNumber(new Member(first, last))})\n");
+					Console.Write($"\nEnter any key to continue: ");
+					Console.ReadLine();
+					return;
+				}
+				catch (CustomException x)
+				{
+					Console.Write($"\nFailed - {x.Message}, enter any key to try again, 0 to cancel: ");
+					if (Console.ReadLine().Equals("0")) return;
+				}
+			}
 		}
 
 
@@ -319,7 +347,32 @@ namespace CommunityLibrary
 		// Get user input to display all a movie's full list of borrowers
 		private static void DisplayMovieBorrowers()
 		{
-			/* todo */
+			while (true)
+			{
+				Header();
+				Console.WriteLine("DISPLAYING A MOVIE'S BORROWERS...");
+
+				Console.Write("Movie title: ");
+				string t = Console.ReadLine();
+
+				// Boilerplate to confirm action
+				Console.Write($"\nEnter any key to display all members borrowing ({t}), 0 to cancel: ");
+				if (Console.ReadLine().Equals("0")) return;
+
+
+				try // TRY TO DISPLAY ALL MEMBERS BORROWING THIS MOVIE
+				{
+					Console.Write($"\nMembers currently borrowing ({t}):\n - {StaffFunctions.DisplayMovieBorrowers(t)}");
+					Console.Write($"\nEnter any key to continue: ");
+					Console.ReadLine();
+					return;
+				}
+				catch (CustomException x)
+				{
+					Console.Write($"\nFailed - {x.Message}, enter any key to try again, 0 to cancel: ");
+					if (Console.ReadLine().Equals("0")) return;
+				}
+			}
 		}
 	}
 }

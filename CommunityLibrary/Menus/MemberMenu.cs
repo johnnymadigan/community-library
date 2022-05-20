@@ -61,12 +61,16 @@ namespace CommunityLibrary
 
 				// if authenticated, break twice (from both loops) to go to sub-menu, otherwise try again/exit
 				bool authenticated = false;
+				IMember memberRef = Records.reg.Find(new Member(first, last));
 
-				if (Records.reg.Search(new Member(first, last)))
+				if (memberRef != null)
                 {
-					loggedInMember = Records.reg.Find(new Member(first, last));
-					authenticated = true;
-					break; // first break from this loop
+					if (memberRef.Pin.Equals(password)) // seperate in-case memberRef is null, cannot access pin property
+                    {
+						loggedInMember = Records.reg.Find(new Member(first, last));
+						authenticated = true;
+						break; // first break from this loop
+					}
 				}
 				if (authenticated) break; // second break from bigger loop
 				
