@@ -104,12 +104,18 @@ namespace CommunityLibrary
 
 
 		// OPTION 5 ===========================================================
-		/* todo */
+		public static void DisplayContactNumber()
+        {
+			/* todo */
+		}
 
 
 
 		// OPTION 6 ===========================================================
-		/* todo */
+		public static void DisplayMovieBorrowers()
+		{
+			/* todo */
+		}
 	}
 }
 

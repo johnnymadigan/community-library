@@ -79,8 +79,8 @@ namespace CommunityLibrary
 				else if (choice.Equals("2")) RemoveDVD();
 				else if (choice.Equals("3")) RegisterMember();
 				else if (choice.Equals("4")) DeregisterMember();
-				else if (choice.Equals("5")) /* todo */;
-				else if (choice.Equals("6")) /* todo */;
+				else if (choice.Equals("5")) DisplayContactNumber();
+				else if (choice.Equals("6")) DisplayMovieBorrowers();
 				else if (choice.Equals("0")) return; // return to end of DISPLAY STAFF LOGIN which then returns to MAIN MENU
 
 				Header();
@@ -307,12 +307,20 @@ namespace CommunityLibrary
 
 
 		// OPTION 5
-		// todo
+		// Get user input to display a registered member's contact number
+		private static void DisplayContactNumber()
+		{
+			/* todo */
+		}
 
 
 
 		// OPTION 6
-		// todo
+		// Get user input to display all a movie's full list of borrowers
+		private static void DisplayMovieBorrowers()
+		{
+			/* todo */
+		}
 	}
 }
 

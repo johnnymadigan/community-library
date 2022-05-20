@@ -10,12 +10,18 @@ namespace CommunityLibrary
 	public class MemberFunctions
 	{
 		// OPTION 1 ===========================================================
-		/* todo */
+		private static void DisplayAllMovies()
+		{
+			/* todo */
+		}
 
 
 
 		// OPTION 2 ===========================================================
-		/* todo */
+		private static void DisplayMovieInfo()
+		{
+			/* todo */
+		}
 
 
 
@@ -53,12 +59,18 @@ namespace CommunityLibrary
 
 
 		// OPTION 5 ===========================================================
-		/* todo */
+		public static void DisplayCurrentBorrowings()
+        {
+			/* todo */
+		}
 
 
 
 		// OPTION 6 ===========================================================
-		/* todo */
+		public static void TopThree()
+		{
+			/* todo */
+		}
 	}
 }
 

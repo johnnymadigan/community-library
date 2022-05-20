@@ -91,12 +91,12 @@ namespace CommunityLibrary
 			{
 				string choice = Console.ReadLine();
 
-				if (choice.Equals("1")) /* todo */;
-				else if (choice.Equals("2")) /* todo */;
+				if (choice.Equals("1")) DisplayAllMovies();
+				else if (choice.Equals("2")) DisplayMovieInfo();
 				else if (choice.Equals("3")) BorrowDVD();
 				else if (choice.Equals("4")) ReturnDVD();
-				else if (choice.Equals("5")) /* todo */;
-				else if (choice.Equals("6")) /* todo */;
+				else if (choice.Equals("5")) DisplayCurrentBorrowings();
+				else if (choice.Equals("6")) TopThree();
 				else if (choice.Equals("0"))
 				{
 					loggedInMember = null;
@@ -115,13 +115,21 @@ namespace CommunityLibrary
 
 
 		// OPTION 1
-		// todo
+		// Display all movies in the library for user to browse
+		private static void DisplayAllMovies()
+		{
+			/* todo */
+		}
 
 
 
 		// OPTION 2
-		// todo
-		
+		// Get user input to display all info on a particular movie
+		private static void DisplayMovieInfo()
+		{
+			/* todo */
+		}
+
 
 
 		// OPTION 3
@@ -191,12 +199,20 @@ namespace CommunityLibrary
 
 
 		// OPTION 5
-		// todo
+		// Display all movies this logged in user is currently borrowing
+		private static void DisplayCurrentBorrowings()
+		{
+			/* todo */
+		}
 
 
 
 		// OPTION 6
-		// todo
+		// Display the top 3 movies rented by other members
+		private static void TopThree()
+		{
+			/* todo */
+		}
 	}
 }
 
