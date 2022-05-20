@@ -40,7 +40,7 @@ namespace CommunityLibrary
 
 		// OPTION 2 ===========================================================
 		// Remove DVDs of a movie from the system
-		// Pre-condition: nil
+		// Pre-condition: Nil
 		// Post-condition: Decrement total/available copies and return the new total or -1 if the movie has been deleted
 		public static int RemoveDVD(string title)
 		{
@@ -67,7 +67,7 @@ namespace CommunityLibrary
 
 		// OPTION 3 ===========================================================
 		// Register a new member with the system
-		// Pre-condition: nil
+		// Pre-condition: Nil
 		// Post-condition: Add (register) member, throw an exception if dupe or contact/pin invalid
 		public static void RegisterMember(IMember member)
 		{
@@ -82,7 +82,7 @@ namespace CommunityLibrary
 
 		// OPTION 4 ===========================================================
 		// Remove a registered member from the system
-		// Pre-condition: Member is registered
+		// Pre-condition: Nil
 		// Post-condition: Remove (deregister) member, throw an exception if not found or still borrowing
 		public static void DeregisterMember(IMember member)
         {
@@ -100,8 +100,8 @@ namespace CommunityLibrary
 
 		// OPTION 5 ===========================================================
 		// Get a registered member's contact number
-		// Pre-condition: Member is registered
-		// Post-condition: Return the regitered member's contact number
+		// Pre-condition: Nil
+		// Post-condition: Return the regitered member's contact number as a string
 		public static string DisplayContactNumber(IMember member)
         {
 			IMember memberRef = Records.reg.Find(member); // Get reference to the member object
@@ -113,6 +113,9 @@ namespace CommunityLibrary
 
 
 		// OPTION 6 ===========================================================
+		// Get all member's currently borrowing a specific movie
+		// Pre-condition: Nil
+		// Post-condition: Return the movie's borrowers as a string
 		public static string DisplayMovieBorrowers(string title)
 		{
 			IMovie movieRef = Records.lib.Search(title); // Get reference to the movie object
