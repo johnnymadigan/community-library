@@ -114,9 +114,14 @@ namespace CommunityLibrary
 					return;
 				}
 				// SCENARIO 2: movie is new, grab all info from user and add movie to library
+				catch (ArgumentNullException)
+                {
+					Console.Write($"\nTitle cannot be empty, enter any key to try again, 0 to cancel: ");
+					if (Console.ReadLine().Equals("0")) return;
+				}
 				catch (CustomException x)
                 {
-					Console.Write($"\n{x.Message}, enter any key to add this new movie, 0 to cancel: ");
+					Console.Write($"\n{x.Message}, enter any key to add this as a new movie, 0 to cancel: ");
 					if (Console.ReadLine().Equals("0")) return;
 
 					// Get genre

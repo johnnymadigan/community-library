@@ -100,9 +100,45 @@ namespace CommunityLibrary
 
 
 		// OPTION 6 ===========================================================
-		public static void TopThree()
+		// Determine the top 3 popular movies and return their titles with number of times borrowed
+		// Pre-condition: Nil
+		// Post-condition: Return top 3 popular movies' titles and times borrowed, in string format
+		public static string TopThree()
 		{
-			/* todo */
+			IMovie[] movies = Records.lib.ToArray();
+
+			// All movies added require titles, therefore no existing movie can match this dummy
+			IMovie dummy = new Movie("", MovieGenre.Action, MovieClassification.M15Plus, 0, 0);
+
+			IMovie first = dummy;
+			IMovie second = dummy;
+			IMovie third = dummy;
+
+			// Compare each movie via their number of times borrowed, and rank them accordingly
+			foreach (IMovie m in movies)
+			{
+				if (m.NoBorrowings > first.NoBorrowings)
+                {
+					third = second;
+					second = first;
+					first = m;
+                }
+				else if (m.NoBorrowings > second.NoBorrowings)
+				{
+					third = second;
+					second = m;
+				}
+				else if (m.NoBorrowings > third.NoBorrowings) third = m;
+			}
+
+			// Format string
+			string firstNoBorrowings = (!first.Title.Equals("")) ? $"({first.Title}) borrowed {first.NoBorrowings} times" : "nil";
+			string secondNoBorrowings = (!second.Title.Equals("")) ? $"({second.Title}) borrowed {second.NoBorrowings} times" : "nil";
+			string thirdNoBorrowings = (!third.Title.Equals("")) ? $"({third.Title}) borrowed {third.NoBorrowings} times" : "nil";
+
+			return $"1st: {firstNoBorrowings}\n" +
+                $"2nd: {secondNoBorrowings}\n" +
+                $"3rd: {thirdNoBorrowings}\n";
 		}
 	}
 }

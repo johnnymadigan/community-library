@@ -27,7 +27,8 @@ namespace CommunityLibrary
 		{
 			IMovie movieRef = Records.lib.Search(title); // get reference to the movie obj from records
 
-			if (movieRef == null) throw new CustomException($"({title}) does not exist in library");
+			if (title.Equals("")) throw new ArgumentNullException(); // All movies need a title
+			else if (movieRef == null) throw new CustomException($"({title}) does not exist in library");
 			else
 			{
 				movieRef.TotalCopies++;

@@ -260,7 +260,16 @@ namespace CommunityLibrary
 		// Display the top 3 movies rented by other members
 		private static void TopThree()
 		{
-			/* todo */
+			while (true)
+			{
+				Header();
+				Console.WriteLine("DISPLAYING TOP 3 MOVIES...");
+
+				Console.Write($"\n{MemberFunctions.TopThree()}");
+				Console.Write($"\nEnter any key to continue: ");
+				Console.ReadLine();
+				return;
+			}
 		}
 	}
 }
