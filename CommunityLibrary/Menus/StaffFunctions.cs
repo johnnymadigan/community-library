@@ -2,6 +2,7 @@
 // Functions used by the staff account (called only from StaffMenu)
 // Seperates display/user-input from key functionality
 // All methods are public for corresponding test plan (TestStaffFunctions)
+// All methods utilise ADT interfaces
 using System;
 
 namespace CommunityLibrary

@@ -10,6 +10,8 @@ namespace CommunityLibrary
 		// STORE LOGGED IN MEMBER FOR SESSION ONLY (set to null when exiting with "0" from menu)
 		public static IMember loggedInMember;
 
+
+
 		// HEADER
 		// Reproducable header (clears console)
 		private static void Header()
@@ -21,6 +23,8 @@ namespace CommunityLibrary
 				"█▄▄ █▄█ █░▀░█ █░▀░█ █▄█ █░▀█ █ ░█░ ░█░	█▄▄ █ █▄█ █▀▄ █▀█ █▀▄ ░█░\n" +
 				"\n=============================Member Menu===========================\n\n");
 		}
+
+
 
 		// OPTIONS
 		// Reproducable options
@@ -36,6 +40,8 @@ namespace CommunityLibrary
 
 			Console.Write("\nEnter your choice ==> (1/2/3/4/5/6/0): ");
 		}
+
+
 
 		// LOGIN
 		// Display member login page to get user input and verify credentials
@@ -71,6 +77,8 @@ namespace CommunityLibrary
 			DisplayMemberMenu();
 		}
 
+
+
 		// SUB-MENU
 		// Display member sub-menu and await user's choice
 		private static void DisplayMemberMenu()
@@ -86,7 +94,7 @@ namespace CommunityLibrary
 				if (choice.Equals("1")) /* todo */;
 				else if (choice.Equals("2")) /* todo */;
 				else if (choice.Equals("3")) BorrowDVD();
-				else if (choice.Equals("4")) /* todo */;
+				else if (choice.Equals("4")) ReturnDVD();
 				else if (choice.Equals("5")) /* todo */;
 				else if (choice.Equals("6")) /* todo */;
 				else if (choice.Equals("0"))
@@ -104,59 +112,88 @@ namespace CommunityLibrary
 			}
 		}
 
+
+
 		// OPTION 1
 		// todo
 
+
+
 		// OPTION 2
 		// todo
+		
+
 
 		// OPTION 3
-		// Get user input to add this logged-in registered member to the movie's borrowers list
+		// Get user input to borrow a movie tied to this logged-in registered member
 		private static void BorrowDVD()
 		{
 			while (true)
 			{
 				Header();
-				Console.WriteLine("Please enter info for movie to borrow...");
-
+				Console.WriteLine("BORROWING MOVIE...");
 				Console.Write("Movie title: ");
-				string t = Console.ReadLine();
+				IMovie movie = new Movie(Console.ReadLine()); // Get user input
 
-				// SCENARIO 1: movie exists, perform function
-				if (Records.lib.Search(new Movie(t)))
-                {
-					// Boilerplate to confirm action
-					Console.Write($"\nEnter any key to borrow {t}, 0 to cancel: ");
-					if (Console.ReadLine().Equals("0")) return;
+				// Boilerplate to confirm action
+				Console.Write($"\nEnter any key to borrow ({movie.Title}), 0 to cancel: ");
+				if (Console.ReadLine().Equals("0")) return;
 
-					IMovie m = new Movie(t);
-
-					if (MemberFunctions.BorrowDVD(m, loggedInMember))
-					{
-						Console.Write($"\nBorrowed {t}, enter any key to continue: ");
-						Console.ReadLine();
-						return;
-					}
-					else
-					{
-						Console.Write($"\nFailed to borrow {t}, already borrowing, no available copies, or at max borrowers, enter any key to try again, 0 to cancel: ");
-						if (Console.ReadLine().Equals("0")) return;
-					}
-				}
-				// SCENARIO 2: movie does not exist, try again
-				else
+				try // TRY TO BORROW MOVIE
 				{
-					Console.Write($"\n{t} does not exist in library, enter any key to try again, 0 to cancel: ");
+					if (!MemberFunctions.BorrowDVD(movie, loggedInMember)) Console.Write($"\nFailed - At max borrowers for this movie, enter any key to continue: ");
+					else Console.Write($"\nBorrowed ({movie.Title}), enter any key to continue: ");
+
+					Console.ReadLine();
+					return;
+				}
+				catch (CustomException x)
+				{
+					Console.Write($"\nFailed - {x.Message}, enter any key to try again, 0 to cancel: ");
 					if (Console.ReadLine().Equals("0")) return;
 				}
 			}
 		}
 
+
+
 		// OPTION 4
-		// todo
+		// Get user input to return a movie tied to this logged-in registered member
+		private static void ReturnDVD()
+		{
+			while (true)
+			{
+				Header();
+				Console.WriteLine("RETURNING MOVIE...");
+				Console.Write("Movie title: ");
+				IMovie movie = new Movie(Console.ReadLine()); // Get user input
+
+				// Boilerplate to confirm action
+				Console.Write($"\nEnter any key to borrow ({movie.Title}), 0 to cancel: ");
+				if (Console.ReadLine().Equals("0")) return;
+
+				try // TRY TO RETURN MOVIE
+				{
+					if (!MemberFunctions.ReturnDVD(movie, loggedInMember)) Console.Write($"\nNot currently borrowing ({movie.Title}), enter any key to continue: ");
+					else Console.Write($"\nReturned ({movie.Title}), enter any key to continue: ");
+
+					Console.ReadLine();
+					return;
+				}
+				catch (CustomException x)
+				{
+					Console.Write($"\nFailed - {x.Message}, enter any key to try again, 0 to cancel: ");
+					if (Console.ReadLine().Equals("0")) return;
+				}
+			}
+		}
+
+
 
 		// OPTION 5
 		// todo
+
+
 
 		// OPTION 6
 		// todo
