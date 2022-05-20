@@ -15,8 +15,9 @@ namespace CommunityLibrary
 
             // testing data only
             Records.reg.Add(new Member("bofa", "dem", "0123456789", "1234"));
-            Records.reg.Add(new Member("yeet", "dem", "0123456789", "1234"));
-            Records.lib.Insert(new Movie("potc", MovieGenre.Action, MovieClassification.M15Plus, 1, 1));
+            Records.lib.Insert(new Movie("potc", MovieGenre.Action, MovieClassification.M15Plus, 1999, 1));
+            Records.lib.Insert(new Movie("eeaao", MovieGenre.Action, MovieClassification.M15Plus, 1111, 2));
+            Records.lib.Insert(new Movie("batman", MovieGenre.Action, MovieClassification.M15Plus, 69, 3));
 
 
 

@@ -11,24 +11,39 @@ namespace CommunityLibrary
 	public class MemberFunctions
 	{
 		// OPTION 1 ===========================================================
-		private static void DisplayAllMovies()
+		// Get information about all movies in dictionary order (via titles) and include current available copies
+		// Pre-condition: Nil
+		// Post-condition: Return information on all movies in dictionary order, in string format
+		public static string DisplayAllMovies()
 		{
-			/* todo */
+			IMovie[] movies = Records.lib.ToArray();
+			string s = "";
+
+			// Each movie contains title, genre, classification, duration, and available copies
+			foreach (IMovie m in movies) s += $"({m.ToString()})\n";
+
+			return s; // string will be empty if there were no movies
 		}
 
 
 
 		// OPTION 2 ===========================================================
-		private static void DisplayMovieInfo()
+		// Get information on a specific movies given the title
+		// Pre-condition: Nil
+		// Post-condition: Return information on a specfic movies given the title
+		public static string DisplayMovieInfo(string title)
 		{
-			/* todo */
+			IMovie movieRef = Records.lib.Search(title); // Get reference to the movie object
+
+			if (movieRef == null) throw new CustomException($"({title}) does not exist");
+			else return movieRef.ToString(); // Return movie's title, genre, classification, duration, and available copies
 		}
 
 
 
 		// OPTION 3 ===========================================================
 		// Allow a registered member to borrow a DVD
-		// Pre-condition: Member is already registered and exists in records
+		// Pre-condition: Member is registered
 		// Post-condition: Return true if member was added to the movie's borrowing list, otherwise return false or throw exceptions
 		public static bool BorrowDVD(IMovie movie, IMember member)
 		{
@@ -50,7 +65,7 @@ namespace CommunityLibrary
 
 		// OPTION 4 ===========================================================
 		// Allow a registered member to return a DVD
-		// Pre-condition: Member is already registered and exists in records
+		// Pre-condition: Member is registered
 		// Post-condition: Return true if member was borrowing and now no longer, otherwise return false or throw exceptions
 		public static bool ReturnDVD(IMovie movie, IMember member)
 		{

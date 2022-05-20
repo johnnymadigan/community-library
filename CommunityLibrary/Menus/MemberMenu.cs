@@ -124,7 +124,16 @@ namespace CommunityLibrary
 		// Display all movies in the library for user to browse
 		private static void DisplayAllMovies()
 		{
-			/* todo */
+			while (true)
+			{
+				Header();
+				Console.WriteLine("DISPLAYING INFO ON ALL MOVIES...");
+
+				Console.Write($"\n{MemberFunctions.DisplayAllMovies()}");
+				Console.Write($"\nEnter any key to continue: ");
+				Console.ReadLine();
+				return;
+			}
 		}
 
 
@@ -133,7 +142,32 @@ namespace CommunityLibrary
 		// Get user input to display all info on a particular movie
 		private static void DisplayMovieInfo()
 		{
-			/* todo */
+			while (true)
+			{
+				Header();
+				Console.WriteLine("DISPLAYING A MOVIE'S INFO...");
+
+				Console.Write("Movie title: ");
+				string t = Console.ReadLine();
+
+				// Boilerplate to confirm action
+				Console.Write($"\nEnter any key to display all info for ({t}), 0 to cancel: ");
+				if (Console.ReadLine().Equals("0")) return;
+
+
+				try // TRY TO DISPLAY ALL INFO FOR THIS MOVIE
+				{
+					Console.Write($"\n({MemberFunctions.DisplayMovieInfo(t)})\n");
+					Console.Write($"\nEnter any key to continue: ");
+					Console.ReadLine();
+					return;
+				}
+				catch (CustomException x)
+				{
+					Console.Write($"\nFailed - {x.Message}, enter any key to try again, 0 to cancel: ");
+					if (Console.ReadLine().Equals("0")) return;
+				}
+			}
 		}
 
 

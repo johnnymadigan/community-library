@@ -8,15 +8,13 @@ namespace CommunityLibrary
 {
 	public class Records
 	{
-		// Registered members stored in a LIST as MEMBERCOLLECTION does not allow access to pins...
-        // Which means we are unable to verify login w that ADT
 		public static IMemberCollection reg;
 		public static IMovieCollection lib;
 
 		public static string staffUsername;
 		public static string staffPassword;
 
-		// Constructor with staff account username + password
+		// Constructor with staff account username, password, and max # of registered members
 		public Records(string sUsername, string sPassword, int memberSize)
 		{
 			lib = new MovieCollection();

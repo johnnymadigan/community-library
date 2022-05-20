@@ -102,7 +102,7 @@ public interface IMovie
     //                 return +1, if this movie's title is greater than another movie's title by dictionary order
     public int CompareTo(IMovie another);
 
-    //Return a string containing the title, genre, classification, duration, and the number of copies of this movie currently in the  library 
+    //Return a string containing the title, genre, classification, duration, and the number of copies of this movie currently in the library 
     //Pre-condition: nil
     //Post-condition: A string containing the title, genre, classification, duration, and the number of available copies of this movie has been returned
     string ToString();

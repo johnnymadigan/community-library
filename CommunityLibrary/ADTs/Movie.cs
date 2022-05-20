@@ -104,7 +104,7 @@ public class Movie : IMovie
         return this.Title.CompareTo(other.Title);
     }
 
-    //Return a string containing the title, genre, classification, duration, and the number of copies of this movie currently in the  library 
+    //Return a string containing the title, genre, classification, duration, and the number of copies of this movie currently in the library 
     //Pre-condition: nil
     //Post-condition: A string containing the title, genre, classification, duration, and the number of available copies of this movie has been returned
     public string ToString()
