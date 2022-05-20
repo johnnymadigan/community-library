@@ -29,8 +29,8 @@ namespace CommunityLibrary
 
 			// Use ADT methods to find specific reasons why function might fail, otherwise return TRUE if successful
 			if (Records.GetMemberBorrowings(member).Count >= 5) throw new CustomException("You are at the max borrowing limit (5)");
-			else if (movieRef == null) throw new CustomException($"Movie does not exist in library");
-			else if (movieRef.Borrowers.Search(member)) throw new CustomException($"You are already borrowing this movie");
+			else if (movieRef == null) throw new CustomException("Movie does not exist in library");
+			else if (movieRef.Borrowers.Search(member)) throw new CustomException("You are already borrowing this movie");
 			else if (movieRef.AvailableCopies == 0) throw new CustomException($"No more available copies");
 			else return Records.lib.Search(movie.Title).AddBorrower(member); // false if at max borrowers (10)
 		}

@@ -19,6 +19,8 @@ namespace CommunityLibrary
 				"\n=============================Staff Menu============================\n\n");
 		}
 
+
+
 		// OPTIONS
 		// Reproducable options
 		private static void Options()
@@ -33,6 +35,8 @@ namespace CommunityLibrary
 
 			Console.Write("\nEnter your choice ==> (1/2/3/4/5/6/0): ");
 		}
+
+
 
 		// LOGIN
 		// Display staff login page to get user input and verify credentials
@@ -56,6 +60,8 @@ namespace CommunityLibrary
 
 			DisplayStaffMenu();
 		}
+
+
 
 		// SUB-MENU
 		// Display staff sub-menu and await user's choice
@@ -85,6 +91,8 @@ namespace CommunityLibrary
 			}
 		}
 
+
+
 		// OPTION 1
 		// Get user input to either add new DVD or update copies of an existing DVD
 		private static void AddDVD()
@@ -92,110 +100,97 @@ namespace CommunityLibrary
 			while (true)
 			{
 				Header();
-				Console.WriteLine("Please enter info for new DVD to add...");
+				Console.WriteLine("ADDING MOVIE DVD...");
 
 				Console.Write("Movie title: ");
 				string t = Console.ReadLine();
 
-				// SCENARIO 1: movie already exists, update the total copies and return to menu
-				if (Records.lib.Search(new Movie(t)))
+				// SCENARIO 1: movie already exists therefore total copies is updated (function returns TRUE)
+				try
                 {
-					// Boilerplate to confirm action
-					Console.Write($"\nMovie {t} already exists, enter any key to add a copy, 0 to cancel: ");
-					if (Console.ReadLine().Equals("0")) return;
-
-					Console.Write($"\nTotal copies of {t} now {StaffFunctions.AddDVD(t)}...\nEnter any key to continue: ");
+					Records.lib.Search(new Movie(t));
+					Console.Write($"\nTotal copies of ({t}) now {StaffFunctions.AddDVD(t)}, enter any key to continue: ");
 					Console.ReadLine();
 					return;
 				}
-
 				// SCENARIO 2: movie is new, grab all info from user and add movie to library
-				string genreInput;
-				MovieGenre? g = null;
-				
-				while (g == null)
-				{
-					Console.Write("\n1. Action\n2. Comedy\n3. Drama\n4. History\n5. Western\nSelect genre ==> (1/2/3/4/5): ");
-					genreInput = Console.ReadLine();
-
-					if (genreInput.Equals("1")) g = MovieGenre.Action;
-					else if (genreInput.Equals("2")) g = MovieGenre.Comedy;
-					else if (genreInput.Equals("3")) g = MovieGenre.Drama;
-					else if (genreInput.Equals("4")) g = MovieGenre.History;
-					else if (genreInput.Equals("5")) g = MovieGenre.Western;
-					else
-					{
-						Console.Write("\nInvalid genre, enter any key to try again, 0 to cancel: ");
-						if (Console.ReadLine().Equals("0")) return;
-					}
-				}
-
-				string classInput;
-				MovieClassification? c = null;
-				while (c == null)
-				{
-					Console.Write("\n1. G\n2. PG\n3. M\n4. M15Plus\nSelect classification ==> (1/2/3/4): ");
-					classInput = Console.ReadLine();
-					
-					if (classInput.Equals("1")) c = MovieClassification.G;
-					else if (classInput.Equals("2")) c = MovieClassification.PG;
-					else if (classInput.Equals("3")) c = MovieClassification.M;
-					else if (classInput.Equals("4")) c = MovieClassification.M15Plus;
-					else
-					{
-						Console.Write("\nInvalid classification, enter any key to try again, 0 to cancel: ");
-						if (Console.ReadLine().Equals("0")) return;
-					}
-				}
-
-				string dInput;
-				int d;
-				while (true)
+				catch (CustomException x)
                 {
-					Console.Write("\nDuration: ");
-					dInput = Console.ReadLine();
-
-					if (int.TryParse(dInput, out d)) break;
-					else
-					{
-						Console.Write("\nDuration must be a number, enter any key to try again, 0 to cancel: ");
-						if (Console.ReadLine().Equals("0")) return;
-					}
-				}
-
-				string nInput;
-				int n;
-				while (true)
-				{
-					Console.Write("\nTotal copies: ");
-					nInput = Console.ReadLine();
-
-					if (int.TryParse(nInput, out n)) break;
-					else
-					{
-						Console.Write("\nTotal copies must be a number, enter any key to try again, 0 to cancel: ");
-						if (Console.ReadLine().Equals("0")) return;
-					}
-				}
-
-				// Boilerplate to confirm action
-				Console.Write($"\nEnter any key to add {n} copies of {t} to the library, 0 to cancel: ");
-				if (Console.ReadLine().Equals("0")) return;
-
-				// Call functions
-				if (StaffFunctions.AddDVD(new Movie(t, (MovieGenre)g, (MovieClassification)c, d, n)))
-				{
-					Console.Write($"\n{t} added, enter any key to continue: ");
-					Console.ReadLine();
-					return;
-				}
-				else
-				{
-					Console.Write($"\n{t} already exists, enter any key to try again, 0 to cancel: ");
+					Console.Write($"\n{x.Message}, enter any key to add this new movie, 0 to cancel: ");
 					if (Console.ReadLine().Equals("0")) return;
+
+					// Get genre
+					MovieGenre? g = null;
+					Console.Write("\n1. Action\n2. Comedy\n3. Drama\n4. History\n5. Western\nSelect genre ==> (1/2/3/4/5): ");
+
+					while (g == null)
+					{
+						string genreInput = Console.ReadLine();
+
+						if (genreInput.Equals("1")) g = MovieGenre.Action;
+						else if (genreInput.Equals("2")) g = MovieGenre.Comedy;
+						else if (genreInput.Equals("3")) g = MovieGenre.Drama;
+						else if (genreInput.Equals("4")) g = MovieGenre.History;
+						else if (genreInput.Equals("5")) g = MovieGenre.Western;
+						else Console.Write("\nInvalid genre, please try again: ");
+					}
+
+					// Get classification
+					MovieClassification? c = null;
+					Console.Write("\n1. G\n2. PG\n3. M\n4. M15Plus\nSelect classification ==> (1/2/3/4): ");
+
+					while (c == null)
+					{
+						string classInput = Console.ReadLine();
+
+						if (classInput.Equals("1")) c = MovieClassification.G;
+						else if (classInput.Equals("2")) c = MovieClassification.PG;
+						else if (classInput.Equals("3")) c = MovieClassification.M;
+						else if (classInput.Equals("4")) c = MovieClassification.M15Plus;
+						else Console.Write("\nInvalid classification, please try again: ");
+					}
+
+					// Get duration as number
+					int d;
+					Console.Write("\nDuration: ");
+
+					while (true)
+					{
+						if (int.TryParse(Console.ReadLine(), out d)) break;
+						else Console.Write("\nDuration must be a number, please try again: ");
+					}
+
+					// Get total copies as number
+					int n;
+					Console.Write("\nTotal copies: ");
+
+					while (true)
+					{
+						if (int.TryParse(Console.ReadLine(), out n)) break;
+						else Console.Write("\nTotal copies must be a number, please try again: ");
+					}
+
+					// Boilerplate to confirm action
+					Console.Write($"\nEnter any key to add {n} copies of ({t}) to the library, 0 to cancel: ");
+					if (Console.ReadLine().Equals("0")) return;
+
+					// ADD NEW MOVIE
+					if (StaffFunctions.AddDVD(new Movie(t, (MovieGenre)g, (MovieClassification)c, d, n)))
+					{
+						Console.Write($"\n({t}) added, enter any key to continue: ");
+						Console.ReadLine();
+						return;
+					}
+					else // Safety check to prevent adding duplicates
+					{
+						Console.Write($"\n({t}) already exists, enter any key to try again, 0 to cancel: ");
+						if (Console.ReadLine().Equals("0")) return;
+					}
 				}
 			}
 		}
+
+
 
 		// OPTION 2
         // Get user input to remove a DVD and remove the movie from the library if no more copies left
@@ -233,6 +228,8 @@ namespace CommunityLibrary
 				}
 			}
 		}
+
+
 
 		// OPTION 3
 		// Get user input to register (add) a new member into the system
@@ -272,6 +269,8 @@ namespace CommunityLibrary
 			}
 		}
 
+
+
 		// OPTION 4
 		// Get user input to remove a registered member from the system
 		private static void DeregisterMember()
@@ -305,8 +304,12 @@ namespace CommunityLibrary
 			}
 		}
 
+
+
 		// OPTION 5
 		// todo
+
+
 
 		// OPTION 6
 		// todo

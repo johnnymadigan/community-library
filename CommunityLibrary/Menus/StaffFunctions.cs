@@ -11,8 +11,8 @@ namespace CommunityLibrary
 	{
 		// OPTION 1 ===========================================================
 		// Add new DVDs of a movie to the system (NEW MOVIE)
-		// Pre-condition: Movie is new (library does not contain this movie)
-		// Post-condition: Return true if movie is successfully inserted, false otherwise (prevents duplicates)
+		// Pre-condition: Nil
+		// Post-condition: Return true if movie is new and therefore inserted, false otherwise (prevents duplicates)
 		public static bool AddDVD(IMovie m)
 		{
 			return Records.lib.Insert(m);
@@ -20,22 +20,22 @@ namespace CommunityLibrary
 
 		// OPTION 1 ===========================================================
 		// Add new DVDs of a movie to the system (EXISTING MOVIE)
-		// Pre-condition: Movie is not new (library contains this movie)
-		// Post-condition: Increment and return total/available copies of the movie
+		// Pre-condition: Nil
+		// Post-condition: Increment total/available copies and return the new total copies of the movie
 		public static int AddDVD(string title)
 		{
-			IMovie movie = Records.lib.Search(title); ;
+			IMovie movie = Records.lib.Search(title);
 
-			if (movie != null)
+			if (movie == null) throw new CustomException("Movie does not exist in library");
+			else
 			{
 				movie.TotalCopies++;
 				movie.AvailableCopies++;
-
 				return movie.TotalCopies;
 			}
-			else return -1;
-			
 		}
+
+
 
 		// OPTION 2 ===========================================================
 		// Remove DVDs of a movie from the system
@@ -64,6 +64,8 @@ namespace CommunityLibrary
 			return -1;
 		}
 
+
+
 		// OPTION 3 ===========================================================
 		// Register a new member with the system
 		// Pre-condition: nil
@@ -79,6 +81,8 @@ namespace CommunityLibrary
 				return true;
 			}
 		}
+
+
 
 		// OPTION 4 ===========================================================
 		// Remove a registered member from the system
@@ -103,8 +107,12 @@ namespace CommunityLibrary
 			return false;
 		}
 
+
+
 		// OPTION 5 ===========================================================
 		/* todo */
+
+
 
 		// OPTION 6 ===========================================================
 		/* todo */

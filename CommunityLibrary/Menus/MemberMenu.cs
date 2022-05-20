@@ -131,7 +131,7 @@ namespace CommunityLibrary
 			while (true)
 			{
 				Header();
-				Console.WriteLine("BORROWING MOVIE...");
+				Console.WriteLine("BORROWING MOVIE DVD...");
 				Console.Write("Movie title: ");
 				IMovie movie = new Movie(Console.ReadLine()); // Get user input
 
@@ -164,7 +164,7 @@ namespace CommunityLibrary
 			while (true)
 			{
 				Header();
-				Console.WriteLine("RETURNING MOVIE...");
+				Console.WriteLine("RETURNING MOVIE DVD...");
 				Console.Write("Movie title: ");
 				IMovie movie = new Movie(Console.ReadLine()); // Get user input
 
