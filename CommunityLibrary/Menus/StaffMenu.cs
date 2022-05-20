@@ -54,7 +54,7 @@ namespace CommunityLibrary
 
 				// if authenticated, break from loop to go to sub-menu, otherwise try again/exit
 				if (username.Equals(Records.staffUsername) && password.Equals(Records.staffPassword)) break;
-				Console.Write("\nInvalid credentials...\nEnter any key to try again, enter 0 to return to main menu: ");
+				Console.Write("\nInvalid credentials, enter any key to try again, 0 to return to main menu: ");
 				if (Console.ReadLine().Equals("0")) return; // return to MAIN MENU
 			}
 
@@ -236,32 +236,33 @@ namespace CommunityLibrary
 			while (true)
 			{
 				Header();
-				Console.WriteLine("Please enter info for new member to add...");
+				Console.WriteLine("REGISTERING NEW MEMBER...");
 
-				// it is assumed full names are unique
-				// todo might check if name is not taken tho
+				// Get user input...
 				Console.Write("First name: ");
 				string first = Console.ReadLine();
 				Console.Write("Last name: ");
 				string last = Console.ReadLine();
-				Console.Write("Phone number: ");
+				Console.Write("Contact number: ");
 				string phone = Console.ReadLine();
 				Console.Write("Pin: ");
 				string pin = Console.ReadLine();
 
 				// Boilerplate to confirm action
-				Console.Write($"\nEnter any key to register {first} {last}, 0 to cancel: ");
+				Console.Write($"\nEnter any key to register ({first} {last}), 0 to cancel: ");
 				if (Console.ReadLine().Equals("0")) return;
 
-				if (StaffFunctions.RegisterMember(new Member(first, last, phone, pin)))
-				{
-					Console.Write($"\nMember {first} {last} added, enter any key to continue: ");
+                try // TRY TO ADD (REGISTER) MEMBER
+                {
+					StaffFunctions.RegisterMember(new Member(first, last, phone, pin));
+					Console.Write($"\n({first} {last}) registered, enter any key to continue: ");
 					Console.ReadLine();
 					return;
+
 				}
-				else
-				{
-					Console.Write($"\n{first} {last} already registered or invalid phone/pin, enter any key to try again, 0 to cancel: ");
+				catch (CustomException x)
+                {
+					Console.Write($"\nFailed - {x.Message}, enter any key to try again, 0 to cancel: ");
 					if (Console.ReadLine().Equals("0")) return;
 				}
 			}
@@ -276,27 +277,28 @@ namespace CommunityLibrary
 			while (true)
 			{
 				Header();
-				Console.WriteLine("Please enter info for member to delete...");
+				Console.WriteLine("REMOVING MEMBER...");
 
-				// Only require full name to verify a match (full names are unique)
+				// Only require full name to verify a match
 				Console.Write("\nFirst name: ");
 				string first = Console.ReadLine();
 				Console.Write("Last name: ");
 				string last = Console.ReadLine();
 
 				// Boilerplate to confirm action
-				Console.Write($"\nEnter any key to remove {first} {last}, 0 to cancel: ");
+				Console.Write($"\nEnter any key to remove ({first} {last}), 0 to cancel: ");
 				if (Console.ReadLine().Equals("0")) return;
 
-				if (StaffFunctions.DeregisterMember(new Member(first, last)))
+				try // TRY TO REMOVE (DEREGISTER) MEMBER
 				{
-					Console.Write($"\n{first} {last} removed, enter any key to continue: ");
+					StaffFunctions.DeregisterMember(new Member(first, last));
+					Console.Write($"\n({first} {last}) removed, enter any key to continue: ");
 					Console.ReadLine();
 					return;
 				}
-				else
+				catch (CustomException x)
 				{
-					Console.Write($"\n{first} {last} does not exist or currently borrowing DVDs, enter any key to try again, 0 to cancel: ");
+					Console.Write($"\nFailed - {x.Message}, enter any key to try again, 0 to cancel: ");
 					if (Console.ReadLine().Equals("0")) return;
 				}
 			}

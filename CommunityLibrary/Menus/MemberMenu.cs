@@ -71,7 +71,7 @@ namespace CommunityLibrary
 					}
 				}
 				if (authenticated) break;
-				Console.Write("\nInvalid credentials...\nEnter any key to try again, enter 0 to return to main menu: ");
+				Console.Write("\nInvalid credentials, enter any key to try again, 0 to return to main menu: ");
 				if (Console.ReadLine().Equals("0")) return; // return to MAIN MENU
 			}
 			DisplayMemberMenu();

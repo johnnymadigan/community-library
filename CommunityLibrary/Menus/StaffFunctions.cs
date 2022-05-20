@@ -67,17 +67,14 @@ namespace CommunityLibrary
 		// OPTION 3 ===========================================================
 		// Register a new member with the system
 		// Pre-condition: nil
-		// Post-condition: Return true if member is added (registered), false if dupe or contact/pin invalid
-		public static bool RegisterMember(IMember m)
+		// Post-condition: Add (register) member, throw an exception if dupe or contact/pin invalid
+		public static void RegisterMember(IMember m)
 		{
-			foreach (IMember member in Records.reg) if (member.CompareTo(m) == 0) return false; // false if dupe
+			foreach (IMember member in Records.reg) if (member.CompareTo(m) == 0) throw new CustomException($"({m.FirstName} {m.LastName}) already registered");
 
-			if (!IMember.IsValidContactNumber(m.ContactNumber) || !IMember.IsValidPin(m.Pin)) return false; // false if contact/pin invalid
-			else
-			{
-				Records.reg.Add(m);
-				return true;
-			}
+			if (!IMember.IsValidContactNumber(m.ContactNumber)) throw new CustomException("Invalid contact number");
+			else if (!IMember.IsValidPin(m.Pin)) throw new CustomException("Invalid PIN");
+			else Records.reg.Add(m);
 		}
 
 
@@ -85,24 +82,23 @@ namespace CommunityLibrary
 		// OPTION 4 ===========================================================
 		// Remove a registered member from the system
 		// Pre-condition: Member is registered
-		// Post-condition: Return true if member is removed, false if not registered yet or currently borrowing a movie
-		public static bool DeregisterMember(IMember m)
+		// Post-condition: Remove (deregister) member, throw an exception if not found or still borrowing
+		public static void DeregisterMember(IMember m)
 		{
 			foreach (IMember member in Records.reg)
 			{
 				if (member.CompareTo(m) == 0)
 				{
-					// Seperate IF statement as once the unique registered member is found...
-					// return false immediately if they are borrowing 1+ DVDs
-					if (Records.GetMemberBorrowings(member).Count > 0) return false;
+					// Throw exception if member still borrowing at least 1 DVD
+					if (Records.GetMemberBorrowings(member).Count > 0) throw new CustomException($"({m.FirstName} {m.LastName}) still borrowing DVDs");
 					else
 					{
-						Records.reg.Remove(member);
-						return true;
+						Records.reg.Remove(member); // remove if registered
+						return; // return immediately to stop loop
 					}
 				}
 			}
-			return false;
+			throw new CustomException($"({m.FirstName} {m.LastName}) does not exist");
 		}
 
 
