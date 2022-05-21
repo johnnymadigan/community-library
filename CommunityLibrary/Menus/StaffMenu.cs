@@ -265,6 +265,11 @@ namespace CommunityLibrary
 					return;
 
 				}
+				catch (ArgumentNullException)
+				{
+					Console.Write($"\nNames cannot be empty, enter any key to try again, 0 to cancel: ");
+					if (Console.ReadLine().Equals("0")) return;
+				}
 				catch (CustomException x)
                 {
 					Console.Write($"\nFailed - {x.Message}, enter any key to try again, 0 to cancel: ");

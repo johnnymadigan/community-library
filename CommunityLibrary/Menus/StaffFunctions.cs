@@ -74,7 +74,8 @@ namespace CommunityLibrary
 		{
 			if (Records.reg.Search(member)) throw new CustomException($"({member.FirstName} {member.LastName}) already registered");
 
-			if (!IMember.IsValidContactNumber(member.ContactNumber)) throw new CustomException($"({member.ContactNumber}) is an invalid contact #");
+			if (member.FirstName.Equals("") || member.LastName.Equals("")) throw new ArgumentNullException(); // All members need a name
+			else if (!IMember.IsValidContactNumber(member.ContactNumber)) throw new CustomException($"({member.ContactNumber}) is an invalid contact #");
 			else if (!IMember.IsValidPin(member.Pin)) throw new CustomException($"({member.Pin}) is an invalid PIN");
 			else Records.reg.Add(member);
 		}
