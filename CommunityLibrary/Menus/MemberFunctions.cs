@@ -107,8 +107,9 @@ namespace CommunityLibrary
 		{
 			IMovie[] movies = Records.lib.ToArray();
 
-			// All movies added require titles, therefore no existing movie can match this dummy
-			IMovie dummy = new Movie("", MovieGenre.Action, MovieClassification.M15Plus, 0, 0);
+			// All movies require titles when added, therefore no existing movie can match this dummy
+			// This dummy's number of borrows is evaulated as 0 in the conditions below (can be seen when debugging)
+			IMovie dummy = new Movie(""); 
 
 			IMovie first = dummy;
 			IMovie second = dummy;

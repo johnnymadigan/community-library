@@ -71,13 +71,13 @@ class MemberCollection : IMemberCollection
             {
                 int mid = (max + min) / 2; // No "floor" needed as terms are ints (C# auto truncates)
 
-                // Found? return true, otherwise adjust search window (lower or greater half)
+                // Found? return reference to the member obj, otherwise adjust search window (lower or greater half)
                 if (member.CompareTo(members[mid]) == 0) return members[mid];
                 else if (member.CompareTo(members[mid]) == -1) max = mid - 1;
                 else min = mid + 1;
             }
         }
-        return null;
+        return null; // If never found
     }
 
     // Add a new member to this member collection
