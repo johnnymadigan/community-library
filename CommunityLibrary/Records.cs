@@ -15,13 +15,20 @@ namespace CommunityLibrary
 		public static string staffPassword;
 
 		// Constructor with staff account username, password, and max # of registered members
-		public Records(string sUsername, string sPassword, int memberSize)
+		public Records(string sUsername, string sPassword)
 		{
 			lib = new MovieCollection();
-			reg = new MemberCollection(memberSize);
+			reg = new MemberCollection(1000);
 
 			staffUsername = sUsername;
             staffPassword = sPassword;
+		}
+
+		// Reset database (useful for test plans)
+		public static void Reset()
+        {
+			lib = new MovieCollection();
+			reg = new MemberCollection(1000);
 		}
 	}
 }
