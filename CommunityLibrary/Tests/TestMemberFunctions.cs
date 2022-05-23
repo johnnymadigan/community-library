@@ -7,11 +7,89 @@ namespace CommunityLibrary
 	{
 		public static void RunAllTests()
 		{
+            TestDisplayAllMovies();
+            TestDisplayMovieInfo();
             TestBorrowDVD();
             TestReturnDVD();
             TestDisplayCurrentBorrowings();
             TestTopThree();
 		}
+
+
+
+        public static void TestDisplayAllMovies()
+        {
+            Console.WriteLine("\n===== DisplayAllMovies test plan =====");
+            Records.Reset();
+
+            // TEST DATA
+            IMovie a = new Movie("potc", MovieGenre.Action, MovieClassification.M15Plus, 100, 5);
+            IMovie b = new Movie("eeaao", MovieGenre.Action, MovieClassification.M15Plus, 100, 5);
+            
+
+            // SCENARIO #1: LIBRARY EMPTY, NO MOVIES TO DISPLAY
+            string result = MemberFunctions.DisplayAllMovies();
+            if (result.Equals(""))
+                Console.WriteLine("DisplayAllMovies test PASSED: Library empty, no movies to display");
+            else Console.WriteLine("DisplayAllMovies test FAILED: Library empty, no movies to display");
+
+            // SCENARIO #2: ADDED 2 MOVIES, DISPLAYS BOTH
+            Records.lib.Insert(a);
+            Records.lib.Insert(b);
+
+            result = MemberFunctions.DisplayAllMovies();
+            if (result.Contains(a.Title) && result.Contains(b.Title))
+                Console.WriteLine("DisplayAllMovies test PASSED: Added 2 movies, displays both");
+            else Console.WriteLine("DisplayAllMovies test FAILED: Added 2 movies, displays both");
+
+            // SCENARIO #3: REMOVED 1 EXISTING MOVIE, DOES NOT DISPLAY REMOVED MOVIE
+            Records.lib.Delete(b);
+
+            result = MemberFunctions.DisplayAllMovies();
+            if (result.Contains(a.Title) && !result.Contains(b.Title))
+                Console.WriteLine("DisplayAllMovies test PASSED: Removed 1 existing movie, does not display removed movie");
+            else Console.WriteLine("DisplayAllMovies test FAILED: Removed 1 existing movie, does not display removed movie");
+        }
+
+
+
+        public static void TestDisplayMovieInfo()
+        {
+            Console.WriteLine("\n===== DisplayMovieInfo test plan =====");
+            Records.Reset();
+
+            // TEST DATA
+            IMovie a = new Movie("potc", MovieGenre.Action, MovieClassification.M15Plus, 100, 5);
+
+            // SCENARIO #1: MOVIE DOES NOT EXIST (expecting to catch exception)
+            try
+            {
+                MemberFunctions.DisplayMovieInfo("dummy");
+                Console.WriteLine("DisplayMovieInfo test FAILED: Movie does not exist");
+            }
+            catch (CustomException)
+            {
+                Console.WriteLine("DisplayMovieInfo test PASSED: Movie does not exist");
+            }
+
+            // SCENARIO #2: MOVIE EXISTS, DISPLAYS ALL INFO
+            Records.lib.Insert(a);
+            if (a.ToString().Equals(MemberFunctions.DisplayMovieInfo(a.Title)))
+                Console.WriteLine("DisplayMovieInfo test PASSED: Movie exists, displays all info");
+            else Console.WriteLine("DisplayMovieInfo test FAILED: Movie exists, displays all info");
+
+            // SCENARIO #3: MOVIE NO LONGER EXISTS (expecting to catch exception)
+            try
+            {
+                Records.lib.Delete(a);
+                MemberFunctions.DisplayMovieInfo(a.Title);
+                Console.WriteLine("DisplayMovieInfo test FAILED: Movie removed and now no longer displays info");
+            }
+            catch (CustomException)
+            {
+                Console.WriteLine("DisplayMovieInfo test PASSED: Movie removed and now no longer displays info");
+            }
+        }
 
 
 
