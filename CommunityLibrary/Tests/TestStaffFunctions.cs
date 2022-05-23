@@ -5,8 +5,9 @@ namespace CommunityLibrary
 {
 	public class TestStaffFunctions
 	{
-		public TestStaffFunctions()
+		public static void RunAllTests()
 		{
+			/* todo */
 		}
 	}
 }

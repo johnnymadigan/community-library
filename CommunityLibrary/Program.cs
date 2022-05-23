@@ -11,6 +11,7 @@ namespace CommunityLibrary
         {
             new Records("staff", "today123");
 
+            TestStaffFunctions.RunAllTests();
             TestMemberFunctions.RunAllTests();
 
             //MainMenu.DisplayMainMenu();
