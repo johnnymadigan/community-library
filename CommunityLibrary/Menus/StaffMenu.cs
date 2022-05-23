@@ -1,5 +1,5 @@
 ﻿// STAFF SUB-MENU
-// All display/user-inputs for the sub-menu and each option
+// All displays/user-inputs for the sub-menu and each option
 // Options utilise corresponding functions (see StaffFunctions)
 using System;
 
@@ -105,11 +105,24 @@ namespace CommunityLibrary
 				Console.Write("Movie title: ");
 				string t = Console.ReadLine();
 
+				int copies;
+				Console.Write("Copies to add: ");
+
+				while (true)
+				{
+					if (int.TryParse(Console.ReadLine(), out copies)) break;
+					else Console.Write("\nCopies must be a number, please try again: ");
+				}
+
+
 				// SCENARIO 1: movie already exists therefore total copies is updated (function returns TRUE)
 				try
-                {
-					Records.lib.Search(new Movie(t));
-					Console.Write($"\nTotal copies of ({t}) now {StaffFunctions.AddDVD(t)}, enter any key to continue: ");
+				{
+					// Boilerplate to confirm action
+					Console.Write($"\nEnter any key to add {copies} copies of ({t}) to the library, 0 to cancel: ");
+					if (Console.ReadLine().Equals("0")) return;
+
+					Console.Write($"\nTotal copies of ({t}) now {StaffFunctions.AddDVD(t, copies)}, enter any key to continue: ");
 					Console.ReadLine();
 					return;
 				}
@@ -209,14 +222,23 @@ namespace CommunityLibrary
 				Console.Write("Movie title: ");
 				string t = Console.ReadLine();
 
+				int copies;
+				Console.Write("Copies to remove: ");
+
+				while (true)
+				{
+					if (int.TryParse(Console.ReadLine(), out copies)) break;
+					else Console.Write("\nCopies must be a number, please try again: ");
+				}
+
 				// Boilerplate to confirm action
-				Console.Write($"\nEnter any key to remove a copy of ({t}) from the library, 0 to cancel: ");
+				Console.Write($"\nEnter any key to remove {copies} copies of ({t}) from the library, 0 to cancel: ");
 				if (Console.ReadLine().Equals("0")) return;
 
 
 				try // TRY TO REMOVE MOVIE DVD
 				{
-					int total = StaffFunctions.RemoveDVD(t);
+					int total = StaffFunctions.RemoveDVD(t, copies);
 
 					if (total <= 0) Console.Write($"\nMovie ({t}) deleted as all copies removed, enter any key to continue: ");
 					else Console.Write($"\nTotal copies of ({t}) now {total}, enter any key to continue: ");

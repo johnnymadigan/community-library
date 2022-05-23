@@ -1,5 +1,5 @@
 ﻿// MEMBER SUB-MENU
-// All display/user-inputs for the sub-menu and each option
+// All displays/user-inputs for the sub-menu and each option
 // Options utilise corresponding functions (see MemberFunctions)
 using System;
 

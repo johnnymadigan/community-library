@@ -10,7 +10,10 @@ namespace CommunityLibrary
         static void Main(string[] args)
         {
             new Records("staff", "today123");
-            MainMenu.DisplayMainMenu();
+
+            TestMemberFunctions.RunAllTests();
+
+            //MainMenu.DisplayMainMenu();
         }
     }
 }

@@ -23,7 +23,7 @@ namespace CommunityLibrary
 		// Add new DVDs of a movie to the system (EXISTING MOVIE)
 		// Pre-condition: Nil
 		// Post-condition: Increment total/available copies and return the new total copies of the movie
-		public static int AddDVD(string title)
+		public static int AddDVD(string title, int copies)
 		{
 			IMovie movieRef = Records.lib.Search(title); // get reference to the movie obj from records
 
@@ -31,8 +31,8 @@ namespace CommunityLibrary
 			else if (movieRef == null) throw new CustomException($"({title}) does not exist in library");
 			else
 			{
-				movieRef.TotalCopies++;
-				movieRef.AvailableCopies++;
+				movieRef.TotalCopies+= copies;
+				movieRef.AvailableCopies+= copies;
 				return movieRef.TotalCopies;
 			}
 		}
@@ -43,16 +43,19 @@ namespace CommunityLibrary
 		// Remove DVDs of a movie from the system
 		// Pre-condition: Nil
 		// Post-condition: Decrement total/available copies and return the new total or -1 if the movie has been deleted
-		public static int RemoveDVD(string title)
+		public static int RemoveDVD(string title, int copies)
 		{
 			IMovie movieRef = Records.lib.Search(title); // get reference to the movie obj from records
 
+			// Note 3rd condition: if available copies = total copes, then no DVDs are being borrowed, therefore remove any amount...
+			// and if removing anything >= total, then delete movie
 			if (movieRef == null) throw new CustomException($"({title}) does not exist in library");
 			else if (movieRef.AvailableCopies <= 0) throw new CustomException($"Members borrowing all remaining DVDs of ({title}), please return first");
+			else if (copies > movieRef.AvailableCopies && movieRef.AvailableCopies != movieRef.TotalCopies) throw new CustomException($"Cannot remove {copies} DVDs of ({title}) as members still borrowing some, please return first or choose less DVDs to remove...\n");
 			else
-            {
-				movieRef.TotalCopies--;
-				movieRef.AvailableCopies--;
+			{
+				movieRef.TotalCopies-= copies;
+				movieRef.AvailableCopies-= copies;
 
 				// delete from library if no more copies, otherwise return the new total
 				if (movieRef.TotalCopies <= 0)

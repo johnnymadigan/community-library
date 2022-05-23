@@ -1,4 +1,7 @@
-﻿using System;
+﻿// MAIN MENU
+// All displays/user-inputs for the main-menu and each option
+// Branches off to sub-menus (staff and member)
+using System;
 
 namespace CommunityLibrary
 {

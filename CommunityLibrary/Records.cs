@@ -1,9 +1,6 @@
 ﻿// RECORDS
 // An accessible database comprising of registered members + movie library
 // Only Staff/Member menu and function classes accesses these records
-using System;
-using System.Collections.Generic;
-
 namespace CommunityLibrary
 {
 	public class Records
