@@ -103,7 +103,7 @@ namespace CommunityLibrary
 		// Determine the top 3 popular movies and return their titles with number of times borrowed
 		// Pre-condition: Nil
 		// Post-condition: Return top 3 popular movies' titles and times borrowed, in string format
-		public static string TopThree()
+		public static IMovie[] TopThree()
 		{
 			IMovie[] movies = Records.lib.ToArray();
 
@@ -132,14 +132,12 @@ namespace CommunityLibrary
 				else if (m.NoBorrowings > third.NoBorrowings) third = m;
 			}
 
-			// Format string
-			string firstNoBorrowings = (!first.Title.Equals("")) ? $"({first.Title}) borrowed {first.NoBorrowings} times" : "nil";
-			string secondNoBorrowings = (!second.Title.Equals("")) ? $"({second.Title}) borrowed {second.NoBorrowings} times" : "nil";
-			string thirdNoBorrowings = (!third.Title.Equals("")) ? $"({third.Title}) borrowed {third.NoBorrowings} times" : "nil";
+			// return ranking
+			if (first.Title.Equals("")) first = null;
+			if (second.Title.Equals("")) second = null;
+			if (third.Title.Equals("")) third = null;
 
-			return $"1st: {firstNoBorrowings}\n" +
-                $"2nd: {secondNoBorrowings}\n" +
-                $"3rd: {thirdNoBorrowings}\n";
+			return new IMovie[] { first, second, third };
 		}
 	}
 }

@@ -265,8 +265,16 @@ namespace CommunityLibrary
 				Header();
 				Console.WriteLine("DISPLAYING TOP 3 MOVIES...");
 
-				Console.Write($"\n{MemberFunctions.TopThree()}");
-				Console.Write($"\nEnter any key to continue: ");
+				IMovie[] ranking = MemberFunctions.TopThree();
+
+				// display result
+				for (int i = 0; i < ranking.Length; i++)
+				{
+					if (ranking[i] != null) Console.WriteLine($"{i + 1}. {ranking[i].Title} borrowed {ranking[i].NoBorrowings}x");
+					else Console.WriteLine($"{i + 1}. nil");
+				}
+
+				Console.Write("\nEnter any key to continue: ");
 				Console.ReadLine();
 				return;
 			}
