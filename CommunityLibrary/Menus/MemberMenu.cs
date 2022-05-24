@@ -74,7 +74,7 @@ namespace CommunityLibrary
 				}
 				if (authenticated) break; // second break from bigger loop
 				
-				Console.Write("\nInvalid credentials, enter any key to try again, 0 to return to main menu: ");
+				Console.Write("\n! Invalid credentials - Enter any key to try again, 0 to cancel: ");
 				if (Console.ReadLine().Equals("0")) return; // return to MAIN MENU
 			}
 
@@ -127,9 +127,8 @@ namespace CommunityLibrary
 			while (true)
 			{
 				Header();
-				Console.WriteLine("DISPLAYING INFO ON ALL MOVIES...");
-
-				Console.Write($"\n{MemberFunctions.DisplayAllMovies()}");
+				Console.WriteLine("DISPLAYING INFO ON ALL MOVIES...\n");
+				MemberFunctions.DisplayAllMovies();
 				Console.Write($"\nEnter any key to continue: ");
 				Console.ReadLine();
 				return;
@@ -150,21 +149,17 @@ namespace CommunityLibrary
 				Console.Write("Movie title: ");
 				string t = Console.ReadLine();
 
-				// Boilerplate to confirm action
-				Console.Write($"\nEnter any key to display all info for ({t}), 0 to cancel: ");
-				if (Console.ReadLine().Equals("0")) return;
-
-
 				try // TRY TO DISPLAY ALL INFO FOR THIS MOVIE
 				{
-					Console.Write($"\n({MemberFunctions.DisplayMovieInfo(t)})\n");
+					Console.WriteLine("");
+					MemberFunctions.DisplayMovieInfo(t);
 					Console.Write($"\nEnter any key to continue: ");
 					Console.ReadLine();
 					return;
 				}
 				catch (CustomException x)
 				{
-					Console.Write($"\nFailed - {x.Message}, enter any key to try again, 0 to cancel: ");
+					Console.Write($"! {x.Message} - Enter any key to try again, 0 to cancel: ");
 					if (Console.ReadLine().Equals("0")) return;
 				}
 			}
@@ -189,15 +184,15 @@ namespace CommunityLibrary
 
 				try // TRY TO BORROW MOVIE
 				{
-					if (!MemberFunctions.BorrowDVD(movie, loggedInMember)) Console.Write($"\nFailed - At max borrowers for this movie, enter any key to continue: ");
-					else Console.Write($"\nBorrowed ({movie.Title}), enter any key to continue: ");
+					if (!MemberFunctions.BorrowDVD(movie, loggedInMember)) Console.Write($"\n! At max borrowers for this movie - Enter any key to continue: ");
+					else Console.Write($"\nBorrowed ({movie.Title}) - Enter any key to continue: ");
 
 					Console.ReadLine();
 					return;
 				}
 				catch (CustomException x)
 				{
-					Console.Write($"\nFailed - {x.Message}, enter any key to try again, 0 to cancel: ");
+					Console.Write($"\n! {x.Message} - Enter any key to try again, 0 to cancel: ");
 					if (Console.ReadLine().Equals("0")) return;
 				}
 			}
@@ -222,15 +217,15 @@ namespace CommunityLibrary
 
 				try // TRY TO RETURN MOVIE
 				{
-					if (!MemberFunctions.ReturnDVD(movie, loggedInMember)) Console.Write($"\nNot currently borrowing ({movie.Title}), enter any key to continue: ");
-					else Console.Write($"\nReturned ({movie.Title}), enter any key to continue: ");
+					if (!MemberFunctions.ReturnDVD(movie, loggedInMember)) Console.Write($"\n! Not currently borrowing ({movie.Title}) - Enter any key to continue: ");
+					else Console.Write($"\nReturned ({movie.Title}) - Enter any key to continue: ");
 
 					Console.ReadLine();
 					return;
 				}
 				catch (CustomException x)
 				{
-					Console.Write($"\nFailed - {x.Message}, enter any key to try again, 0 to cancel: ");
+					Console.Write($"\n! {x.Message} - Enter any key to try again, 0 to cancel: ");
 					if (Console.ReadLine().Equals("0")) return;
 				}
 			}
@@ -245,9 +240,8 @@ namespace CommunityLibrary
 			while (true)
 			{
 				Header();
-				Console.WriteLine("DISPLAYING YOUR CURRENT BORROWINGS...");
-
-				Console.Write($"\n{MemberFunctions.DisplayCurrentBorrowings(loggedInMember)}");
+				Console.WriteLine("DISPLAYING YOUR CURRENT BORROWINGS...\n");
+				MemberFunctions.DisplayCurrentBorrowings(loggedInMember);
 				Console.Write($"\nEnter any key to continue: ");
 				Console.ReadLine();
 				return;
@@ -263,17 +257,8 @@ namespace CommunityLibrary
 			while (true)
 			{
 				Header();
-				Console.WriteLine("DISPLAYING TOP 3 MOVIES...");
-
-				IMovie[] ranking = MemberFunctions.TopThree();
-
-				// display result
-				for (int i = 0; i < ranking.Length; i++)
-				{
-					if (ranking[i] != null) Console.WriteLine($"{i + 1}. {ranking[i].Title} borrowed {ranking[i].NoBorrowings}x");
-					else Console.WriteLine($"{i + 1}. nil");
-				}
-
+				Console.WriteLine("DISPLAYING TOP 3 MOVIES...\n");
+				MemberFunctions.TopThree();
 				Console.Write("\nEnter any key to continue: ");
 				Console.ReadLine();
 				return;

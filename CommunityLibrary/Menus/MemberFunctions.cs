@@ -13,8 +13,8 @@ namespace CommunityLibrary
 		// OPTION 1 ===========================================================
 		// Get information about all movies in dictionary order (via titles) and include current available copies
 		// Pre-condition: Nil
-		// Post-condition: Return information on all movies in dictionary order, in string format
-		public static string DisplayAllMovies()
+		// Post-condition: Display information on all movies in dictionary order
+		public static void DisplayAllMovies()
 		{
 			IMovie[] movies = Records.lib.ToArray();
 			string s = "";
@@ -22,7 +22,8 @@ namespace CommunityLibrary
 			// Each movie contains title, genre, classification, duration, and available copies
 			foreach (IMovie m in movies) s += $"({m.ToString()})\n";
 
-			return s; // string will be empty if there were no movies
+			if (s.Equals("")) Console.WriteLine("Library empty...");
+			else Console.Write(s);
 		}
 
 
@@ -30,13 +31,13 @@ namespace CommunityLibrary
 		// OPTION 2 ===========================================================
 		// Get information on a specific movies given the title
 		// Pre-condition: Nil
-		// Post-condition: Return information on a specfic movies given the title
-		public static string DisplayMovieInfo(string title)
+		// Post-condition: Display information on a specfic movies given the title
+		public static void DisplayMovieInfo(string title)
 		{
 			IMovie movieRef = Records.lib.Search(title); // Get reference to the movie object
 
 			if (movieRef == null) throw new CustomException($"({title}) does not exist");
-			else return movieRef.ToString(); // Return movie's title, genre, classification, duration, and available copies
+			else Console.WriteLine($"({movieRef.ToString()})"); // Display title, genre, classification, duration, and available copies
 		}
 
 
@@ -81,8 +82,8 @@ namespace CommunityLibrary
 		// OPTION 5 ===========================================================
 		// Get a list of all movies that a member is currently borrowing
 		// Pre-condition: Member is registered
-		// Post-condition: Return information on all movies a member is borrowing in string format
-		public static string DisplayCurrentBorrowings(IMember member)
+		// Post-condition: Display information on all movies a member is borrowing
+		public static void DisplayCurrentBorrowings(IMember member)
         {
 			List<IMovie> borrowings = new List<IMovie>(); // Get member's borrowings
 
@@ -94,7 +95,9 @@ namespace CommunityLibrary
 			// Each movie contains title, genre, classification, duration, and available copies
 			foreach (IMovie m in borrowings) s += $"({m.ToString()})\n";
 
-			return s; // string will be empty if there were no movies
+			// display current borrowings
+			if (s.Equals("")) Console.WriteLine("No current borrowings...");
+			else Console.Write(s);
 		}
 
 
@@ -102,42 +105,38 @@ namespace CommunityLibrary
 		// OPTION 6 ===========================================================
 		// Determine the top 3 popular movies and return their titles with number of times borrowed
 		// Pre-condition: Nil
-		// Post-condition: Return top 3 popular movies' titles and times borrowed, in string format
-		public static IMovie[] TopThree()
+		// Post-condition: Display top 3 popular movies' titles and times borrowed
+		public static void TopThree()
 		{
 			IMovie[] movies = Records.lib.ToArray();
 
-			// All movies require titles when added, therefore no existing movie can match this dummy
-			// This dummy's number of borrows is evaulated as 0 in the conditions below (can be seen when debugging)
-			IMovie dummy = new Movie(""); 
-
-			IMovie first = dummy;
-			IMovie second = dummy;
-			IMovie third = dummy;
+			// All movies require titles when added, therefore no existing movie can match these placeholders
+			// These placeholders's number of borrows is evaulated as 0 in the conditions below (can be seen when debugging)
+			IMovie[] ranking = new IMovie[] { new Movie(""), new Movie(""), new Movie("") }; 
 
 			// Compare each movie via their number of times borrowed, and rank them accordingly
 			foreach (IMovie m in movies)
 			{
-				if (m.NoBorrowings > first.NoBorrowings)
+				if (m.NoBorrowings > ranking[0].NoBorrowings)
                 {
-					third = second;
-					second = first;
-					first = m;
+					ranking[2] = ranking[1];
+					ranking[1] = ranking[0];
+					ranking[0] = m;
                 }
-				else if (m.NoBorrowings > second.NoBorrowings)
+				else if (m.NoBorrowings > ranking[1].NoBorrowings)
 				{
-					third = second;
-					second = m;
+					ranking[2] = ranking[1];
+					ranking[1] = m;
 				}
-				else if (m.NoBorrowings > third.NoBorrowings) third = m;
+				else if (m.NoBorrowings > ranking[2].NoBorrowings) ranking[2] = m;
 			}
 
-			// return ranking
-			if (first.Title.Equals("")) first = null;
-			if (second.Title.Equals("")) second = null;
-			if (third.Title.Equals("")) third = null;
-
-			return new IMovie[] { first, second, third };
+			// display ranking
+			for (int i = 0; i < ranking.Length; i++)
+			{
+				if (!ranking[i].Title.Equals("")) Console.WriteLine($"{i + 1}. {ranking[i].Title} borrowed {ranking[i].NoBorrowings}x");
+				else Console.WriteLine($"{i + 1}. nil");
+			}
 		}
 	}
 }
