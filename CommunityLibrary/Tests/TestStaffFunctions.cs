@@ -66,20 +66,28 @@ namespace CommunityLibrary
 			// NEGATIVE DVDs ADDED
 			// TODO is this desired behaviour?
 			Console.WriteLine("\nCASE: TAKING AWAY TOO MANY DVDs------------------");
-			Console.WriteLine("EXPECTED:");
-			Console.WriteLine($"Number of DVDs for {added.Title}: {added.TotalCopies + -99999999}");
-
-			Console.WriteLine("\nACTUAL:");
-			Console.WriteLine($"Number of DVDs for {added.Title}: {StaffFunctions.AddDVD("evangelion", -99999999)}");
+			try
+            {
+				StaffFunctions.AddDVD("evangelion", -99999999);
+				Console.WriteLine("SCENARIO PASSED: Member tries to take away too many DVDs through adding");
+			}
+			catch
+			{
+				Console.WriteLine("SCENARIO FAILED: Member tries to take away too many DVDs through adding");
+			}
 			
 			// NEGATIVE DVDs ????
 			// TODO is this desired behaviour?
 			Console.WriteLine("\nCASE: HAVING NEGATIVE DVDs?????------------------");
-			Console.WriteLine("EXPECTED:");
-			Console.WriteLine($"Number of DVDs for {added.Title}: {added.TotalCopies + -99999999}");
-
-			Console.WriteLine("\nACTUAL:");
-			Console.WriteLine($"Number of DVDs for {added.Title}: {StaffFunctions.AddDVD("evangelion", -99999999)}");
+			try
+			{
+				StaffFunctions.AddDVD("evangelion", -99999999);
+				Console.WriteLine("SCENARIO PASSED: Member tries to add negative DVDs");
+			}
+			catch
+			{
+				Console.WriteLine("SCENARIO FAILED: Member tries to add negative DVDs");
+			}
 
 			// TRIED TO ADD DVD WITH NO TITLE
 			Console.WriteLine("\nCASE: ADDING A DVD FOR A MOVIE THAT DOES NOT EXIST------------------");

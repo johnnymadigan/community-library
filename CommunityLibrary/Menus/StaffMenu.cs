@@ -110,9 +110,9 @@ namespace CommunityLibrary
 
 				while (true)
 				{
-					// no need to reset default value to try again since if the user input failed...
+					// no need to reset copies' value to try again since if the user input failed...
 					// the current val after tryparse will still be negative anyway
-					if (int.TryParse(Console.ReadLine(), out copies) && copies >= 0) break;
+					if (int.TryParse(Console.ReadLine(), out copies) && copies > 0) break;
 					else Console.Write("\nCopies must be a positive number, please try again: ");
 				}
 
@@ -178,9 +178,9 @@ namespace CommunityLibrary
 
 					while (true)
 					{
-						// no need to reset default value to try again since if the user input failed...
+						// no need to reset duration' value to try again since if the user input failed...
 						// the current val after tryparse will still be negative anyway
-						if (int.TryParse(Console.ReadLine(), out d) && d >= 0) break;
+						if (int.TryParse(Console.ReadLine(), out d) && d > 0) break;
 						else Console.Write("\nDuration must be a positive number, please try again: ");
 					}
 
@@ -223,9 +223,9 @@ namespace CommunityLibrary
 
 				while (true)
 				{
-					// no need to reset default value to try again since if the user input failed...
+					// no need to reset copies' value to try again since if the user input failed...
 					// the current val after tryparse will still be negative anyway
-					if (int.TryParse(Console.ReadLine(), out copies) && copies >= 0) break;
+					if (int.TryParse(Console.ReadLine(), out copies) && copies > 0) break;
 					else Console.Write("\nCopies must be a positive number, please try again: ");
 				}
 

@@ -31,6 +31,7 @@ namespace CommunityLibrary
 			// regex matches strings that contain at least 1 non-whitespace character to avoid blank titles 
 			if (!Regex.IsMatch(title, @"^(?!\s*$).+")) throw new ArgumentNullException(); // All movies need a title
 			else if (movieRef == null) throw new CustomException($"({title}) does not exist in library yet");
+			else if (copies <= 0) throw new CustomException($"Copies and duration must be a positive number");
 			else
 			{
 				movieRef.TotalCopies+= copies;
@@ -53,6 +54,7 @@ namespace CommunityLibrary
 			// and if removing anything >= total, then delete movie
 			if (movieRef == null) throw new CustomException($"({title}) does not exist");
 			else if (movieRef.AvailableCopies <= 0) throw new CustomException($"Members borrowing all remaining DVDs of ({title}), please return first");
+			else if (copies <= 0) throw new CustomException($"Copies must be a positive number");
 			else if (copies > movieRef.AvailableCopies && movieRef.AvailableCopies != movieRef.TotalCopies) throw new CustomException($"Cannot remove {copies} DVDs of ({title}) as members still borrowing some, please return first or choose less DVDs to remove...\n");
 			else
 			{
