@@ -117,8 +117,23 @@ namespace CommunityLibrary
 
 		public static void TestRemoveDVD()
         {
+			Console.WriteLine("\n======== RemoveDVD test plan ========");
+			Records.Reset();
 
-        }
+			// TEST DATA
+
+			// MOVIE DOES NOT EXIST
+
+			// ALL MOVIES BORROWED
+
+			// SOME MOVIES BORROWED
+
+			// DELETE MORE MOVIES THAN THOSE THAT ARE BORROWED
+
+			// DELETE ALL AVAILABLE MOVIES 
+
+			Records.Reset();
+		}
 
 		public static void TestRegisterMember()
         {
@@ -341,8 +356,58 @@ namespace CommunityLibrary
 
 		public static void TestDisplayMovieBorrowers()
         {
+			Console.WriteLine("\n======== DisplayBorrowers test plan ========");
+			Records.Reset();
 
-        }
+			// TEST DATA
+			IMovie added = new Movie("evangelion", MovieGenre.Action, MovieClassification.M15Plus, 100, 1);
+			Records.lib.Insert(added);
+
+			IMember a = new Member("jamie", "a");
+			IMember b = new Member("jamie", "b");
+			IMember c = new Member("jamie", "c");
+			IMember d = new Member("jamie", "d");
+			IMember e = new Member("jamie", "e");
+			IMember f = new Member("jamie", "f");
+			IMember g = new Member("jamie", "g");
+			IMember h = new Member("jamie", "h");
+
+			StaffFunctions.AddDVD("evangelion", 10);
+
+			MemberFunctions.BorrowDVD(added, a);
+			MemberFunctions.BorrowDVD(added, b);
+			MemberFunctions.BorrowDVD(added, c);
+			MemberFunctions.BorrowDVD(added, d);
+
+			// INVALID TITLE
+			Console.WriteLine("CASE: INVALID TITLE------------------");
+			Console.WriteLine("EXPECTED:");
+			Console.WriteLine($"(not a movie) does not exist");
+
+			Console.WriteLine("\nACTUAL:");
+			try
+            {
+				StaffFunctions.DisplayMovieBorrowers("not a movie");
+            }
+			catch (CustomException ce)
+            {
+				Console.WriteLine(ce.Message);
+            }
+
+			// VALID TITLE 
+			Console.WriteLine("\nCASE: VALID TITLE------------------");
+			Console.WriteLine("EXPECTED:");
+			Console.WriteLine(
+				"a, jamie" +
+                "\nb, jamie" +
+                "\nc, jamie" +
+                "\nd, jamie");
+
+			Console.WriteLine("\nACTUAL:");
+			StaffFunctions.DisplayMovieBorrowers("evangelion");
+
+			Records.Reset();
+		}
 	}
 }
 

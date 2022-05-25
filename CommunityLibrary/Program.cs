@@ -14,7 +14,7 @@ namespace CommunityLibrary
             TestStaffFunctions.RunAllTests();
             TestMemberFunctions.RunAllTests();
 
-            //MainMenu.DisplayMainMenu();
+            MainMenu.DisplayMainMenu();
         }
     }
 }

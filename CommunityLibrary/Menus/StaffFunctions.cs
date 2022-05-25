@@ -124,12 +124,12 @@ namespace CommunityLibrary
 		// Get all member's currently borrowing a specific movie
 		// Pre-condition: Nil
 		// Post-condition: Return the movie's borrowers as a string
-		public static string DisplayMovieBorrowers(string title)
+		public static void DisplayMovieBorrowers(string title)
 		{
 			IMovie movieRef = Records.lib.Search(title); // Get reference to the movie object
 
 			if (movieRef == null) throw new CustomException($"({title}) does not exist");
-			else return movieRef.Borrowers.ToString(); // Return movie's borrowers in string format
+			else Console.WriteLine(movieRef.Borrowers.ToString());
 		}
 	}
 }

@@ -386,7 +386,8 @@ namespace CommunityLibrary
 
 				try // TRY TO DISPLAY ALL MEMBERS BORROWING THIS MOVIE
 				{
-					Console.Write($"\nMembers currently borrowing ({t}):\n\n{StaffFunctions.DisplayMovieBorrowers(t)}");
+					Console.Write($"\nMembers currently borrowing ({t}):\n\n");
+					StaffFunctions.DisplayMovieBorrowers(t);
 					Console.Write($"\nEnter any key to continue: ");
 					Console.ReadLine();
 					return;
