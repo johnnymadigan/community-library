@@ -5,6 +5,7 @@
 // All methods utilise ADT interfaces
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace CommunityLibrary
 {
@@ -27,8 +28,9 @@ namespace CommunityLibrary
 		{
 			IMovie movieRef = Records.lib.Search(title); // get reference to the movie obj from records
 
-			if (title.Equals("")) throw new ArgumentNullException(); // All movies need a title
-			else if (movieRef == null) throw new CustomException($"({title}) does not exist in library");
+			// regex matches strings that contain at least 1 non-whitespace character to avoid blank titles 
+			if (!Regex.IsMatch(title, @"^(?!\s*$).+")) throw new ArgumentNullException(); // All movies need a title
+			else if (movieRef == null) throw new CustomException($"({title}) does not exist in library yet");
 			else
 			{
 				movieRef.TotalCopies+= copies;
@@ -49,7 +51,7 @@ namespace CommunityLibrary
 
 			// Note 3rd condition: if available copies = total copes, then no DVDs are being borrowed, therefore remove any amount...
 			// and if removing anything >= total, then delete movie
-			if (movieRef == null) throw new CustomException($"({title}) does not exist in library");
+			if (movieRef == null) throw new CustomException($"({title}) does not exist");
 			else if (movieRef.AvailableCopies <= 0) throw new CustomException($"Members borrowing all remaining DVDs of ({title}), please return first");
 			else if (copies > movieRef.AvailableCopies && movieRef.AvailableCopies != movieRef.TotalCopies) throw new CustomException($"Cannot remove {copies} DVDs of ({title}) as members still borrowing some, please return first or choose less DVDs to remove...\n");
 			else
@@ -75,11 +77,11 @@ namespace CommunityLibrary
 		// Post-condition: Add (register) member, throw an exception if dupe or contact/pin invalid
 		public static void RegisterMember(IMember member)
 		{
-			if (Records.reg.Search(member)) throw new CustomException($"({member.FirstName} {member.LastName}) already registered");
-			
-			if (member.FirstName.Equals("") || member.LastName.Equals("")) throw new ArgumentNullException(); // All members need a name
+			// regex matches strings that contain at least 1 non-whitespace character to avoid blank names 
+			if (!Regex.IsMatch(member.FirstName, @"^(?!\s*$).+") || !Regex.IsMatch(member.LastName, @"^(?!\s*$).+")) throw new ArgumentNullException(); // All members need a name
+			else if (Records.reg.Search(member)) throw new CustomException($"({member.FirstName} {member.LastName}) already registered");
 			else if (!IMember.IsValidContactNumber(member.ContactNumber)) throw new CustomException($"({member.ContactNumber}) is an invalid contact #");
-			else if (Records.reg.IsFull()) throw new CustomException($"Max member limit reached!");
+			else if (Records.reg.IsFull()) throw new CustomException($"Max member limit reached");
 			else if (!IMember.IsValidPin(member.Pin)) throw new CustomException($"({member.Pin}) is an invalid PIN");
 			else Records.reg.Add(member);
 		}
@@ -107,16 +109,13 @@ namespace CommunityLibrary
 		// OPTION 5 ===========================================================
 		// Get a registered member's contact number
 		// Pre-condition: Nil
-		// Post-condition: Return the regitered member's contact number as a string
+		// Post-condition: Display the regitered member's contact number
 		public static void DisplayContactNumber(IMember member)
         {
 			IMember memberRef = Records.reg.Find(member); // Get reference to the member object
 
 			if (memberRef == null) throw new CustomException($"({member.FirstName} {member.LastName}) does not exist");
-			else
-			{
-				Console.WriteLine($"({memberRef.FirstName} {memberRef.LastName})'s contact number is {memberRef.ContactNumber}");
-			}
+			else Console.WriteLine($"({memberRef.FirstName} {memberRef.LastName})'s contact # is {memberRef.ContactNumber}");
 		}
 
 

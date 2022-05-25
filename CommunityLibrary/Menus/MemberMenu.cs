@@ -74,7 +74,7 @@ namespace CommunityLibrary
 				}
 				if (authenticated) break; // second break from bigger loop
 				
-				Console.Write("\n! Invalid credentials - Enter any key to try again, 0 to cancel: ");
+				Console.Write("\nInvalid credentials, enter any key to try again, 0 to cancel: ");
 				if (Console.ReadLine().Equals("0")) return; // return to MAIN MENU
 			}
 
@@ -159,7 +159,7 @@ namespace CommunityLibrary
 				}
 				catch (CustomException x)
 				{
-					Console.Write($"! {x.Message} - Enter any key to try again, 0 to cancel: ");
+					Console.Write($"Failed - {x.Message}, enter any key to try again, 0 to cancel: ");
 					if (Console.ReadLine().Equals("0")) return;
 				}
 			}
@@ -184,15 +184,15 @@ namespace CommunityLibrary
 
 				try // TRY TO BORROW MOVIE
 				{
-					if (!MemberFunctions.BorrowDVD(movie, loggedInMember)) Console.Write($"\n! At max borrowers for this movie - Enter any key to continue: ");
-					else Console.Write($"\nBorrowed ({movie.Title}) - Enter any key to continue: ");
+					if (!MemberFunctions.BorrowDVD(movie, loggedInMember)) Console.Write($"\nFailed - At max borrowers for this movie, enter any key to continue: ");
+					else Console.Write($"\nBorrowed ({movie.Title}), enter any key to continue: ");
 
 					Console.ReadLine();
 					return;
 				}
 				catch (CustomException x)
 				{
-					Console.Write($"\n! {x.Message} - Enter any key to try again, 0 to cancel: ");
+					Console.Write($"\nFailed - {x.Message}, enter any key to try again, 0 to cancel: ");
 					if (Console.ReadLine().Equals("0")) return;
 				}
 			}
@@ -217,15 +217,15 @@ namespace CommunityLibrary
 
 				try // TRY TO RETURN MOVIE
 				{
-					if (!MemberFunctions.ReturnDVD(movie, loggedInMember)) Console.Write($"\n! Not currently borrowing ({movie.Title}) - Enter any key to continue: ");
-					else Console.Write($"\nReturned ({movie.Title}) - Enter any key to continue: ");
+					if (!MemberFunctions.ReturnDVD(movie, loggedInMember)) Console.Write($"\nFailed - Not currently borrowing ({movie.Title}), enter any key to continue: ");
+					else Console.Write($"\nReturned ({movie.Title}), enter any key to continue: ");
 
 					Console.ReadLine();
 					return;
 				}
 				catch (CustomException x)
 				{
-					Console.Write($"\n! {x.Message} - Enter any key to try again, 0 to cancel: ");
+					Console.Write($"\nFailed - {x.Message}, enter any key to try again, 0 to cancel: ");
 					if (Console.ReadLine().Equals("0")) return;
 				}
 			}
