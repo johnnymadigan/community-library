@@ -8,6 +8,7 @@ namespace CommunityLibrary
 		public static void RunAllTests()
 		{
 			TestAddDVD();
+			TestAddSingleDVD();
 			TestRemoveDVD();
 			TestRegisterMember();
 			TestDeregisterMember();
@@ -17,8 +18,102 @@ namespace CommunityLibrary
 
 		public static void TestAddDVD()
         {
+			Console.WriteLine("\n======== AddDVD test plan ========"); // This is for completion's sake, this was implemented in A2
+			Records.Reset();
 
-        }
+			// TEST DATA
+			IMovie added = new Movie("evangelion", MovieGenre.Action, MovieClassification.M15Plus, 100, 1);
+
+			// ADD MOVIE
+			Console.WriteLine("CASE: ADDING A MOVIE------------------");
+			Console.WriteLine("EXPECTED:");
+			Console.WriteLine("Movie list length before adding: " + Records.lib.Number);
+
+			Console.WriteLine("\nACTUAL:");
+			Records.lib.Insert(added);
+			Console.WriteLine("Movie list length after adding: " + Records.lib.Number);
+
+			Records.Reset();
+		}
+
+		public static void TestAddSingleDVD()
+        {
+			Console.WriteLine("\n======== AddSingleDVD test plan ========");
+			Records.Reset();
+
+			// TEST DATA
+			IMovie notAdded = new Movie("midsommar", MovieGenre.Action, MovieClassification.M15Plus, 100, 1);
+			IMovie added = new Movie("evangelion", MovieGenre.Action, MovieClassification.M15Plus, 100, 1);
+			StaffFunctions.AddDVD(added);
+
+
+			// DVD ADDED SUCCESSFULLY
+			Console.WriteLine("CASE: ADDING A DVD------------------");
+			Console.WriteLine("EXPECTED:");
+			Console.WriteLine($"Number of DVDs for {added.Title}: {added.TotalCopies + 1}");
+
+			Console.WriteLine("\nACTUAL:");
+			Console.WriteLine($"Number of DVDs for {added.Title}: {StaffFunctions.AddDVD("evangelion", 1)}");
+
+			// MANY DVDs ADDED SUCCESSFULLY
+			Console.WriteLine("\nCASE: ADDING TOO MANY DVDs------------------");
+			Console.WriteLine("EXPECTED:");
+			Console.WriteLine($"Number of DVDs for {added.Title}: {added.TotalCopies + 99999999}");
+
+			Console.WriteLine("\nACTUAL:");
+			Console.WriteLine($"Number of DVDs for {added.Title}: {StaffFunctions.AddDVD("evangelion", 99999999)}");
+
+			// NEGATIVE DVDs ADDED
+			// TODO is this desired behaviour?
+			Console.WriteLine("\nCASE: TAKING AWAY TOO MANY DVDs------------------");
+			Console.WriteLine("EXPECTED:");
+			Console.WriteLine($"Number of DVDs for {added.Title}: {added.TotalCopies + -99999999}");
+
+			Console.WriteLine("\nACTUAL:");
+			Console.WriteLine($"Number of DVDs for {added.Title}: {StaffFunctions.AddDVD("evangelion", -99999999)}");
+			
+			// NEGATIVE DVDs ????
+			// TODO is this desired behaviour?
+			Console.WriteLine("\nCASE: HAVING NEGATIVE DVDs?????------------------");
+			Console.WriteLine("EXPECTED:");
+			Console.WriteLine($"Number of DVDs for {added.Title}: {added.TotalCopies + -99999999}");
+
+			Console.WriteLine("\nACTUAL:");
+			Console.WriteLine($"Number of DVDs for {added.Title}: {StaffFunctions.AddDVD("evangelion", -99999999)}");
+
+			// TRIED TO ADD DVD WITH NO TITLE
+			Console.WriteLine("\nCASE: ADDING A DVD FOR A MOVIE THAT DOES NOT EXIST------------------");
+			Console.WriteLine("EXPECTED:");
+			Console.WriteLine($"{notAdded.Title} does not exist in library yet");
+
+			// TRIED TO ADD DVD FOR MOVIE THAT DOES NOT EXIST
+			Console.WriteLine("\nACTUAL:");
+			try
+            {
+				StaffFunctions.AddDVD("midsommar", 1);
+            }
+			catch (CustomException ex)
+            {
+				Console.WriteLine(ex.Message);
+            }
+
+			// TRIED TO ADD DVD WITH NO TITLE
+			Console.WriteLine("\nCASE: ADDING A DVD WITH NO TITLE------------------");
+			Console.WriteLine("EXPECTED:");
+			Console.WriteLine("Failed - Titles cannot be blank, enter any key to try again, 0 to cancel:");
+
+			Console.WriteLine("\nACTUAL:");
+			try
+			{
+				StaffFunctions.AddDVD("", 1);
+			}
+			catch (ArgumentNullException)
+			{ // This catch is the success path
+				Console.WriteLine($"Failed - Titles cannot be blank, enter any key to try again, 0 to cancel: ");
+			}
+
+			Records.Reset();
+		}
 
 		public static void TestRemoveDVD()
         {
