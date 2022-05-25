@@ -360,7 +360,7 @@ namespace CommunityLibrary
 
 				try // TRY TO DISPLAY THE MEMBER'S CONTACT #
 				{
-					Console.Write($"\n({first} {last})'s contact # is ({StaffFunctions.DisplayContactNumber(new Member(first, last))})\n");
+					StaffFunctions.DisplayContactNumber(new Member(first, last));
 					Console.Write($"\nEnter any key to continue: ");
 					Console.ReadLine();
 					return;

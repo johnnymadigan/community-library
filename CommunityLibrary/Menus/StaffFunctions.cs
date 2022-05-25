@@ -107,12 +107,15 @@ namespace CommunityLibrary
 		// Get a registered member's contact number
 		// Pre-condition: Nil
 		// Post-condition: Return the regitered member's contact number as a string
-		public static string DisplayContactNumber(IMember member)
+		public static void DisplayContactNumber(IMember member)
         {
 			IMember memberRef = Records.reg.Find(member); // Get reference to the member object
 
 			if (memberRef == null) throw new CustomException($"({member.FirstName} {member.LastName}) does not exist");
-			else return memberRef.ContactNumber; // Return contact number in string format
+			else
+			{
+				Console.WriteLine($"({memberRef.FirstName} {memberRef.LastName})'s contact number is {memberRef.ContactNumber}");
+			}
 		}
 
 
