@@ -54,7 +54,7 @@ namespace CommunityLibrary
 
 				// if authenticated, break from loop to go to sub-menu, otherwise try again/exit
 				if (username.Equals(Records.staffUsername) && password.Equals(Records.staffPassword)) break;
-				Console.Write("\nInvalid credentials, enter any key to try again, 0 to return to main menu: ");
+				Console.Write("\nInvalid credentials, enter any key to try again, 0 to cancel: ");
 				if (Console.ReadLine().Equals("0")) return; // return to MAIN MENU
 			}
 
@@ -129,12 +129,14 @@ namespace CommunityLibrary
 				// SCENARIO 2: movie is new, grab all info from user and add movie to library
 				catch (ArgumentNullException)
                 {
-					Console.Write($"\nTitle cannot be empty, enter any key to try again, 0 to cancel: ");
+					Console.Write($"\nFailed - Titles cannot be blank, enter any key to try again, 0 to cancel: ");
 					if (Console.ReadLine().Equals("0")) return;
 				}
 				catch (CustomException x)
                 {
-					Console.Write($"\n{x.Message}, enter any key to add this as a new movie, 0 to cancel: ");
+					// do not say "failed" as this is a special case with this function...
+					// asking the user to input the rest of the data for the new movie
+					Console.Write($"\n{x.Message}, enter any key to add {copies} copies of this new movie, 0 to cancel: ");
 					if (Console.ReadLine().Equals("0")) return;
 
 					// Get genre
@@ -178,22 +180,12 @@ namespace CommunityLibrary
 						else Console.Write("\nDuration must be a number, please try again: ");
 					}
 
-					// Get total copies as number
-					int n;
-					Console.Write("\nTotal copies: ");
-
-					while (true)
-					{
-						if (int.TryParse(Console.ReadLine(), out n)) break;
-						else Console.Write("\nTotal copies must be a number, please try again: ");
-					}
-
 					// Boilerplate to confirm action
-					Console.Write($"\nEnter any key to add {n} copies of ({t}) to the library, 0 to cancel: ");
+					Console.Write($"\nEnter any key to add {copies} copies of ({t}) to the library, 0 to cancel: ");
 					if (Console.ReadLine().Equals("0")) return;
 
 					// ADD NEW MOVIE (this overloaded version function does not throw any exceptions so no need to try/catch)
-					if (StaffFunctions.AddDVD(new Movie(t, (MovieGenre)g, (MovieClassification)c, d, n)))
+					if (StaffFunctions.AddDVD(new Movie(t, (MovieGenre)g, (MovieClassification)c, d, copies)))
 					{
 						Console.Write($"\n({t}) added, enter any key to continue: ");
 						Console.ReadLine();
@@ -201,7 +193,7 @@ namespace CommunityLibrary
 					}
 					else // Safety check to prevent adding duplicates
 					{
-						Console.Write($"\n({t}) already exists, enter any key to try again, 0 to cancel: ");
+						Console.Write($"\nFailed - ({t}) already exists, enter any key to try again, 0 to cancel: ");
 						if (Console.ReadLine().Equals("0")) return;
 					}
 				}
@@ -289,7 +281,7 @@ namespace CommunityLibrary
 				}
 				catch (ArgumentNullException)
 				{
-					Console.Write($"\nNames cannot be empty, enter any key to try again, 0 to cancel: ");
+					Console.Write($"\nFailed - Names cannot be blank, enter any key to try again, 0 to cancel: ");
 					if (Console.ReadLine().Equals("0")) return;
 				}
 				catch (CustomException x)

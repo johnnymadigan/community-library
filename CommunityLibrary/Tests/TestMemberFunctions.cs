@@ -27,7 +27,7 @@ namespace CommunityLibrary
             IMovie b = new Movie("eeaao", MovieGenre.Action, MovieClassification.M15Plus, 100, 5);
 
             // SCENARIO #1: LIBRARY EMPTY, NO MOVIES TO DISPLAY
-            Console.WriteLine("DisplayAllMovies test SHOULD MATCH: Library empty, no movies to display");
+            Console.WriteLine("SCENARIO: Library empty, no movies to display");
             Console.WriteLine($"EXPECTED:\nLibrary empty...");
             Console.WriteLine("RESULT:");
             MemberFunctions.DisplayAllMovies();
@@ -35,14 +35,14 @@ namespace CommunityLibrary
             //// SCENARIO #2: ADDED 2 MOVIES, DISPLAYS BOTH 
             Records.lib.Insert(a);
             Records.lib.Insert(b);
-            Console.WriteLine("\nDisplayAllMovies test SHOULD MATCH: Added 2 movies, displays both in dictionary order");
+            Console.WriteLine("\nSCENARIO: Added 2 movies, displays both in dictionary order");
             Console.WriteLine($"EXPECTED:\n({b.ToString()})\n({a.ToString()})");
             Console.WriteLine("RESULT:");
             MemberFunctions.DisplayAllMovies();
 
             //// SCENARIO #3: REMOVED 1 EXISTING MOVIE, DOES NOT DISPLAY REMOVED MOVIE
             Records.lib.Delete(b);
-            Console.WriteLine("\nDisplayAllMovies test SHOULD MATCH: Removed 1 existing movie, does not display removed movie");
+            Console.WriteLine("\nSCENARIO: Removed 1 existing movie, does not display removed movie");
             Console.WriteLine($"EXPECTED:\n({a.ToString()})");
             Console.WriteLine("RESULT:");
             MemberFunctions.DisplayAllMovies();
@@ -64,16 +64,16 @@ namespace CommunityLibrary
             try
             {
                 MemberFunctions.DisplayMovieInfo("dummy");
-                Console.WriteLine("DisplayMovieInfo test FAILED: Movie does not exist");
+                Console.WriteLine("SCENARIO FAILED: Movie does not exist");
             }
             catch (CustomException)
             {
-                Console.WriteLine("DisplayMovieInfo test PASSED: Movie does not exist");
+                Console.WriteLine("SCENARIO PASSED: Movie does not exist");
             }
 
             // SCENARIO #2: MOVIE EXISTS, DISPLAYS ALL INFO
             Records.lib.Insert(a);
-            Console.WriteLine("\nDisplayMovieInfo test SHOULD MATCH: Movie exists, displays all info");
+            Console.WriteLine("\nSCENARIO: Movie exists, displays all info");
             Console.WriteLine($"EXPECTED:\n({a.ToString()})");
             Console.WriteLine("RESULT:");
             MemberFunctions.DisplayMovieInfo(a.Title);
@@ -83,11 +83,11 @@ namespace CommunityLibrary
             {
                 Records.lib.Delete(a);
                 MemberFunctions.DisplayMovieInfo(a.Title);
-                Console.WriteLine("\nDisplayMovieInfo test FAILED: Movie removed and now no longer displays info");
+                Console.WriteLine("\nSCENARIO FAILED: Movie removed and now no longer displays info");
             }
             catch (CustomException)
             {
-                Console.WriteLine("\nDisplayMovieInfo test PASSED: Movie removed and now no longer displays info");
+                Console.WriteLine("\nSCENARIO PASSED: Movie removed and now no longer displays info");
             }
             Records.Reset();
         }
@@ -126,42 +126,42 @@ namespace CommunityLibrary
             try
             {
                 MemberFunctions.BorrowDVD(new Movie("dummy"), m);
-                Console.WriteLine("BorrowDVD test FAILED: Member tries to borrow a movie that does not exist");
+                Console.WriteLine("SCENARIO FAILED: Member tries to borrow a movie that does not exist");
             }
             catch (CustomException)
             {
-                Console.WriteLine("BorrowDVD test PASSED: Member tries to borrow a movie that does not exist");
+                Console.WriteLine("SCENARIO PASSED: Member tries to borrow a movie that does not exist");
             }
 
             // SCENARIO #2: MEMBER HAS BORROWED A DVD (expecting true)
-            if (MemberFunctions.BorrowDVD(a, m)) Console.WriteLine("BorrowDVD test PASSED: Member has borrowed a DVD");
-            else Console.WriteLine("BorrowDVD test FAILED: Member has borrowed a DVD");
+            if (MemberFunctions.BorrowDVD(a, m)) Console.WriteLine("SCENARIO PASSED: Member has borrowed a DVD");
+            else Console.WriteLine("SCENARIO FAILED: Member has borrowed a DVD");
 
             // SCENARIO #3: MEMBER TRIES TO BORROW A MOVIE TWICE (expecting to catch exception)
             try
             {
                 MemberFunctions.BorrowDVD(a, m);
-                Console.WriteLine("BorrowDVD test FAILED: Member tries to borrow a movie twice");
+                Console.WriteLine("SCENARIO FAILED: Member tries to borrow a movie twice");
             }
             catch (CustomException)
             {
-                Console.WriteLine("BorrowDVD test PASSED: Member tries to borrow a movie twice");
+                Console.WriteLine("SCENARIO PASSED: Member tries to borrow a movie twice");
             }
 
             // SCENARIO #4: MEMBER TRIES TO BORROW A MOVIE W NO AVAILABLE COPIES (expecting to catch exception)
             try
             {
                 MemberFunctions.BorrowDVD(g, m);
-                Console.WriteLine("BorrowDVD test FAILED: Member tries to borrow a movie w no available copies");
+                Console.WriteLine("SCENARIO FAILED: Member tries to borrow a movie w no available copies");
             }
             catch (CustomException)
             {
-                Console.WriteLine("BorrowDVD test PASSED: Member tries to borrow a movie w no available copies");
+                Console.WriteLine("SCENARIO PASSED: Member tries to borrow a movie w no available copies");
             }
 
             // SCENARIO #5: MEMBER TRIES TO BORROW A MOVIE HOWEVER MOVIE AT MAX BORROWERS (10) (expecting false)
-            if (!MemberFunctions.BorrowDVD(h, m)) Console.WriteLine("BorrowDVD test PASSED: Member tries to borrow a movie however movie at max borrowers (10)");
-            else Console.WriteLine("BorrowDVD test FAILED: Member tries to borrow a movie however movie at max borrowers (10)");
+            if (!MemberFunctions.BorrowDVD(h, m)) Console.WriteLine("SCENARIO PASSED: Member tries to borrow a movie however movie at max borrowers (10)");
+            else Console.WriteLine("SCENARIO FAILED: Member tries to borrow a movie however movie at max borrowers (10)");
 
             // SCENARIO #6: MEMBER TRIES TO BORROW PAST BORROWING LIMIT (5) (expecting to catch exception)
             MemberFunctions.BorrowDVD(b, m);
@@ -172,11 +172,11 @@ namespace CommunityLibrary
             try
             {
                 MemberFunctions.BorrowDVD(f, m);
-                Console.WriteLine("BorrowDVD test FAILED: Member tries to borrow past borrowing limit (5)");
+                Console.WriteLine("SCENARIO FAILED: Member tries to borrow past borrowing limit (5)");
             }
             catch (CustomException)
             {
-                Console.WriteLine("BorrowDVD test PASSED: Member tries to borrow past borrowing limit (5)");
+                Console.WriteLine("SCENARIO PASSED: Member tries to borrow past borrowing limit (5)");
             }
             Records.Reset();
         }
@@ -198,21 +198,21 @@ namespace CommunityLibrary
             try
             {
                 MemberFunctions.ReturnDVD(new Movie("dummy"), m);
-                Console.WriteLine("ReturnDVD test FAILED: Member tries to return a movie that does not exist");
+                Console.WriteLine("SCENARIO FAILED: Member tries to return a movie that does not exist");
             }
             catch (CustomException)
             {
-                Console.WriteLine("ReturnDVD test PASSED: Member tries to return a movie that does not exist");
+                Console.WriteLine("SCENARIO PASSED: Member tries to return a movie that does not exist");
             }
 
             // SCENARIO #2: MEMBER HAS RETURNED A DVD (expecting true)
             a.AddBorrower(m);
-            if (MemberFunctions.ReturnDVD(a, m)) Console.WriteLine("ReturnDVD test PASSED: Member has returned a DVD");
-            else Console.WriteLine("ReturnDVD test FAILED: Member has returned a DVD");
+            if (MemberFunctions.ReturnDVD(a, m)) Console.WriteLine("SCENARIO PASSED: Member has returned a DVD");
+            else Console.WriteLine("SCENARIO FAILED: Member has returned a DVD");
 
             // SCENARIO #3: MEMBER TRIES TO A RETURN A DVD THEY ARE NOT BORROWING (expecting false)
-            if (!MemberFunctions.ReturnDVD(a, m)) Console.WriteLine("ReturnDVD test PASSED: Member tries to return a DVD they are not borrowing");
-            else Console.WriteLine("ReturnDVD test FAILED: Member tries to return a DVD they are not borrowing");
+            if (!MemberFunctions.ReturnDVD(a, m)) Console.WriteLine("SCENARIO PASSED: Member tries to return a DVD they are not borrowing");
+            else Console.WriteLine("SCENARIO FAILED: Member tries to return a DVD they are not borrowing");
             Records.Reset();
         }
 
@@ -232,7 +232,7 @@ namespace CommunityLibrary
             Records.lib.Insert(b);
 
             // SCENARIO #1: MEMBER NEVER BORROWED, BORROWINGS LIST EMPTY
-            Console.WriteLine("DisplayCurrentBorrowings test SHOULD MATCH: Member has never borrowed, displays default msg");
+            Console.WriteLine("SCENARIO: Member has never borrowed, displays default msg");
             Console.WriteLine($"EXPECTED:\nNo current borrowings...");
             Console.WriteLine("RESULT:");
             MemberFunctions.DisplayCurrentBorrowings(m);
@@ -240,14 +240,14 @@ namespace CommunityLibrary
             // SCENARIO #2: MEMBER BORROWS 2 MOVIES, BORROWINGS LIST CONTAINS BOTH MOVIES
             a.AddBorrower(m);
             b.AddBorrower(m);
-            Console.WriteLine("\nDisplayCurrentBorrowings test SHOULD MATCH: Member borrows 2 movies, display both in dictionary order");
+            Console.WriteLine("\nSCENARIO: Member borrows 2 movies, display both in dictionary order");
             Console.WriteLine($"EXPECTED:\n({b.ToString()})\n({a.ToString()})");
             Console.WriteLine("RESULT:");
             MemberFunctions.DisplayCurrentBorrowings(m);
 
             // SCENARIO #3: MEMBER RETURNS 1 MOVIES, BORROWINGS LIST CONTAINS ONE MOVIE
             b.RemoveBorrower(m);
-            Console.WriteLine("\nDisplayCurrentBorrowings test SHOULD MATCH: Member returns 1 movies, no longer displays removed movie");
+            Console.WriteLine("\nSCENARIO: Member returns 1 movies, no longer displays removed movie");
             Console.WriteLine($"EXPECTED:\n({a.ToString()})");
             Console.WriteLine("RESULT:");
             MemberFunctions.DisplayCurrentBorrowings(m);
@@ -275,7 +275,7 @@ namespace CommunityLibrary
             Records.lib.Insert(d);
 
             // SCENARIO #1: NO MOVIES EXIST/BORROWED
-            Console.WriteLine("TopThree test SHOULD MATCH: No movies borrowed, all 3 ranks are null");
+            Console.WriteLine("SCENARIO: No movies borrowed, all 3 ranks are null");
             Console.WriteLine($"EXPECTED:\n1. nil\n2. nil\n3. nil");
             Console.WriteLine("RESULT:");
             MemberFunctions.TopThree();
@@ -287,7 +287,7 @@ namespace CommunityLibrary
             a.RemoveBorrower(m);
             a.AddBorrower(m);
 
-            Console.WriteLine("\nTopThree test SHOULD MATCH: 1 movie borrowed ranked 1st, the rest null");
+            Console.WriteLine("\nSCENARIO: 1 movie borrowed ranked 1st, the rest null");
             Console.WriteLine($"EXPECTED:\n1. {a.Title} borrowed {a.NoBorrowings}x\n2. nil\n3. nil");
             Console.WriteLine("RESULT:");
             MemberFunctions.TopThree();
@@ -297,7 +297,7 @@ namespace CommunityLibrary
             b.RemoveBorrower(m);
             b.AddBorrower(m);
 
-            Console.WriteLine("\nTopThree test SHOULD MATCH: 2 movies borrowed ranked 1st and 2nd with 3rd null");
+            Console.WriteLine("\nSCENARIO: 2 movies borrowed ranked 1st and 2nd with 3rd null");
             Console.WriteLine($"EXPECTED:\n1. {a.Title} borrowed {a.NoBorrowings}x\n" +
                 $"2. {b.Title} borrowed {b.NoBorrowings}x\n3. nil");
             Console.WriteLine("RESULT:");
@@ -307,7 +307,7 @@ namespace CommunityLibrary
             c.AddBorrower(m);
             d.AddBorrower(m);
 
-            Console.WriteLine("\nTopThree test SHOULD MATCH: 3+ movies borrowed and only top 3 are ranked accordingly");
+            Console.WriteLine("\nSCENARIO: 3+ movies borrowed and only top 3 are ranked accordingly");
             Console.WriteLine($"EXPECTED:\n1. {a.Title} borrowed {a.NoBorrowings}x\n" +
                 $"2. {b.Title} borrowed {b.NoBorrowings}x\n" +
                 $"3. {c.Title} borrowed {c.NoBorrowings}x");
@@ -322,7 +322,7 @@ namespace CommunityLibrary
             c.RemoveBorrower(m);
             c.AddBorrower(m);
 
-            Console.WriteLine("\nTopThree test SHOULD MATCH: 3 movies borrowed for the same amount, ranked in dictionary order");
+            Console.WriteLine("\nSCENARIO: 3 movies borrowed for the same amount, ranked in dictionary order");
             Console.WriteLine($"EXPECTED:\n1. {c.Title} borrowed {c.NoBorrowings}x\n" +
                 $"2. {b.Title} borrowed {b.NoBorrowings}x\n" +
                 $"3. {a.Title} borrowed {a.NoBorrowings}x");

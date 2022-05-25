@@ -236,7 +236,7 @@ namespace CommunityLibrary
 
 			Console.WriteLine("\nCASE: USER IS ALREADY RECORDED IN ADT--------------------");
 			Console.WriteLine("EXPECTED:");
-			Console.WriteLine($"({ registered.FirstName} { registered.LastName})'s contact number is {registered.ContactNumber}");
+			Console.WriteLine($"({ registered.FirstName} { registered.LastName})'s contact # is {registered.ContactNumber}");
 
 			Console.WriteLine("\nACTUAL:");
 			StaffFunctions.DisplayContactNumber(registered);
