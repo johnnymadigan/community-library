@@ -76,9 +76,10 @@ namespace CommunityLibrary
 		public static void RegisterMember(IMember member)
 		{
 			if (Records.reg.Search(member)) throw new CustomException($"({member.FirstName} {member.LastName}) already registered");
-
+			
 			if (member.FirstName.Equals("") || member.LastName.Equals("")) throw new ArgumentNullException(); // All members need a name
 			else if (!IMember.IsValidContactNumber(member.ContactNumber)) throw new CustomException($"({member.ContactNumber}) is an invalid contact #");
+			else if (Records.reg.IsFull()) throw new CustomException($"Max member limit reached!");
 			else if (!IMember.IsValidPin(member.Pin)) throw new CustomException($"({member.Pin}) is an invalid PIN");
 			else Records.reg.Add(member);
 		}
