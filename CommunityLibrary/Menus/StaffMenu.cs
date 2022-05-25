@@ -105,13 +105,15 @@ namespace CommunityLibrary
 				Console.Write("Movie title: ");
 				string t = Console.ReadLine();
 
-				int copies;
 				Console.Write("Copies to add: ");
+				int copies;
 
 				while (true)
 				{
-					if (int.TryParse(Console.ReadLine(), out copies)) break;
-					else Console.Write("\nCopies must be a number, please try again: ");
+					// no need to reset default value to try again since if the user input failed...
+					// the current val after tryparse will still be negative anyway
+					if (int.TryParse(Console.ReadLine(), out copies) && copies >= 0) break;
+					else Console.Write("\nCopies must be a positive number, please try again: ");
 				}
 
 
@@ -176,8 +178,10 @@ namespace CommunityLibrary
 
 					while (true)
 					{
-						if (int.TryParse(Console.ReadLine(), out d)) break;
-						else Console.Write("\nDuration must be a number, please try again: ");
+						// no need to reset default value to try again since if the user input failed...
+						// the current val after tryparse will still be negative anyway
+						if (int.TryParse(Console.ReadLine(), out d) && d >= 0) break;
+						else Console.Write("\nDuration must be a positive number, please try again: ");
 					}
 
 					// Boilerplate to confirm action
@@ -214,13 +218,15 @@ namespace CommunityLibrary
 				Console.Write("Movie title: ");
 				string t = Console.ReadLine();
 
-				int copies;
 				Console.Write("Copies to remove: ");
+				int copies;
 
 				while (true)
 				{
-					if (int.TryParse(Console.ReadLine(), out copies)) break;
-					else Console.Write("\nCopies must be a number, please try again: ");
+					// no need to reset default value to try again since if the user input failed...
+					// the current val after tryparse will still be negative anyway
+					if (int.TryParse(Console.ReadLine(), out copies) && copies >= 0) break;
+					else Console.Write("\nCopies must be a positive number, please try again: ");
 				}
 
 				// Boilerplate to confirm action
