@@ -24,7 +24,7 @@ namespace CommunityLibrary
 
             // TEST DATA
             IMovie a = new Movie("potc", MovieGenre.Action, MovieClassification.M15Plus, 100, 5);
-            IMovie b = new Movie("eeaao", MovieGenre.Action, MovieClassification.M15Plus, 100, 5);
+            IMovie b = new Movie("arcane", MovieGenre.Action, MovieClassification.M15Plus, 100, 5);
 
             // SCENARIO #1: LIBRARY EMPTY, NO MOVIES TO DISPLAY
             Console.WriteLine("SCENARIO: Library empty, no movies to display");
@@ -111,7 +111,7 @@ namespace CommunityLibrary
 
             for (int i = 0; i < 10; i++) h.AddBorrower(new Member($"{i}", $"{i}")); // fill movie up to max borrowers limit (10)
 
-            IMember m = new Member("bofa", "dem", "0111111111", "1111");
+            IMember m = new Member("johnny", "madman", "0111111111", "1111");
             Records.reg.Add(m);
             Records.lib.Insert(a);
             Records.lib.Insert(b);
@@ -190,7 +190,7 @@ namespace CommunityLibrary
 
             // TEST DATA
             IMovie a = new Movie("potc", MovieGenre.Action, MovieClassification.M15Plus, 100, 1);
-            IMember m = new Member("bofa", "dem", "0111111111", "1111");
+            IMember m = new Member("johnny", "madman", "0111111111", "1111");
             Records.reg.Add(m);
             Records.lib.Insert(a);
 
@@ -225,8 +225,8 @@ namespace CommunityLibrary
 
             // TEST DATA
             IMovie a = new Movie("potc", MovieGenre.Action, MovieClassification.M15Plus, 100, 5);
-            IMovie b = new Movie("eeaao", MovieGenre.Action, MovieClassification.M15Plus, 100, 5);
-            IMember m = new Member("bofa", "dem", "0111111111", "1111");
+            IMovie b = new Movie("arcane", MovieGenre.Action, MovieClassification.M15Plus, 100, 5);
+            IMember m = new Member("johnny", "madman", "0111111111", "1111");
             Records.reg.Add(m);
             Records.lib.Insert(a);
             Records.lib.Insert(b);
@@ -264,10 +264,10 @@ namespace CommunityLibrary
 
             // TEST DATA
             IMovie a = new Movie("potc", MovieGenre.Action, MovieClassification.M15Plus, 100, 5);
-            IMovie b = new Movie("eeaao", MovieGenre.Action, MovieClassification.M15Plus, 100, 5);
+            IMovie b = new Movie("arcane", MovieGenre.Action, MovieClassification.M15Plus, 100, 5);
             IMovie c = new Movie("batman", MovieGenre.Action, MovieClassification.M15Plus, 100, 5);
             IMovie d = new Movie("midsommar", MovieGenre.Action, MovieClassification.M15Plus, 100, 5);
-            IMember m = new Member("bofa", "dem", "0111111111", "1111");
+            IMember m = new Member("johnny", "madman", "0111111111", "1111");
             Records.reg.Add(m);
             Records.lib.Insert(a);
             Records.lib.Insert(b);
@@ -323,8 +323,8 @@ namespace CommunityLibrary
             c.AddBorrower(m);
 
             Console.WriteLine("\nSCENARIO: 3 movies borrowed for the same amount, ranked in dictionary order");
-            Console.WriteLine($"EXPECTED:\n1. {c.Title} borrowed {c.NoBorrowings}x\n" +
-                $"2. {b.Title} borrowed {b.NoBorrowings}x\n" +
+            Console.WriteLine($"EXPECTED:\n1. {b.Title} borrowed {b.NoBorrowings}x\n" +
+                $"2. {c.Title} borrowed {c.NoBorrowings}x\n" +
                 $"3. {a.Title} borrowed {a.NoBorrowings}x");
             Console.WriteLine("RESULT:");
             MemberFunctions.TopThree();
