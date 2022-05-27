@@ -253,7 +253,7 @@ namespace CommunityLibrary
 		{
 			Header();
 			Console.WriteLine("DISPLAYING TOP 3 MOVIES...\n");
-			MemberFunctions.TopThree();
+			MemberFunctions.TopThree(Records.lib.ToArray());
 			Console.Write("\nPress any key to continue: ");
 			Console.ReadKey();
 			return;

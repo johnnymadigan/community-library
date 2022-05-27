@@ -278,7 +278,7 @@ namespace CommunityLibrary
             Console.WriteLine("SCENARIO: No movies borrowed, all 3 ranks are null");
             Console.WriteLine($"EXPECTED:\n1. nil\n2. nil\n3. nil");
             Console.WriteLine("RESULT:");
-            MemberFunctions.TopThree();
+            MemberFunctions.TopThree(Records.lib.ToArray());
 
             // SCENARIO #2: 1 MOVIE HAS BEEN BORROWED
             a.AddBorrower(m);
@@ -290,7 +290,7 @@ namespace CommunityLibrary
             Console.WriteLine("\nSCENARIO: 1 movie borrowed ranked 1st, the rest null");
             Console.WriteLine($"EXPECTED:\n1. {a.Title} borrowed {a.NoBorrowings}x\n2. nil\n3. nil");
             Console.WriteLine("RESULT:");
-            MemberFunctions.TopThree();
+            MemberFunctions.TopThree(Records.lib.ToArray());
 
             //// SCENARIO #3: 2 MOVIES HAVE BEEN BORROWED
             b.AddBorrower(m);
@@ -301,7 +301,7 @@ namespace CommunityLibrary
             Console.WriteLine($"EXPECTED:\n1. {a.Title} borrowed {a.NoBorrowings}x\n" +
                 $"2. {b.Title} borrowed {b.NoBorrowings}x\n3. nil");
             Console.WriteLine("RESULT:");
-            MemberFunctions.TopThree();
+            MemberFunctions.TopThree(Records.lib.ToArray());
 
             //// SCENARIO #4: 3+ MOVIES HAVE BEEN BORROWED
             c.AddBorrower(m);
@@ -312,7 +312,7 @@ namespace CommunityLibrary
                 $"2. {b.Title} borrowed {b.NoBorrowings}x\n" +
                 $"3. {c.Title} borrowed {c.NoBorrowings}x");
             Console.WriteLine("RESULT:");
-            MemberFunctions.TopThree();
+            MemberFunctions.TopThree(Records.lib.ToArray());
 
             //// SCENARIO #5: 3 MOVIES HAVE BEEN BORROWED FOR THE SAME AMOUNT
             b.RemoveBorrower(m);
@@ -327,7 +327,7 @@ namespace CommunityLibrary
                 $"2. {c.Title} borrowed {c.NoBorrowings}x\n" +
                 $"3. {a.Title} borrowed {a.NoBorrowings}x");
             Console.WriteLine("RESULT:");
-            MemberFunctions.TopThree();
+            MemberFunctions.TopThree(Records.lib.ToArray());
 
             Records.Reset();
         }

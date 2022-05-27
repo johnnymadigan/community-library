@@ -106,35 +106,36 @@ namespace CommunityLibrary
 		// Determine the top 3 popular movies and return their titles with number of times borrowed
 		// Pre-condition: Nil
 		// Post-condition: Display top 3 popular movies' titles and times borrowed
-		public static void TopThree()
+		public static void TopThree(IMovie[] A)
 		{
-			IMovie[] movies = Records.lib.ToArray();
-
-			// All movies require titles when added, therefore no existing movie can match these placeholders
+			// All movies require titles when added, therefore no existing movie can match these placeholders...
 			// These placeholders's number of borrows is evaulated as 0 in the conditions below (can be seen when debugging)
-			IMovie[] ranking = new IMovie[] { new Movie(""), new Movie(""), new Movie("") }; 
+			IMovie[] B = new IMovie[] { new Movie(""), new Movie(""), new Movie("") }; 
 
-			// Compare each movie via their number of times borrowed, and rank them accordingly
-			foreach (IMovie m in movies)
+			// Compare each movie via their number of times borrowed, and update rank if one of them qualifies for top 3
+			for (int i = 0; i < A.Length; i++)
 			{
-				if (m.NoBorrowings > ranking[0].NoBorrowings)
-                {
-					ranking[2] = ranking[1];
-					ranking[1] = ranking[0];
-					ranking[0] = m;
-                }
-				else if (m.NoBorrowings > ranking[1].NoBorrowings)
+				if (A[i].NoBorrowings > B[0].NoBorrowings)
 				{
-					ranking[2] = ranking[1];
-					ranking[1] = m;
+					B[2] = B[1];
+					B[1] = B[0];
+					B[0] = A[i];
 				}
-				else if (m.NoBorrowings > ranking[2].NoBorrowings) ranking[2] = m;
+				else if (A[i].NoBorrowings > B[1].NoBorrowings)
+				{
+					B[2] = B[1];
+					B[1] = A[i];
+				}
+				else if (A[i].NoBorrowings > B[2].NoBorrowings)
+				{
+					B[2] = A[i];
+				}
 			}
 
-			// display ranking
-			Console.WriteLine("1. " + ((!ranking[0].Title.Equals("")) ? $"{ranking[0].Title} borrowed {ranking[0].NoBorrowings}x" : "nil"));
-			Console.WriteLine("2. " + ((!ranking[1].Title.Equals("")) ? $"{ranking[1].Title} borrowed {ranking[1].NoBorrowings}x" : "nil"));
-			Console.WriteLine("3. " + ((!ranking[2].Title.Equals("")) ? $"{ranking[2].Title} borrowed {ranking[2].NoBorrowings}x" : "nil"));
+			// Display ranking
+			Console.WriteLine("1. " + ((!B[0].Title.Equals("")) ? $"{B[0].Title} borrowed {B[0].NoBorrowings}x" : "nil"));
+			Console.WriteLine("2. " + ((!B[1].Title.Equals("")) ? $"{B[1].Title} borrowed {B[1].NoBorrowings}x" : "nil"));
+			Console.WriteLine("3. " + ((!B[2].Title.Equals("")) ? $"{B[2].Title} borrowed {B[2].NoBorrowings}x" : "nil"));
 		}
 	}
 }
