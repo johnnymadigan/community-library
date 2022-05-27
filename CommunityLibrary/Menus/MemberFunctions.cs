@@ -132,11 +132,9 @@ namespace CommunityLibrary
 			}
 
 			// display ranking
-			for (int i = 0; i < ranking.Length; i++)
-			{
-				if (!ranking[i].Title.Equals("")) Console.WriteLine($"{i + 1}. {ranking[i].Title} borrowed {ranking[i].NoBorrowings}x");
-				else Console.WriteLine($"{i + 1}. nil");
-			}
+			Console.WriteLine("1. " + ((!ranking[0].Title.Equals("")) ? $"{ranking[0].Title} borrowed {ranking[0].NoBorrowings}x" : "nil"));
+			Console.WriteLine("2. " + ((!ranking[1].Title.Equals("")) ? $"{ranking[1].Title} borrowed {ranking[1].NoBorrowings}x" : "nil"));
+			Console.WriteLine("3. " + ((!ranking[2].Title.Equals("")) ? $"{ranking[2].Title} borrowed {ranking[2].NoBorrowings}x" : "nil"));
 		}
 	}
 }
