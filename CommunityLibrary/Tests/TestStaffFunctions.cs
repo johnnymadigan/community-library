@@ -7,16 +7,16 @@ namespace CommunityLibrary
 	{
 		public static void RunAllTests()
 		{
-			TestAddDVD();
-			TestAddSingleDVD();
-			TestRemoveDVD();
-			TestRegisterMember();
-			TestDeregisterMember();
-			TestDisplayContactNumber();
-			TestDisplayMovieBorrowers();
-		}
+            TestAddDVD();
+            TestAddSingleDVD();
+            TestRemoveDVD();
+            TestRegisterMember();
+            TestDeregisterMember();
+            TestDisplayContactNumber();
+            TestDisplayMovieBorrowers();
+        }
 
-		public static void TestAddDVD()
+        public static void TestAddDVD()
         {
 			Console.WriteLine("\n======== AddDVD test plan ========"); // This is for completion's sake, this was implemented in A2
 			Records.Reset();
@@ -78,7 +78,7 @@ namespace CommunityLibrary
 			
 			// NEGATIVE DVDs ????
 			// TODO is this desired behaviour?
-			Console.WriteLine("\nCASE: HAVING NEGATIVE DVDs?????------------------");
+			Console.WriteLine("\nCASE: HAVING NEGATIVE DVDs------------------");
 			try
 			{
 				StaffFunctions.AddDVD("evangelion", -99999999);
@@ -92,7 +92,7 @@ namespace CommunityLibrary
 			// TRIED TO ADD DVD WITH NO TITLE
 			Console.WriteLine("\nCASE: ADDING A DVD FOR A MOVIE THAT DOES NOT EXIST------------------");
 			Console.WriteLine("EXPECTED:");
-			Console.WriteLine($"{notAdded.Title} does not exist in library yet");
+			Console.WriteLine($"({notAdded.Title}) does not exist in library yet");
 
 			// TRIED TO ADD DVD FOR MOVIE THAT DOES NOT EXIST
 			Console.WriteLine("\nACTUAL:");
@@ -129,16 +129,110 @@ namespace CommunityLibrary
 			Records.Reset();
 
 			// TEST DATA
+			IMovie notAdded = new Movie("midsommar", MovieGenre.Action, MovieClassification.M15Plus, 100, 1);
+			IMovie added = new Movie("evangelion", MovieGenre.Action, MovieClassification.M15Plus, 100, 1);
+			StaffFunctions.AddDVD(added);
+			StaffFunctions.AddDVD("evangelion", 4);
+
+			IMember m = new Member("johnny", "madman", "0111111111", "1111");
+			IMember a = new Member("a", "madman", "0111111111", "1111");
+			IMember b = new Member("v", "madman", "0111111111", "1111");
+			IMember c = new Member("b", "madman", "0111111111", "1111");
+			IMember d = new Member("d", "madman", "0111111111", "1111");
+			IMember e = new Member("e", "madman", "0111111111", "1111");
+
+			MemberFunctions.BorrowDVD(added, m);
+			MemberFunctions.BorrowDVD(added, a);
+			MemberFunctions.BorrowDVD(added, b);
+			MemberFunctions.BorrowDVD(added, c);
+			MemberFunctions.BorrowDVD(added, d);
+
+			StaffFunctions.DisplayMovieBorrowers(added.Title);
 
 			// MOVIE DOES NOT EXIST
+			Console.WriteLine("CASE: DELETING A MOVIE THAT DOES NOT EXIST------------------");
+			Console.WriteLine("EXPECTED:");
+			Console.WriteLine($"({notAdded.Title}) does not exist");
+
+			Console.WriteLine("\nACTUAL:");
+			try
+            {
+				StaffFunctions.RemoveDVD(notAdded.Title, 1);
+            }
+			catch(CustomException ex)
+            {
+				Console.WriteLine(ex.Message);
+            }
 
 			// ALL MOVIES BORROWED
+			Console.WriteLine("\nCASE: DELETING A MOVIE WHOSE COPIES ARE ALL BORROWED------------------");
+			Console.WriteLine("EXPECTED:");
+			Console.WriteLine($"Members borrowing all remaining DVDs of ({added.Title}), please return first");
+
+			Console.WriteLine("\nACTUAL:");
+			try
+			{
+				StaffFunctions.RemoveDVD(added.Title, 10);
+			}
+			catch (CustomException ex)
+			{
+				Console.WriteLine(ex.Message);
+			}
 
 			// SOME MOVIES BORROWED
+			MemberFunctions.ReturnDVD(added, m);
+			Console.WriteLine("\nCASE: DELETING A MOVIE THAT STILL HAS SOME BORROWERS------------------");
+			Console.WriteLine("EXPECTED:");
+			Console.WriteLine($"Cannot remove {10} DVDs of ({added.Title}) as members still borrowing some, please return first or choose less DVDs to remove...\n");
 
-			// DELETE MORE MOVIES THAN THOSE THAT ARE BORROWED
+			Console.WriteLine("\nACTUAL:");
+			try
+			{
+				StaffFunctions.RemoveDVD(added.Title, 10);
+			}
+			catch (CustomException ex)
+			{
+				Console.WriteLine(ex.Message);
+			}
 
-			// DELETE ALL AVAILABLE MOVIES 
+			// REMOVE NEGATIVE DVDS
+			Console.WriteLine("\nCASE: REMOVING NEGATIVE DVDS------------------");
+			Console.WriteLine("EXPECTED:");
+			Console.WriteLine($"Copies must be a positive number");
+
+			Console.WriteLine("\nACTUAL:");
+			try
+			{
+				StaffFunctions.RemoveDVD(added.Title, -1);
+			}
+			catch (CustomException ex)
+			{
+				Console.WriteLine(ex.Message);
+			}
+
+			// DELETE ALL AVAILABLE MOVIES
+			Console.WriteLine("\nCASE: REMOVING DVD THAT IS NOT BORROWED------------------");
+			Console.WriteLine("BEFORE:");
+			Console.WriteLine($"NUMBER OF COPIES REMAINING: {added.AvailableCopies}");
+
+			Console.WriteLine("\nAFTER:");
+			StaffFunctions.RemoveDVD(added.Title, 1);
+			Console.WriteLine($"NUMBER OF COPIES REMAINING: {added.AvailableCopies}");
+
+			// REMOVE LAST AVAILABLE DVD
+			MemberFunctions.ReturnDVD(added, a);
+			MemberFunctions.ReturnDVD(added, b);
+			MemberFunctions.ReturnDVD(added, c);
+			MemberFunctions.ReturnDVD(added, d);
+
+			StaffFunctions.DisplayMovieBorrowers(added.Title);
+			Console.WriteLine("\nCASE: REMOVING LAST DVD------------------");
+			Console.WriteLine("BEFORE:");
+			Console.WriteLine($"Copies of {added.Title}: {Records.lib.Search(added.Title).AvailableCopies}");
+
+			Console.WriteLine("AFTER:");
+			StaffFunctions.RemoveDVD(added.Title, 4);
+			Console.WriteLine($"{added.Title} exists in record: {Records.lib.Search(added)}");
 
 			Records.Reset();
 		}
@@ -249,7 +343,7 @@ namespace CommunityLibrary
             }
 
 			Console.WriteLine("EXPECTED:");
-			Console.WriteLine("Max member limit reached!");
+			Console.WriteLine("Max member limit reached");
 
 			Console.WriteLine("\nACTUAL:");
 			try
