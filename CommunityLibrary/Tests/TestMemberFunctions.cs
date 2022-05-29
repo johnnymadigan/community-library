@@ -23,16 +23,16 @@ namespace CommunityLibrary
             Records.Reset();
 
             // TEST DATA
-            IMovie a = new Movie("potc", MovieGenre.Action, MovieClassification.M15Plus, 100, 5);
+            IMovie a = new Movie("pirates", MovieGenre.Action, MovieClassification.M15Plus, 100, 5);
             IMovie b = new Movie("arcane", MovieGenre.Action, MovieClassification.M15Plus, 100, 5);
 
-            // SCENARIO #1: LIBRARY EMPTY, NO MOVIES TO DISPLAY
+            // SCENARIO #1: LIBRARY EMPTY
             Console.WriteLine("SCENARIO: Library empty, no movies to display");
             Console.WriteLine($"EXPECTED:\nLibrary empty...");
             Console.WriteLine("RESULT:");
             MemberFunctions.DisplayAllMovies();
 
-            //// SCENARIO #2: ADDED 2 MOVIES, DISPLAYS BOTH 
+            //// SCENARIO #2: ADDED 2 MOVIES
             Records.lib.Insert(a);
             Records.lib.Insert(b);
             Console.WriteLine("\nSCENARIO: Added 2 movies, displays both in dictionary order");
@@ -40,7 +40,7 @@ namespace CommunityLibrary
             Console.WriteLine("RESULT:");
             MemberFunctions.DisplayAllMovies();
 
-            //// SCENARIO #3: REMOVED 1 EXISTING MOVIE, DOES NOT DISPLAY REMOVED MOVIE
+            //// SCENARIO #3: REMOVED 1 EXISTING MOVIE
             Records.lib.Delete(b);
             Console.WriteLine("\nSCENARIO: Removed 1 existing movie, does not display removed movie");
             Console.WriteLine($"EXPECTED:\n({a.ToString()})");
@@ -58,7 +58,7 @@ namespace CommunityLibrary
             Records.Reset();
 
             // TEST DATA
-            IMovie a = new Movie("potc", MovieGenre.Action, MovieClassification.M15Plus, 100, 5);
+            IMovie a = new Movie("pirates", MovieGenre.Action, MovieClassification.M15Plus, 100, 5);
 
             // SCENARIO #1: MOVIE DOES NOT EXIST (expecting to catch exception)
             try
@@ -100,18 +100,18 @@ namespace CommunityLibrary
             Records.Reset();
 
             // TEST DATA
-            IMovie a = new Movie("potc", MovieGenre.Action, MovieClassification.M15Plus, 100, 1);
-            IMovie b = new Movie("eeaao", MovieGenre.Action, MovieClassification.M15Plus, 100, 1);
-            IMovie c = new Movie("batman", MovieGenre.Action, MovieClassification.M15Plus, 100, 1);
-            IMovie d = new Movie("midsommar", MovieGenre.Action, MovieClassification.M15Plus, 100, 1);
-            IMovie e = new Movie("evangelion", MovieGenre.Action, MovieClassification.M15Plus, 100, 1);
-            IMovie f = new Movie("love+death+robots", MovieGenre.Action, MovieClassification.M15Plus, 100, 1); // 6th movie to attempt borrowing 5+
-            IMovie g = new Movie("shrek", MovieGenre.Action, MovieClassification.M15Plus, 100, 0); // no available copies
-            IMovie h = new Movie("cowboybebop", MovieGenre.Action, MovieClassification.M15Plus, 100, 20); // movie already borrowed by 10 members
+            IMember m = new Member("johnny", "madman", "0411111111", "1234");
 
-            for (int i = 0; i < 10; i++) h.AddBorrower(new Member($"{i}", $"{i}")); // fill movie up to max borrowers limit (10)
+            IMovie a = new Movie("pirates", MovieGenre.Action, MovieClassification.G, 100, 1);
+            IMovie b = new Movie("eeaao", MovieGenre.Action, MovieClassification.G, 100, 1);
+            IMovie c = new Movie("batman", MovieGenre.Action, MovieClassification.G, 100, 1);
+            IMovie d = new Movie("midsommar", MovieGenre.Action, MovieClassification.G, 100, 1);
+            IMovie e = new Movie("evangelion", MovieGenre.Action, MovieClassification.G, 100, 1);
+            IMovie f = new Movie("love+death+robots", MovieGenre.Action, MovieClassification.G, 100, 1); // 6th movie to attempt borrowing 5+
+            IMovie g = new Movie("shrek", MovieGenre.Action, MovieClassification.G, 100, 0);             // no available copies
+            IMovie h = new Movie("cowboybebop", MovieGenre.Action, MovieClassification.G, 100, 20);      // movie already borrowed by 10 members
+            for (int i = 0; i < 10; i++) h.AddBorrower(new Member($"{i}", $"{i}"));                      // fill movie up to max borrowers limit (10)
 
-            IMember m = new Member("johnny", "madman", "0111111111", "1111");
             Records.reg.Add(m);
             Records.lib.Insert(a);
             Records.lib.Insert(b);
@@ -128,10 +128,7 @@ namespace CommunityLibrary
                 MemberFunctions.BorrowDVD(new Movie("dummy"), m);
                 Console.WriteLine("SCENARIO FAILED: Member tries to borrow a movie that does not exist");
             }
-            catch (CustomException)
-            {
-                Console.WriteLine("SCENARIO PASSED: Member tries to borrow a movie that does not exist");
-            }
+            catch (CustomException) { Console.WriteLine("SCENARIO PASSED: Member tries to borrow a movie that does not exist"); }
 
             // SCENARIO #2: MEMBER HAS BORROWED A DVD (expecting true)
             if (MemberFunctions.BorrowDVD(a, m)) Console.WriteLine("SCENARIO PASSED: Member has borrowed a DVD");
@@ -143,10 +140,7 @@ namespace CommunityLibrary
                 MemberFunctions.BorrowDVD(a, m);
                 Console.WriteLine("SCENARIO FAILED: Member tries to borrow a movie twice");
             }
-            catch (CustomException)
-            {
-                Console.WriteLine("SCENARIO PASSED: Member tries to borrow a movie twice");
-            }
+            catch (CustomException) { Console.WriteLine("SCENARIO PASSED: Member tries to borrow a movie twice"); }
 
             // SCENARIO #4: MEMBER TRIES TO BORROW A MOVIE W NO AVAILABLE COPIES (expecting to catch exception)
             try
@@ -154,10 +148,7 @@ namespace CommunityLibrary
                 MemberFunctions.BorrowDVD(g, m);
                 Console.WriteLine("SCENARIO FAILED: Member tries to borrow a movie w no available copies");
             }
-            catch (CustomException)
-            {
-                Console.WriteLine("SCENARIO PASSED: Member tries to borrow a movie w no available copies");
-            }
+            catch (CustomException) { Console.WriteLine("SCENARIO PASSED: Member tries to borrow a movie w no available copies"); }
 
             // SCENARIO #5: MEMBER TRIES TO BORROW A MOVIE HOWEVER MOVIE AT MAX BORROWERS (10) (expecting false)
             if (!MemberFunctions.BorrowDVD(h, m)) Console.WriteLine("SCENARIO PASSED: Member tries to borrow a movie however movie at max borrowers (10)");
@@ -174,10 +165,8 @@ namespace CommunityLibrary
                 MemberFunctions.BorrowDVD(f, m);
                 Console.WriteLine("SCENARIO FAILED: Member tries to borrow past borrowing limit (5)");
             }
-            catch (CustomException)
-            {
-                Console.WriteLine("SCENARIO PASSED: Member tries to borrow past borrowing limit (5)");
-            }
+            catch (CustomException) { Console.WriteLine("SCENARIO PASSED: Member tries to borrow past borrowing limit (5)"); }
+
             Records.Reset();
         }
 
@@ -189,8 +178,10 @@ namespace CommunityLibrary
             Records.Reset();
 
             // TEST DATA
-            IMovie a = new Movie("potc", MovieGenre.Action, MovieClassification.M15Plus, 100, 1);
-            IMember m = new Member("johnny", "madman", "0111111111", "1111");
+            IMember m = new Member("johnny", "madman", "0411111111", "1234");
+
+            IMovie a = new Movie("pirates", MovieGenre.Action, MovieClassification.M15Plus, 100, 1);
+
             Records.reg.Add(m);
             Records.lib.Insert(a);
 
@@ -200,10 +191,7 @@ namespace CommunityLibrary
                 MemberFunctions.ReturnDVD(new Movie("dummy"), m);
                 Console.WriteLine("SCENARIO FAILED: Member tries to return a movie that does not exist");
             }
-            catch (CustomException)
-            {
-                Console.WriteLine("SCENARIO PASSED: Member tries to return a movie that does not exist");
-            }
+            catch (CustomException) { Console.WriteLine("SCENARIO PASSED: Member tries to return a movie that does not exist"); }
 
             // SCENARIO #2: MEMBER HAS RETURNED A DVD (expecting true)
             a.AddBorrower(m);
@@ -224,9 +212,11 @@ namespace CommunityLibrary
             Records.Reset();
 
             // TEST DATA
-            IMovie a = new Movie("potc", MovieGenre.Action, MovieClassification.M15Plus, 100, 5);
+            IMember m = new Member("johnny", "madman", "0411111111", "1234");
+
+            IMovie a = new Movie("pirates", MovieGenre.Action, MovieClassification.M15Plus, 100, 5);
             IMovie b = new Movie("arcane", MovieGenre.Action, MovieClassification.M15Plus, 100, 5);
-            IMember m = new Member("johnny", "madman", "0111111111", "1111");
+
             Records.reg.Add(m);
             Records.lib.Insert(a);
             Records.lib.Insert(b);
@@ -263,11 +253,13 @@ namespace CommunityLibrary
             Records.Reset();
 
             // TEST DATA
-            IMovie a = new Movie("potc", MovieGenre.Action, MovieClassification.M15Plus, 100, 5);
+            IMember m = new Member("johnny", "madman", "0411111111", "1234");
+
+            IMovie a = new Movie("pirates", MovieGenre.Action, MovieClassification.M15Plus, 100, 5);
             IMovie b = new Movie("arcane", MovieGenre.Action, MovieClassification.M15Plus, 100, 5);
             IMovie c = new Movie("batman", MovieGenre.Action, MovieClassification.M15Plus, 100, 5);
             IMovie d = new Movie("midsommar", MovieGenre.Action, MovieClassification.M15Plus, 100, 5);
-            IMember m = new Member("johnny", "madman", "0111111111", "1111");
+
             Records.reg.Add(m);
             Records.lib.Insert(a);
             Records.lib.Insert(b);

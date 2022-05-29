@@ -26,10 +26,10 @@ namespace CommunityLibrary
 
 			// ADD MOVIE
 			Console.WriteLine("CASE: ADDING A MOVIE------------------");
-			Console.WriteLine("EXPECTED:");
+			Console.WriteLine("BEFORE:");
 			Console.WriteLine("Movie list length before adding: " + Records.lib.Number);
 
-			Console.WriteLine("\nACTUAL:");
+			Console.WriteLine("\nAFTER:");
 			Records.lib.Insert(added);
 			Console.WriteLine("Movie list length after adding: " + Records.lib.Number);
 
@@ -264,7 +264,7 @@ namespace CommunityLibrary
 			StaffFunctions.RegisterMember(alreadyRegistered);
 
 			Console.WriteLine("EXPECTED:");
-			Console.WriteLine($"({alreadyRegistered.FirstName} {alreadyRegistered.LastName}) is already registered");
+			Console.WriteLine($"({alreadyRegistered.FirstName} {alreadyRegistered.LastName}) already registered");
 
 			Console.WriteLine("\nACTUAL");
 			try
@@ -279,7 +279,7 @@ namespace CommunityLibrary
 			// USER HAS A BAD CONTACT NUMBER
 			Console.WriteLine("\nCASE: USER HAS A BAD CONTACT NUMBER------------------");
 			Console.WriteLine("EXPECTED:");
-			Console.WriteLine($"({badNumber.ContactNumber}) is not a valid contact #");
+			Console.WriteLine($"({badNumber.ContactNumber}) is an invalid contact #");
 
 			Console.WriteLine("\nACTUAL");
 			try
