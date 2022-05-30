@@ -66,10 +66,7 @@ namespace CommunityLibrary
                 MemberFunctions.DisplayMovieInfo("dummy");
                 Console.WriteLine("SCENARIO FAILED: Movie does not exist");
             }
-            catch (CustomException)
-            {
-                Console.WriteLine("SCENARIO PASSED: Movie does not exist");
-            }
+            catch (CustomException) { Console.WriteLine("SCENARIO PASSED: Movie does not exist"); }
 
             // SCENARIO #2: MOVIE EXISTS, DISPLAYS ALL INFO
             Records.lib.Insert(a);
@@ -85,10 +82,7 @@ namespace CommunityLibrary
                 MemberFunctions.DisplayMovieInfo(a.Title);
                 Console.WriteLine("\nSCENARIO FAILED: Movie removed and now no longer displays info");
             }
-            catch (CustomException)
-            {
-                Console.WriteLine("\nSCENARIO PASSED: Movie removed and now no longer displays info");
-            }
+            catch (CustomException) { Console.WriteLine("\nSCENARIO PASSED: Movie removed and now no longer displays info"); }
             Records.Reset();
         }
 
