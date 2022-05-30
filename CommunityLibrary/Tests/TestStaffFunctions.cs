@@ -8,7 +8,7 @@ namespace CommunityLibrary
 		public static void RunAllTests()
 		{
             TestAddDVD();
-            TestAddSingleDVD();
+			TestAddDVDCopies();
             TestRemoveDVD();
             TestRegisterMember();
             TestDeregisterMember();
@@ -36,9 +36,9 @@ namespace CommunityLibrary
 			Records.Reset();
 		}
 
-		public static void TestAddSingleDVD()
+		public static void TestAddDVDCopies()
 		{
-			Console.WriteLine("\n======== AddSingleDVD test plan ========");
+			Console.WriteLine("\n======== AddDVDCopies test plan ========");
 			Records.Reset();
 
 			// TEST DATA
@@ -72,16 +72,6 @@ namespace CommunityLibrary
 			catch (CustomException ex) { Console.WriteLine(ex.Message); }
 
 			// SCENARIO #4: TRIED TO ADD DVD WITH NO TITLE
-			Console.WriteLine("\nSCENARIO: ADDING A DVD FOR A MOVIE THAT DOES NOT EXIST------------------");
-			Console.WriteLine("EXPECTED:");
-			Console.WriteLine($"({notAdded.Title}) does not exist in library yet");
-
-			// SCENARIO #5: TRIED TO ADD DVD FOR MOVIE THAT DOES NOT EXIST
-			Console.WriteLine("\nACTUAL:");
-			try { StaffFunctions.AddDVD("midsommar", 1); }
-			catch (CustomException ex) { Console.WriteLine(ex.Message); }
-
-			// SCENARIO #6: TRIED TO ADD DVD WITH NO TITLE
 			Console.WriteLine("\nSCENARIO: ADDING A DVD WITH NO TITLE------------------");
 			Console.WriteLine("EXPECTED:");
 			Console.WriteLine("Failed - Titles cannot be blank, enter any key to try again, 0 to cancel:");
