@@ -15,16 +15,14 @@ namespace CommunityLibrary
 
             //TestStaffFunctions.RunAllTests();
             //TestMemberFunctions.RunAllTests();
-            //Emperical();
+            Emperical();
 
-            MainMenu.DisplayMainMenu();
+            //MainMenu.DisplayMainMenu();
         }
 
 
-        // EMPIRCAL ANALYSIS on TOPTHREE ALGORITHM
-        // Pre-condition: Nil
-        // Post-condition: Generates worst-case sample data for a series of tests and...
-        //                 display the number of times basic operation is executed
+        // EMPIRICAL ANALYSIS on TOPTHREE ALGORITHM
+        // Generates worst-case sample data for a series of tests and display the number of times basic operation is executed
         static void Emperical()
         {
             // 10 TESTS/INPUT SAMPLES (1000, 2000, ... 10,000)
