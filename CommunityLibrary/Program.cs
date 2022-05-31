@@ -48,7 +48,7 @@ namespace CommunityLibrary
 
                 for (int j = 3; j <= i * 1000; j++) // ascending order so 3rd place always updates
                 {
-                    IMovie temp = new Movie($"j}");
+                    IMovie temp = new Movie($"{j}");
                     temp.NoBorrowings = j;
                     lib.Insert(temp);
                 }
