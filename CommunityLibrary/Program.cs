@@ -27,34 +27,30 @@ namespace CommunityLibrary
         //                 display the number of times basic operation is executed
         static void Emperical()
         {
-            IMovieCollection lib;
-            Random r = new Random();
-
             // 10 TESTS/INPUT SAMPLES (1000, 2000, ... 10,000)
             for (int i = 1; i <= 10; i++)
             {
-                lib = new MovieCollection();
-
                 // CREATE WORST-CASE INPUT SAMPLES (fill library up with movies)
                 // As we are only interested in the WORST-CASE...
-                // set first and second place at the beginning, and the rest in ascending order...
+                // Set 1st and 2nd place at the beginning, and the rest in ascending order...
                 // this means 3rd place always updates, forcing ALL basic operations to execute
+                IMovie[] sample = new IMovie[i * 1000];
                 IMovie first = new Movie("always first");
                 IMovie second = new Movie("always second");
                 first.NoBorrowings = 2000000; // 2 million
                 second.NoBorrowings = 1000000; // 1 million
-                lib.Insert(first);
-                lib.Insert(second);
-
-                for (int j = 3; j <= i * 1000; j++) // ascending order so 3rd place always updates
+                sample[0] = first;
+                sample[1] = second;
+                
+                for (int j = 2; j < i * 1000; j++) // ascending order so 3rd place always updates
                 {
                     IMovie temp = new Movie($"{j}");
                     temp.NoBorrowings = j;
-                    lib.Insert(temp);
+                    sample[j] = temp;
                 }
 
                 // DISPLAY RESULT
-                int count = MemberFunctions.TopThree(lib.ToArray());
+                int count = MemberFunctions.TopThree(sample);
                 Console.WriteLine($"Input: {i * 1000}\tCount: {count}\n");
             }
         }
