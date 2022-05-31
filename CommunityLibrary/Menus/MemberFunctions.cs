@@ -106,27 +106,31 @@ namespace CommunityLibrary
 		// Determine the top 3 popular movies and return their titles with number of times borrowed
 		// Pre-condition: Nil
 		// Post-condition: Display top 3 popular movies' titles and times borrowed
-		public static void TopThree(IMovie[] A)
+		public static int TopThree(IMovie[] A)
 		{
-			// All movies require titles when added, therefore no existing movie can match these placeholders...
-			// These placeholders's number of borrows is evaulated as 0 in the conditions below (can be seen when debugging)
-			IMovie[] B = new IMovie[] { new Movie(""), new Movie(""), new Movie("") }; 
+			int count = 0; // FOR EMPIRICAL ANALYSIS
 
-			// Compare each movie via their number of times borrowed, and update rank if one of them qualifies for top 3
+			// All movies require titles when added, therefore no existing movie can match these placeholders...
+			// These placeholders's number of borrows is evaulated as 0 in the comparisons below (can be seen when debugging)
+			IMovie[] B = new IMovie[] { new Movie(""), new Movie(""), new Movie("") };
+
+			// Compare each movie via their number of times borrowed and update rank if one of them qualifies for top 3...
+			// First condition in each comparison (++count) is always TRUE, just for the sake of counting basic op...
+			// Efficiency theorised to be O(n)
 			for (int i = 0; i < A.Length; i++)
 			{
-				if (A[i].NoBorrowings > B[0].NoBorrowings)
+				if (++count > 0 &&  A[i].NoBorrowings > B[0].NoBorrowings)
 				{
 					B[2] = B[1];
 					B[1] = B[0];
 					B[0] = A[i];
 				}
-				else if (A[i].NoBorrowings > B[1].NoBorrowings)
+				else if (++count > 0 && A[i].NoBorrowings > B[1].NoBorrowings)
 				{
 					B[2] = B[1];
 					B[1] = A[i];
 				}
-				else if (A[i].NoBorrowings > B[2].NoBorrowings)
+				else if (++count > 0 && A[i].NoBorrowings > B[2].NoBorrowings)
 				{
 					B[2] = A[i];
 				}
@@ -136,6 +140,8 @@ namespace CommunityLibrary
 			Console.WriteLine("1. " + ((!B[0].Title.Equals("")) ? $"{B[0].Title} borrowed {B[0].NoBorrowings}x" : "nil"));
 			Console.WriteLine("2. " + ((!B[1].Title.Equals("")) ? $"{B[1].Title} borrowed {B[1].NoBorrowings}x" : "nil"));
 			Console.WriteLine("3. " + ((!B[2].Title.Equals("")) ? $"{B[2].Title} borrowed {B[2].NoBorrowings}x" : "nil"));
+
+			return count;
 		}
 	}
 }
