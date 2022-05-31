@@ -15,9 +15,9 @@ namespace CommunityLibrary
 
             //TestStaffFunctions.RunAllTests();
             //TestMemberFunctions.RunAllTests();
-            Emperical();
+            //Emperical();
 
-            //MainMenu.DisplayMainMenu();
+            MainMenu.DisplayMainMenu();
         }
 
 
