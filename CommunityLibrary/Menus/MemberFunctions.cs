@@ -119,18 +119,18 @@ namespace CommunityLibrary
 			// Efficiency theorised to be O(n)
 			for (int i = 0; i < A.Length; i++)
 			{
-				if (++count > 0 &&  A[i].NoBorrowings > B[0].NoBorrowings)
+				if (++count > -1 &&  A[i].NoBorrowings > B[0].NoBorrowings)
 				{
 					B[2] = B[1];
 					B[1] = B[0];
 					B[0] = A[i];
 				}
-				else if (++count > 0 && A[i].NoBorrowings > B[1].NoBorrowings)
+				else if (++count > -1 && A[i].NoBorrowings > B[1].NoBorrowings)
 				{
 					B[2] = B[1];
 					B[1] = A[i];
 				}
-				else if (++count > 0 && A[i].NoBorrowings > B[2].NoBorrowings)
+				else if (++count > -1 && A[i].NoBorrowings > B[2].NoBorrowings)
 				{
 					B[2] = A[i];
 				}
