@@ -42,8 +42,6 @@ namespace CommunityLibrary
                     sample[j] = temp;
                 }
 
-                Console.WriteLine("yeeett" + sample.Length);
-
                 // DISPLAY RESULT
                 int count = MemberFunctions.TopThree(sample);
                 Console.WriteLine($"Input: {i * 1000}\tCount: {count}\n");
