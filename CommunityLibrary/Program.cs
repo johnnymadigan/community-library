@@ -39,8 +39,8 @@ namespace CommunityLibrary
                 // As we are only interested in the WORST-CASE...
                 // set first and second place at the beginning, and the rest in ascending order...
                 // this means 3rd place always updates, forcing ALL basic operations to execute
-                IMovie first = new Movie($"always first");
-                IMovie second = new Movie($"always second");
+                IMovie first = new Movie("always first");
+                IMovie second = new Movie("always second");
                 first.NoBorrowings = 2000000; // 2 million
                 second.NoBorrowings = 1000000; // 1 million
                 lib.Insert(first);
@@ -48,7 +48,7 @@ namespace CommunityLibrary
 
                 for (int j = 3; j <= i * 1000; j++) // ascending order so 3rd place always updates
                 {
-                    IMovie temp = new Movie($"{j}");
+                    IMovie temp = new Movie($"j}");
                     temp.NoBorrowings = j;
                     lib.Insert(temp);
                 }
