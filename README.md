@@ -40,7 +40,20 @@ scenes to ensure speedy and smooth functionality.
 5. To run: Press the play button within **Visual Studio**
 
 # **Theoretical Analyses**
+- **ALGO: IsValidContactNumber**
+    - ![Isvalidcontactnumber](/img/Isvalidcontactnumber.png)
 
+- **ALGO: IsValidPin**
+    - ![isvalidpin](/img/isvalidpin.png)
+
+- **ALGO: Add**
+    - ![add](/img/add.png)
+
+- **ALGO: Delete**
+    - ![delete](/img/delete.png)
+
+- **ALGO: Search**
+    - ![search](/img/search.png)
 
 
 # **Empirical Analysis**
