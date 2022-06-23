@@ -41,7 +41,7 @@ scenes to ensure speedy and smooth functionality.
 
 # **Theoretical Analyses**
 - **ALGO: IsValidContactNumber**
-    - ![Isvalidcontactnumber](/img/Isvalidcontactnumber.png)
+    - ![Isvalidcontactnumber](/img/isvalidcontactnumber.png)
 
 - **ALGO: IsValidPin**
     - ![isvalidpin](/img/isvalidpin.png)
