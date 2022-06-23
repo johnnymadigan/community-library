@@ -39,26 +39,30 @@ scenes to ensure speedy and smooth functionality.
 
 5. To run: Press the play button within **Visual Studio**
 
-# **Theoretical Analyses**
-- **ALGO: IsValidContactNumber**
-    - ![Isvalidcontactnumber](/img/isvalidcontactnumber.png)
+# **5 Theoretical Analyses**
+**ALGO: IsValidContactNumber**
 
-- **ALGO: IsValidPin**
-    - ![isvalidpin](/img/isvalidpin.png)
+<img src="/img/isvalidcontactnumber.png" alt="isvalidcontactnumber algo" width="400">
 
-- **ALGO: Add**
-    - ![add](/img/add.png)
+**ALGO: IsValidPin**
 
-- **ALGO: Delete**
-    - ![delete](/img/delete.png)
+<img src="/img/isvalidpin.png" alt="isvalidpin algo" width="400">
 
-- **ALGO: Search**
-    - ![search](/img/search.png)
+**ALGO: Add**
 
+<img src="/img/add.png" alt="add algo" width="400">
 
-# **Empirical Analysis**
+**ALGO: Delete**
+
+<img src="/img/delete.png" alt="delete algo" width="400">
+
+**ALGO: Search**
+
+<img src="/img/search.png" alt="search algo" width="400">
+
+# **1 Empirical Analysis**
 - **DESIGN: Pseudocode**
-    - ![top three pseudocode](/img/top-three-pseudocode.png)
+    - <img src="/img/top-three-pseudocode.png" alt="top three pseudocode" width="600">
 
 - **STEP 1: Experiment Purpose**
     - To check the accuracy of a theoretical assertion on our algorithm’s worst-case efficiency. We have theorised the worst-case efficiency class to be O(n) as the algorithm contains a single loop that iterates over all elements in the input array A once.
@@ -68,18 +72,18 @@ scenes to ensure speedy and smooth functionality.
 
 - **STEP 3: Characteristics of Input Samples**
     - **PROBLEM SIZE** of each sample is the length n of the array A. As we are only interested in the worst-case efficiency in this experiment, all input samples of A will be designed to trigger all basic operations. This means the NoBorrowings property for each movie will be set to ”0” so none qualify for the top 3 and therefore triggering all instances of the basic operation.
-    - **BASIC OPERATIONS** are the key comparisons, which occurs 3 times within the loop: ![Basic Operations](/img/basic-ops.png)
+    - **BASIC OPERATIONS** are the key comparisons, which occurs 3 times within the loop:</br> <img src="/img/basic-ops.png" alt="basic operations" width="100">
 
 - **STEP 4: Implementation in C#**
-    - **IMPLEMENTATION OF TOP THREE ALGORITHM** ![implementation of top three algo](/img/top-three.png)
-    - **IMPLEMENTATION OF EMPIRICAL ANALYSIS METHOD** ![implementation of empirical analysis method](/img/empirical.png)
+    - **IMPLEMENTATION OF TOP THREE ALGORITHM**</br> <img src="/img/top-three.png" alt="implementation of top three algo" width="600">
+    - **IMPLEMENTATION OF EMPIRICAL ANALYSIS METHOD**</br> <img src="/img/empirical.png" alt="implementation of empirical analysis method" width="600">
 
 - **STEP 5: Input Samples#**
-    - ![input samples](/img/samples.png)
+    - <img src="/img/samples.png" alt="input samples" width="600">
 
 - **STEP 6: Input Results#**
-    - ![input results](/img/results.png)
+    - <img src="/img/results.png" alt="input results" width="600">
     - Each result generated matched what was expected. Results were expected to be 3x the input size n in the worst-case, as there are 3 instances of the basic operation per iteration across all elements in A.
 
 - **STEP 7: Analysis#**
-    - ![analysis](/img/analysis.png)
+    - <img src="/img/analysis.png" alt="analysis" width="600">
