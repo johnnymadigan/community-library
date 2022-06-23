@@ -39,29 +39,29 @@ scenes to ensure speedy and smooth functionality.
 
 5. To run: Press the play button within **Visual Studio**
 
-# **5 Theoretical Analyses**
-**ALGO: IsValidContactNumber**
+# **Theoretical Analyses**
+**IsValidContactNumber Algorithm**
 
 <img src="/img/isvalidcontactnumber.png" alt="isvalidcontactnumber algo" width="400">
 
-**ALGO: IsValidPin**
+**IsValidPin Algorithm**
 
 <img src="/img/isvalidpin.png" alt="isvalidpin algo" width="400">
 
-**ALGO: Add**
+**Add Algorithm**
 
 <img src="/img/add.png" alt="add algo" width="400">
 
-**ALGO: Delete**
+**Delete Algorithm**
 
 <img src="/img/delete.png" alt="delete algo" width="400">
 
-**ALGO: Search**
+**Search Algorithm**
 
 <img src="/img/search.png" alt="search algo" width="400">
 
-# **1 Empirical Analysis**
-- **DESIGN: Pseudocode**
+# **Empirical Analysis**
+- **Pseudocode Design**
     - <img src="/img/top-three-pseudocode.png" alt="top three pseudocode" width="600">
 
 - **STEP 1: Experiment Purpose**
