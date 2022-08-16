@@ -1,5 +1,5 @@
 ![unit](https://img.shields.io/badge/Unit-Algorithms%20and%20Complexity-yellowgreen?style=plastic)
-![authors](https://img.shields.io/badge/Authors-Johnny%20n%20Jamie-yellow?style=plastic)
+![authors](https://img.shields.io/badge/Authors-Johnny%20+%20Jamie-yellow?style=plastic)
 ![year](https://img.shields.io/badge/Year-2022-lightgrey?style=plastic)
 ![lang](https://img.shields.io/badge/Language-C%20Sharp-informational?style=plastic&logo=C%20Sharp)
 ![framework](https://img.shields.io/badge/Framework-.NET-informational?style=plastic&logo=.NET)
